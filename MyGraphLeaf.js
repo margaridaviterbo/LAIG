@@ -6,3 +6,7 @@
 function MyGraphLeaf(graph, xmlelem) {
 }
 
+MyGraphLeaf.prototype.display = function(){
+
+};
+

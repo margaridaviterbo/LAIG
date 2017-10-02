@@ -49,7 +49,17 @@ MySceneGraph.prototype.onXMLReady = function()
     console.log("XML Loading finished.");
     var rootElement = this.reader.xmlDoc.documentElement;
     
-    // Here should go the calls for different functions to parse the various blocks
+    // TODO Here should go the calls for different functions to parse the various blocks
+
+    this.parseLSXFile();
+    this.parseInitials();
+    this.parseIllumination();
+    this.parseLights();
+    this.parseMaterials();
+    this.parseTextures();
+    this.parseNodes();
+    this.parseLeaves();
+
     var error = this.parseLSXFile(rootElement);
     
     if (error != null ) {
@@ -1162,7 +1172,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
  * Parses the <LEAVES> block.
  */
  
-/*
+
 MySceneGraph.prototype.parseLeaves = function(leavesNode) {
     
     var children = leavesNode.children;
@@ -1228,7 +1238,7 @@ MySceneGraph.prototype.parseLeaves = function(leavesNode) {
     
     console.log("Parsed leaves");
 }
-*/
+
 /**
  * Parses the <NODES> block.
  */
@@ -1493,6 +1503,47 @@ MySceneGraph.generateRandomString = function(length) {
  */
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
-	// remove log below to avoid performance issues
-	this.log("Graph should be rendered here...");
+    // remove log below to avoid performance issues
+    
+    this.processGraph(this.scene.graph.nodes[0].nodeID, this.idRoot.material, this.idRoot.texture);
+
+
+
+
+	//this.log("Graph should be rendered here...");
 }
+
+MySceneGraph.prototype.processGraph = function(nodeName, materialInit, textureInit){
+
+    var material = materialInit;
+    console.log(nodeName);
+
+    if(nodeName != null){
+        var node = this.nodes[nodeName.nodeID];
+        if(node.materialID != null){
+            material = node.materialID;
+        }
+        //que mulMtrix??? this.scene.mulMatrix(node.transformMatrix);
+
+
+        for(i = 0; i < node.descendants.length; i++){
+            this.scene.pushMatrix();
+            this.scene.applyMaterial(material);
+            this.processGraph(node.descendants[i]);
+            this.scene.popMaatrix();
+        }
+
+        if(material != null){
+            this.applyMaterial(material);
+        }
+
+        if(node.leaves.length > 0){
+            node.leaf
+        }
+
+        for(i = 0; i < node.leaves.length; i++){
+            node.leaves[i].display();
+        }
+    }
+
+};
