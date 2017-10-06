@@ -20,11 +20,18 @@ function MyGraphLeaf(graph, xmlelem) {
             //this.element = new Cylinder();  //TODO passar argumentos
         case 'patch':
            // this.element = new Patch(); //TODO passar argumentos
+        default:
+            this.element = null;
+
     }
 
 }
 
 MyGraphLeaf.prototype.display = function(){
-    this.element.display();
+    console.log("element " + this.element);
+    
+    if (this.element != null){
+        this.element.display();        
+    }
 };
 

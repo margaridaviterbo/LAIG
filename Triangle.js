@@ -15,41 +15,17 @@ Triangle.prototype.constructor=Triangle;
 Triangle.prototype.initBuffers = function () {
 
     this.vertices = [];
-
-
-    for(i = 0; i < this.coords.length; i++){
-        this.vertices.push(this.coords[i]);
-    }
-
-    for(var i = 0; i < 3; i++){
-
-        var j = i + i*3;
-
-        this.vertices.push(this.coords[j], this.coords[j+1], this.coords[j+2]);
-    }
+    this.vertices.push(this.coords[0], this.coords[1], this.coords[2]);
+    this.vertices.push(this.coords[3], this.coords[4], this.coords[5]);
+    this.vertices.push(this.coords[6], this.coords[7], this.coords[8]);
 
     this.normals = [
         0, 1, 0,    //0
         0, 1, 0,    //1
         0, 1, 0,    //3
-        0, -1, 0,   //3
-        0, -1, 0,   //4
-        0, -1, 0,   //5
-        -1, 0, 0,   //0
-        1, 0, 0.66, //1
-        -1, 0, 0,   //2
-        -1, 0, 0,   //3
-        1, 0, 0.66, //4
-        -1, 0, 0,   //5
-        0, 0, -1,   //0
-        0, 0, -1,   //1
-        1, 0, 0.66, //2
-        0, 0, -1,   //3
-        0, 0, -1,   //4
-        1, 0, 0.66  //5
     ];
 
-    this.texCoords = [
+    /*this.texCoords = [
         0, 1, 0,    //0
         0, 1, 0,    //1
         0, 1, 0,    //2
@@ -69,15 +45,10 @@ Triangle.prototype.initBuffers = function () {
         0, 0, -1,   //4
         1, 0, 0.66  //5
 
-    ];
+    ];*/
 
     this.indices = [
-        0, 2, 1,
-		3, 4, 5,
-		0, 3, 2,
-		3, 5, 2,
-		1, 2, 4,
-		4, 2, 5,
+        0, 1, 2,
     ];
 
 	this.primitiveType=this.scene.gl.TRIANGLES;
