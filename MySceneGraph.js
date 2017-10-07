@@ -1518,14 +1518,21 @@ MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
         //que mulMtrix??? this.scene.mulMatrix(node.transformMatrix);
 */
 
-        for(i = 0; i < node.children.length; i++){
+        for(let i = 0; i < node.children.length; i++){
            // this.scene.pushMatrix();
            // this.scene.applyMaterial(material);
+           console.log(i);
             this.processGraph(this.nodes[node.children[i]]);
            // this.scene.popMatrix();
         }
 
-        for(i=0; i < node.leaves.length; i++){
+        /* melhor sintaxe
+        node.children.forEach(e => {
+			this.processGraph(this.nodes[e]);
+        });
+        */
+
+        for(let i=0; i < node.leaves.length; i++){
             console.log(this.nodes[node.nodeID].leaves);
             this.nodes[node.nodeID].leaves[i].display();            
         }
