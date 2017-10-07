@@ -1419,7 +1419,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 						
                         //parse leaf
-                        console.log("aqui " + this.nodes[nodeID]);
 						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;
 					}
@@ -1506,7 +1505,6 @@ MySceneGraph.prototype.displayScene = function() {
 }
 
 MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
-
     var material = this.materials[materialID];
     var texture = this.textures[textureID];
 
@@ -1521,7 +1519,6 @@ MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
         for(let i = 0; i < node.children.length; i++){
            // this.scene.pushMatrix();
            // this.scene.applyMaterial(material);
-           console.log(i);
             this.processGraph(this.nodes[node.children[i]]);
            // this.scene.popMatrix();
         }
@@ -1533,8 +1530,7 @@ MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
         */
 
         for(let i=0; i < node.leaves.length; i++){
-            console.log(this.nodes[node.nodeID].leaves);
-            this.nodes[node.nodeID].leaves[i].display();            
+            node.leaves[i].display();            
         }
 
         /*if(material != null){
