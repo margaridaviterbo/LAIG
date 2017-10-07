@@ -48,3 +48,22 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
+
+/**
+ * Adds a folder containing the IDs of the textures passed as parameter.
+ */
+MyInterface.prototype.addTexturesGroup = function(textures) {
+    
+        var group = this.gui.addFolder("Textures");
+        group.open();
+    
+        // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+        // e.g. this.option1=true; this.option2=false;
+    
+        for (var key in textures) {
+            if (textures.hasOwnProperty(key)) {
+                this.scene.textureValues[key] = textures[key][0];
+                group.add(this.scene.textureValues, key);
+            }
+        }
+    }
