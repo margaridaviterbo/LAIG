@@ -2,11 +2,11 @@
  * Cylinder
  * @constructor
  */
- function Cylinder(scene, slices, stacks) {
+ function Cylinder(scene,coords) {
  	CGFobject.call(this,scene);
 
-	this.slices = slices;
-	this.stacks = stacks;
+	this.slices = coords[4];
+	this.stacks = coords[3];
 
  	this.initBuffers();
  };
@@ -34,7 +34,7 @@
                         Math.sin(j * angularStep),
                         0);
 
-      this.texCoords.push(s, t);
+      //this.texCoords.push(s, t);
       s += 1 / this.slices;
     }
     s = 0;

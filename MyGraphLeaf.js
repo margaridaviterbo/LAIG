@@ -10,21 +10,26 @@ function MyGraphLeaf(graph, xmlelem) {
     
     switch (this.type){
         /*case 'triangle':
-            var coords = this.args.split(" ");
+            let coords = this.args.split(" ");
             this.element = new Triangle(graph.scene, coords);
             break;*/
         case 'sphere':
-           // this.element = new Sphere();    //TODO passar argumentos
-        case 'cylinder':
-            //this.element = new Cylinder();  //TODO passar argumentos
-        case 'patch':
-           // this.element = new Patch(); //TODO passar argumentos
-        case 'rectangle':
-            var coords = this.args.split(" ");
-            this.element = new Rectangle(graph.scene, coords); 
+            let coords = this.args.split(" ");
+            this.element = new Sphere(graph.scene,coords);   
             break;
+        /*case 'cylinder':
+            let coords = this.args.split(" ");
+            this.element = new Cylinder(graph.scene,coords);
+            break;*/
+        /*case 'patch':
+           this.element = new Patch(); */ //TODO passar argumentos
+        /*case 'rectangle':
+            let coords = this.args.split(" ");
+            this.element = new Rectangle(graph.scene, coords); 
+            break;*/
         default:
             this.element = null;
+            break;
     }
 
 }
