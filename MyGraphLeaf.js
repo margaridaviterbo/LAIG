@@ -9,26 +9,28 @@ function MyGraphLeaf(graph, xmlelem) {
     this.args = graph.reader.getString(xmlelem, 'args');
     
     switch (this.type){
-        case 'rectangle':
-           // this.element = new Rectangle(); //TODO passar argumentos
-        case 'triangle':
+        /*case 'triangle':
             var coords = this.args.split(" ");
-            this.element = new Triangle(graph.scene, coords);    //TODO passar argumento
+            this.element = new Triangle(graph.scene, coords);
+            break;*/
         case 'sphere':
            // this.element = new Sphere();    //TODO passar argumentos
         case 'cylinder':
             //this.element = new Cylinder();  //TODO passar argumentos
         case 'patch':
            // this.element = new Patch(); //TODO passar argumentos
+        case 'rectangle':
+            var coords = this.args.split(" ");
+            this.element = new Rectangle(graph.scene, coords); 
+            break;
         default:
             this.element = null;
-
     }
 
 }
 
 MyGraphLeaf.prototype.display = function(){
-    console.log("element " + this.element);
+    // console.log("element " + this.element);
     
     if (this.element != null){
         this.element.display();        

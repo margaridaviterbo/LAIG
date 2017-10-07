@@ -4,8 +4,8 @@
  * @constructor
  */
 function Triangle(scene, coords) {
+    CGFobject.call(this,scene);
     this.coords = coords;
-	CGFobject.call(this,scene);
 	this.initBuffers();
 };
 
@@ -13,7 +13,7 @@ Triangle.prototype = Object.create(CGFobject.prototype);
 Triangle.prototype.constructor=Triangle;
 
 Triangle.prototype.initBuffers = function () {
-/*
+
     this.vertices = [];
     this.vertices.push(this.coords[0], this.coords[1], this.coords[2]);
     this.vertices.push(this.coords[3], this.coords[4], this.coords[5]);
@@ -24,7 +24,7 @@ Triangle.prototype.initBuffers = function () {
         0, 1, 0,    //1
         0, 1, 0,    //3
     ];
-*/
+
     /*this.texCoords = [
         0, 1, 0,    //0
         0, 1, 0,    //1
@@ -46,12 +46,11 @@ Triangle.prototype.initBuffers = function () {
         1, 0, 0.66  //5
 
     ];*/
-/*
+
     this.indices = [
         0, 1, 2,
     ];
 
 	this.primitiveType=this.scene.gl.TRIANGLES;
     this.initGLBuffers();
-    */
 };
