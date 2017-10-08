@@ -9,10 +9,10 @@ function MyGraphLeaf(graph, xmlelem) {
     this.args = graph.reader.getString(xmlelem, 'args');
     
     switch (this.type){
-        case 'triangle':
+        /*case 'triangle':
             let coords = this.args.split(" ");
             this.element = new Triangle(graph.scene, coords);
-            break;
+            break;*/
         /*case 'sphere':
             let coords = this.args.split(" ");
             this.element = new Sphere(graph.scene,coords);   
