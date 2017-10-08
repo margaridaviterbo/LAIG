@@ -2,11 +2,12 @@
  * Sphere
  * @constructor
  */
- function Sphere(scene, slices, stacks) {
+ function Sphere(scene, coords) {
  	CGFobject.call(this,scene);
 
-	this.slices = slices;
-	this.stacks = stacks;
+	this.slices = coords[2];
+	this.stacks = coords[1];
+	this.radius = coords[0];
 
  	this.initBuffers();
  };
@@ -19,12 +20,11 @@
     this.vertices = [];
     this.normals = [];
     this.indices = [];
-    this.texCoords = [];
+    //this.texCoords = [];
 
     var ang = Math.PI*2/this.slices;
-    var x, y;
-    var radius;
-
+    var x, y,z;
+    
 	for(var j = 0; j <= this.stacks; j++){
 		for(var i = 0; i <= this.slices; i++){
 
@@ -32,15 +32,15 @@
 			z = j / this.stacks;
 
 			//radius decreases with Z increase
-            radius = Math.cos(Math.asin(z));
+            //radius = Math.cos(Math.asin(z));
 
 			//x and y coordinates depend on the radius
-			x = Math.cos(i * 2*Math.PI / this.slices) * radius;
-			y = Math.sin(i * 2*Math.PI / this.slices) * radius;
+			x = Math.cos(i * 2*Math.PI / this.slices) * this.radius;
+			y = Math.sin(i * 2*Math.PI / this.slices) * this.radius;
 
 			this.vertices.push(x, y, z);
 			this.normals.push(x, y, z);
-			this.texCoords.push(1 - i / this.slices, 1 - j / this.stacks);
+			//this.texCoords.push(1 - i / this.slices, 1 - j / this.stacks);
  		}
 	}
 
