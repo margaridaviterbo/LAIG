@@ -6,8 +6,16 @@
  	CGFobject.call(this,scene);
 
 	this.slices = coords[4];
-	this.stacks = coords[3];
+  this.stacks = coords[3];
 
+  //top cap
+  if(coords[5] == 1){
+    this.topBase = new CylinderBase(scene, this.slices);    
+  }
+  //bottom cap
+  if(coords[6] == 1){
+    this.bottomBase = new CylinderBase(scene, this.slices);    
+  }
  	this.initBuffers();
  };
 

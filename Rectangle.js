@@ -28,8 +28,8 @@ Rectangle.prototype.initBuffers = function () {
 	this.vertices.push(this.coords[0], 0, this.coords[3]);
 	
 	this.indices = [
-            2, 1, 0,
-			0, 3, 2,
+            0, 1, 2,
+			2, 3, 0,
     ];
 
 	this.normals = [

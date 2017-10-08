@@ -7,24 +7,21 @@ function MyGraphLeaf(graph, xmlelem) {
     
     this.type = graph.reader.getString(xmlelem, 'type');
     this.args = graph.reader.getString(xmlelem, 'args');
+    let coords = this.args.split(" ");
     
     switch (this.type){
         /*case 'triangle':
-            let coords = this.args.split(" ");
             this.element = new Triangle(graph.scene, coords);
             break;*/
-        case 'sphere':
-            let coords = this.args.split(" ");
+        /*case 'sphere':
             this.element = new Sphere(graph.scene,coords);   
-            break;
-        /*case 'cylinder':
-            let coords = this.args.split(" ");
-            this.element = new Cylinder(graph.scene,coords);
             break;*/
+        case 'cylinder':
+            this.element = new Cylinder(graph.scene,coords);
+            break;
         /*case 'patch':
            this.element = new Patch(); */ //TODO passar argumentos
         /*case 'rectangle':
-            let coords = this.args.split(" ");
             this.element = new Rectangle(graph.scene, coords); 
             break;*/
         default:
@@ -35,9 +32,9 @@ function MyGraphLeaf(graph, xmlelem) {
 }
 
 MyGraphLeaf.prototype.display = function(){
-    // console.log("element " + this.element);
     
     if (this.element != null){
+        //console.log("ELEMENTO: " + this.element);
         this.element.display();        
     }
 };
