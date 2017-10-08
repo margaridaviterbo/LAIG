@@ -29,8 +29,8 @@ Rectangle.prototype.initBuffers = function () {
 	
 	this.indices = [
             2, 1, 0,
-			2, 1, 3
-        ];
+			0, 3, 2,
+    ];
 
 	this.normals = [
 		0, 0, 1,
