@@ -13,14 +13,14 @@ function MyGraphLeaf(graph, xmlelem) {
             let coords = this.args.split(" ");
             this.element = new Triangle(graph.scene, coords);
             break;*/
-        case 'sphere':
+        /*case 'sphere':
             let coords = this.args.split(" ");
             this.element = new Sphere(graph.scene,coords);   
-            break;
-        /*case 'cylinder':
+            break;*/
+        case 'cylinder':
             let coords = this.args.split(" ");
             this.element = new Cylinder(graph.scene,coords);
-            break;*/
+            break;
         /*case 'patch':
            this.element = new Patch(); */ //TODO passar argumentos
         /*case 'rectangle':
