@@ -15,15 +15,16 @@ Triangle.prototype.constructor=Triangle;
 Triangle.prototype.initBuffers = function () {
 
     this.vertices = [];
-    this.vertices.push(this.coords[0], this.coords[1], this.coords[2]);
-    this.vertices.push(this.coords[3], this.coords[4], this.coords[5]);
-    this.vertices.push(this.coords[6], this.coords[7], this.coords[8]);
+    this.vertices.push(parseInt(this.coords[0]), parseInt(this.coords[1]), parseInt(this.coords[2]));
+    this.vertices.push(parseInt(this.coords[3]), parseInt(this.coords[4]), parseInt(this.coords[5]));
+    this.vertices.push(parseInt(this.coords[6]), parseInt(this.coords[7]), parseInt(this.coords[8]));
 
     this.normals = [
         0, 1, 0,    //0
         0, 1, 0,    //1
         0, 1, 0,    //3
     ];
+
 
     /*this.texCoords = [
         0, 1, 0,    //0
