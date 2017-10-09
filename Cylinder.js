@@ -11,17 +11,18 @@
   this.topRadius = parseInt(coords[2]);
   this.stacks = parseInt(coords[3]);
   this.slices = parseInt(coords[4]);
-  //this.topCap = parseInt(coords[5]);
-  //this.bottomCap = parseInt(coords[6]);
+  
 
-  //top cap
-  if(coords[5] == '1'){
-    this.topBase = new CylinderBase(scene, this.slices);    
+  /*//top cap
+  if(this.topCap==1){
+    this.topBase = new CylinderBase(scene, this.slices, this.topRadius, 1);    
+    this.topBase.display();
   }
   //bottom cap
-  if(coords[6] == '1'){
-    this.bottomBase = new CylinderBase(scene, this.slices);    
-  }
+  if(this.bottomCap == 1){
+    this.bottomBase = new CylinderBase(scene, this.slices, this.bottomRadius, 0);  
+    this.bottomBase.display();  
+  }*/
  	this.initBuffers();
  };
 
@@ -69,3 +70,4 @@
   this.primitiveType = this.scene.gl.TRIANGLES;
   this.initGLBuffers();
 };
+
