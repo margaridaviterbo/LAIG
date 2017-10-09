@@ -5,15 +5,21 @@
  function Cylinder(scene,coords) {
  	CGFobject.call(this,scene);
 
-	this.slices = coords[4];
-  this.stacks = coords[3];
+
+  this.height = parseInt(coords[0]);
+  this.bottomRadius = parseInt(coords[1]);
+  this.topRadius = parseInt(coords[2]);
+  this.stacks = parseInt(coords[3]);
+  this.slices = parseInt(coords[4]);
+  //this.topCap = parseInt(coords[5]);
+  //this.bottomCap = parseInt(coords[6]);
 
   //top cap
-  if(coords[5] == 1){
+  if(coords[5] == '1'){
     this.topBase = new CylinderBase(scene, this.slices);    
   }
   //bottom cap
-  if(coords[6] == 1){
+  if(coords[6] == '1'){
     this.bottomBase = new CylinderBase(scene, this.slices);    
   }
  	this.initBuffers();
