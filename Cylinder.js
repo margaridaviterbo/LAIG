@@ -11,18 +11,7 @@
   this.topRadius = parseInt(coords[2]);
   this.stacks = parseInt(coords[3]);
   this.slices = parseInt(coords[4]);
-  
 
-  /*//top cap
-  if(this.topCap==1){
-    this.topBase = new CylinderBase(scene, this.slices, this.topRadius, 1);    
-    this.topBase.display();
-  }
-  //bottom cap
-  if(this.bottomCap == 1){
-    this.bottomBase = new CylinderBase(scene, this.slices, this.bottomRadius, 0);  
-    this.bottomBase.display();  
-  }*/
  	this.initBuffers();
  };
 
@@ -41,19 +30,20 @@
 
   for (var i = 0; i <= this.stacks; i++) {
     for (var j = 0; j < this.slices; j++) {
-      this.vertices.push(Math.cos(j * angularStep),
-                         Math.sin(j * angularStep),
-                         i / this.stacks);
 
-      this.normals.push(Math.cos(j * angularStep),
-                        Math.sin(j * angularStep),
-                        0);
+      //gotta had the radius to this
+      var x = Math.cos(j * angularStep);
+      var y = Math.sin(j * angularStep);
+      var z = i / this.stacks;
+
+      this.vertices.push(x,y,z);
+      this.normals.push(x,y,0);
 
       //this.texCoords.push(s, t);
-      s += 1 / this.slices;
+      //s += 1 / this.slices;
     }
-    s = 0;
-    t += 1 / this.stacks;
+    //s = 0;
+    //t += 1 / this.stacks;
   }
 
   for (var i = 0; i < this.stacks; i++) {

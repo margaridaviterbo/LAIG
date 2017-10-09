@@ -1508,19 +1508,21 @@ MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
     var material = this.materials[materialID];
     var texture = this.textures[textureID];
 
-    /*if(node.nodeID != null){
-        var node = this.nodes[nodeName.nodeID];
+    if(node.nodeID != null){
         if(node.materialID != null){
-            material = node.materialID;
+          material = node.materialID;
         }
-        //que mulMtrix??? this.scene.mulMatrix(node.transformMatrix);
-*/
 
+        if(node.textureID != null){
+          texture = node.textureID;
+        }   
+       
         for(let i = 0; i < node.children.length; i++){
-           // this.scene.pushMatrix();
+           this.scene.pushMatrix();
            // this.scene.applyMaterial(material);
-            this.processGraph(this.nodes[node.children[i]]);
-           // this.scene.popMatrix();
+           this.scene.multMatrix(node.transformMatrix);
+           this.processGraph(this.nodes[node.children[i]]);
+           this.scene.popMatrix();
         }
 
         /* melhor sintaxe
@@ -1542,6 +1544,6 @@ MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
         }*/
 
         
-    //}
+    }
 
 };
