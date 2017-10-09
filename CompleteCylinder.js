@@ -15,7 +15,7 @@ function CompleteCylinder(scene, coords) {
    this.bottomCap = parseInt(coords[6]);
 
    this.cylinder = new Cylinder(this.scene, coords);
-   this.circleTop = new CylinderBase(this.scene, this.slices, this.topRadius );
+   this.circleTop = new CylinderBase(this.scene, this.slices, this.topRadius);
    this.circleBottom = new CylinderBase(this.scene, this.slices, this.bottomRadius);
    
 };
