@@ -23,31 +23,21 @@ CylinderBase.prototype.initBuffers = function() {
     var s, t;
 
     this.vertices.push(0, 0, 0);
-    this.texCoords.push(0.5, 0.5);
-    this.normals.push(0,0,1);
+    //this.texCoords.push(0.5, 0.5);
 
-    /*for (var i=0; i < this.slices; i++){
-        this.vertices.push(Math.cos(i * angle), Math.sin(i * angle), 0);
-        this.indices .push(0, i, i+1);
-        this.normals.push(Math.cos(i * angle), Math.sin(i * angle), 1);
-        this.texCoords.push((Math.cos(i * angle)+1)/2, (Math.sin(-i * angle)+1)/2);
+    for (var i=0; i <= this.slices; i++){
+        var x = Math.cos(i * angle) * this.radius;
+        var y = Math.sin(i * angle) * this.radius;
+        this.vertices.push(x, y, 0);
+        this.normals.push(1, 0, 0);
+        //this.texCoords.push((Math.cos(i * angle)+1)/2, (Math.sin(-i * angle)+1)/2);
     }
 
-    this.normals.push(Math.cos(i * angle), Math.sin(i * angle), 1);
-    this.indices.push(0, i, 1);*/
-
-    for(var j=0; j < this.slices;j++){
-        //vertices e normais
-        this.vertices.push(Math.cos(angle*j)*this.radius,Math.sin(angle*j)*this.radius,0);
-        this.normals.push(0,0,1);
-        //this.texCoords.push(0.5 - Math.cos(angle*j)/2, 0.5 + Math.sin(angle*j)/2);
-    }
-    
-    
-    for (var j=1; j < this.slices + 1;j++){ 
-       this.indices.push(0,this.slices,1);
+    for (var i = 1; i < this.slices; i++){
+        this.indices.push(0, i, i+1);
     }
     this.indices.push(0, this.slices, 1);
+      
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

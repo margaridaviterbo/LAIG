@@ -4,8 +4,7 @@
  */
  function Cylinder(scene,coords) {
  	CGFobject.call(this,scene);
-
-
+    
   this.height = parseInt(coords[0]);
   this.bottomRadius = parseInt(coords[1]);
   this.topRadius = parseInt(coords[2]);
@@ -25,18 +24,22 @@
   this.normals = [];
   this.texCoords = [];
 
-  var angularStep = (2*Math.PI)/this.slices;
+  var angle = (2*Math.PI)/this.slices;
+  var radius = (this.bottomRadius - this.topRadius) / this.stacks;
+  var height = this.height / this.stacks;
   var s = 0, t = 0;
 
   for (var i = 0; i <= this.stacks; i++) {
-    for (var j = 0; j < this.slices; j++) {
 
-      //gotta had the radius to this
-      var x = Math.cos(j * angularStep);
-      var y = Math.sin(j * angularStep);
-      var z = i / this.stacks;
+    var h = i*height;
+    var r = this.bottomRadius-i*radius;
 
-      this.vertices.push(x,y,z);
+    for (var j = 0; j <= this.slices; j++) {
+
+      var x = Math.cos(j * angle) * r;
+      var y = Math.sin(j * angle) * r;
+      
+      this.vertices.push(x,y,h);
       this.normals.push(x,y,0);
 
       //this.texCoords.push(s, t);
@@ -46,16 +49,18 @@
     //t += 1 / this.stacks;
   }
 
-  for (var i = 0; i < this.stacks; i++) {
-    for (var j = 0; j < this.slices; j++) {
-      this.indices.push(i * this.slices + j,
-                        i * this.slices + (j + 1) % this.slices,
-                        i * this.slices + (j + 1) % this.slices + this.slices);
-      this.indices.push(i * this.slices + j,
-                        i * this.slices + (j + 1) % this.slices + this.slices,
-                        i * this.slices + j + this.slices);
+  for(var i = 0; i < this.stacks; i++){
+    for(var j = 0; j < this.slices; j++){
+     
+     var s1 = i * (this.slices + 1) + j;
+     var s2 = s1 + this.slices + 1;
+
+     this.indices.push(s1, s2+1, s2);
+     this.indices.push(s1, s1+1, s2+1);
     }
-  }
+ }
+
+ 
 
   this.primitiveType = this.scene.gl.TRIANGLES;
   this.initGLBuffers();

@@ -44,8 +44,7 @@
 	}
 
 	for(var i = 0; i < this.stacks; i++){
- 		for(var j = 0; j < this.slices; j++)
- 		{
+ 		for(var j = 0; j < this.slices; j++){
 			//http://learningwebgl.com/cookbook/index.php/How_to_draw_a_sphere
 			var s1 = i * (this.slices + 1) + j;
 			var s2 = s1 + this.slices + 1;
