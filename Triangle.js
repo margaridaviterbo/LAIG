@@ -50,6 +50,7 @@ Triangle.prototype.initBuffers = function () {
 
     this.indices = [
         0, 1, 2,
+        2, 1, 0,
     ];
 
 	this.primitiveType=this.scene.gl.TRIANGLES;

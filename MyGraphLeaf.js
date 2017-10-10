@@ -9,24 +9,24 @@ function MyGraphLeaf(graph, xmlelem) {
     this.args = graph.reader.getString(xmlelem, 'args');
     
     switch (this.type){
-        case 'triangle':
+        /*case 'triangle':
             var coords = this.args.split(" ");
             this.element = new Triangle(graph.scene, coords);
             break;
         case 'sphere':
             var coords = this.args.split(" ");
             this.element = new Sphere(graph.scene,coords);   
-            break;
+            break;*/
         case 'cylinder':
             var coords = this.args.split(" ");
-            this.element = new Cylinder(graph.scene,coords);
+            this.element = new CompleteCylinder(graph.scene,coords);
             break;
         /*case 'patch':
-           this.element = new Patch(); */ //TODO passar argumentos
+           this.element = new Patch();  //TODO passar argumentos
         case 'rectangle':
             var coords = this.args.split(" ");
             this.element = new Rectangle(graph.scene, coords); 
-            break;
+            break;*/
         default:
             this.element = null;
             break;
