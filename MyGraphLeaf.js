@@ -13,7 +13,7 @@ function MyGraphLeaf(graph, xmlelem) {
             var coords = this.args.split(" ");
             this.element = new Triangle(graph.scene, coords);
             break;
-        case 'sphere':
+        /*case 'sphere':
             var coords = this.args.split(" ");
             this.element = new Sphere(graph.scene,coords);   
             break;
@@ -21,12 +21,12 @@ function MyGraphLeaf(graph, xmlelem) {
             var coords = this.args.split(" ");
             this.element = new CompleteCylinder(graph.scene,coords);
             break;
-        /*case 'patch':
-           this.element = new Patch(); */ //TODO passar argumentos
+        case 'patch':
+           this.element = new Patch();  //TODO passar argumentos
         case 'rectangle':
             var coords = this.args.split(" ");
             this.element = new Rectangle(graph.scene, coords); 
-            break;
+            break;*/
         default:
             this.element = null;
             break;
