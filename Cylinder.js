@@ -43,9 +43,9 @@
       this.normals.push(x,y,0);
 
       //this.texCoords.push(s, t);
-      //s += 1 / this.slices;
+     // s += 1 / this.slices;
     }
-    //s = 0;
+   // s = 0;
     //t += 1 / this.stacks;
   }
 

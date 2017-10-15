@@ -44,8 +44,7 @@ function MySceneGraph(filename, scene) {
 /*
  * Callback to be executed after successful reading
  */
-MySceneGraph.prototype.onXMLReady = function() 
-{
+MySceneGraph.prototype.onXMLReady = function() {
     console.log("XML Loading finished.");
     var rootElement = this.reader.xmlDoc.documentElement;
     
@@ -1499,50 +1498,46 @@ MySceneGraph.prototype.displayScene = function() {
     this.processGraph(rootNode, rootNode.materialID, rootNode.textureID);
 
 
-
-
-	//this.log("Graph should be rendered here...");
+	
 }
 
 MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
-    var material = this.materials[materialID];
-    var texture = this.textures[textureID];
+    
+    var material = materialID;
+    var texture = textureID;
 
     if(node.nodeID != null){
-        if(node.materialID != null){
-          material = node.materialID;
+        if(node.materialID != "null"){
+          material = this.materials[node.materialID];
         }
 
-        if(node.textureID != null){
-          texture = node.textureID;
+        if(node.textureID != "null"){
+          texture = this.materials[node.textureID];
         }   
        
         for(let i = 0; i < node.children.length; i++){
            this.scene.pushMatrix();
-           // this.scene.applyMaterial(material);
            this.scene.multMatrix(node.transformMatrix);
-           this.processGraph(this.nodes[node.children[i]]);
+           this.processGraph(this.nodes[node.children[i]],material,texture);
            this.scene.popMatrix();
         }
 
-        /* melhor sintaxe
-        node.children.forEach(e => {
-			this.processGraph(this.nodes[e]);
-        });
-        */
-
+       
         for(let i=0; i < node.leaves.length; i++){
-            node.leaves[i].display();            
+            this.scene.pushMatrix();
+            this.scene.multMatrix(node.transformMatrix);
+
+            if(texture != null){
+                material.setTexture(texture);    
+            }    
+            material.apply();
+
+            node.leaves[i].display(); 
+            this.scene.popMatrix();           
         }
 
-        /*if(material != null){
-            this.applyMaterial(material);
-        }
-
-        if(node.leaves.length > 0){
-            node.leaf
-        }*/
-
+       
+        
         
     }
 
