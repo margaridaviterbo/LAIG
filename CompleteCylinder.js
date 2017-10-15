@@ -31,20 +31,20 @@ CompleteCylinder.prototype.display = function(){
     this.cylinder.display();
     this.scene.popMatrix();
       
-   //if(this.topCap==1){
+   if(this.topCap==1){
        
     this.scene.pushMatrix()
     this.scene.translate(0,0,this.height);
     this.circleTop.display();
     this.scene.popMatrix();
-   //}
+    }
    
-   //if(this.bottomCap==1){
+   if(this.bottomCap==1){
 
     this.scene.pushMatrix();
     this.scene.rotate(Math.PI, 1, 0, 0);
     this.circleBottom.display();
     this.scene.popMatrix();
-   //}
+   }
 
 }

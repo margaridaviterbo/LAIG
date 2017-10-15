@@ -20,7 +20,7 @@
     this.vertices = [];
     this.normals = [];
     this.indices = [];
-    //this.texCoords = [];
+    this.texCoords = [];
 
     var x,y,z;
     
@@ -39,7 +39,7 @@
 			
 			this.vertices.push(x, y, z);
 			this.normals.push(x, y, z);
-			//this.texCoords.push(1 - j / this.slices, 1 - i / this.stacks);
+			this.texCoords.push(1 - j / this.slices, 1 - i / this.stacks);
  		}
 	}
 
