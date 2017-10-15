@@ -22,10 +22,11 @@ Rectangle.prototype.constructor=Rectangle;
 Rectangle.prototype.initBuffers = function () {
 	
 	this.vertices = [];
-    this.vertices.push(this.coords[0], 0, this.coords[1]);
-    this.vertices.push(this.coords[2], 0, this.coords[1]);
-	this.vertices.push(this.coords[2], 0, this.coords[3]);
-	this.vertices.push(this.coords[0], 0, this.coords[3]);
+    this.vertices.push(this.coords[0], this.coords[1],0);
+    this.vertices.push(this.coords[2], this.coords[1],0);
+	this.vertices.push(this.coords[2], this.coords[3],0);
+	this.vertices.push(this.coords[0], this.coords[3],0);
+	
 	
 	this.indices = [
             0, 1, 2,
@@ -33,6 +34,9 @@ Rectangle.prototype.initBuffers = function () {
 			2, 1, 0,
 			0, 3, 2,
 	];
+
+	
+		
 
 	this.normals = [
 		0, 0, 1,

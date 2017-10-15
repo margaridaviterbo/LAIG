@@ -1525,14 +1525,12 @@ MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
            this.scene.popMatrix();
         }
 
-        /* melhor sintaxe
-        node.children.forEach(e => {
-			this.processGraph(this.nodes[e]);
-        });
-        */
-
+       
         for(let i=0; i < node.leaves.length; i++){
-            node.leaves[i].display();            
+            this.scene.pushMatrix();
+            this.scene.multMatrix(node.transformMatrix);
+            node.leaves[i].display(); 
+            this.scene.popMatrix();           
         }
 
         /*if(material != null){

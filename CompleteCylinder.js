@@ -39,7 +39,7 @@ CompleteCylinder.prototype.display = function(){
     this.scene.popMatrix();
    //}
    
-   //if(this.bottomCap == 1){
+   //if(this.bottomCap==1){
 
     this.scene.pushMatrix();
     this.scene.rotate(Math.PI, 1, 0, 0);
