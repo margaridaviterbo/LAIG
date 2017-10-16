@@ -40,18 +40,19 @@ Triangle.prototype.initBuffers = function () {
         0, 1, 0,    
     ];
 
-    var a=Math.sqrt(Math.pow(x1-x3,2) + Math.pow(y1-y3,2) + Math.pow(z1-z3,2));
-    var b=Math.sqrt(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2));
-    var c=Math.sqrt(Math.pow(x3-x2,2) + Math.pow(y3-y2,2) + Math.pow(z3-z2,2));
+    this.a=Math.sqrt(Math.pow(x1-x3,2) + Math.pow(y1-y3,2) + Math.pow(z1-z3,2));
+    this.b=Math.sqrt(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2));
+    this.c=Math.sqrt(Math.pow(x3-x2,2) + Math.pow(y3-y2,2) + Math.pow(z3-z2,2));
+    this.h=this.a*Math.sin(this.beta);
          
-    var alpha=(-Math.pow(a,2) + Math.pow(b,2) + Math.pow(c,2))/(2*c*b);
-    var beta=((Math.pow(a,2) - Math.pow(b,2) + Math.pow(c,2))/(2*a*c));
-    var gama=(Math.pow(a,2) + Math.pow(b,2) - Math.pow(c,2))/(2*a*b);
+    this.alpha=(-Math.pow(this.a,2) + Math.pow(this.b,2) + Math.pow(this.c,2))/(2*this.c*this.b);
+    this.beta=((Math.pow(this.a,2) - Math.pow(this.b,2) + Math.pow(this.c,2))/(2*this.a*this.c));
+    this.gama=(Math.pow(this.a,2) + Math.pow(this.b,2) - Math.pow(this.c,2))/(2*this.a*this.b);
     
     this.texCoords = [
-       c-a*Math.cos(beta), -a*Math.sin(beta),
-       0, 0,
-       c, 0,
+       this.c-this.a*Math.cos(this.beta), -this.a*Math.sin(this.beta),
+       0, 1,
+       this.c, 1,
     ];
 
     this.indices = [
@@ -63,7 +64,13 @@ Triangle.prototype.initBuffers = function () {
 };
 
 Triangle.prototype.setTextCoords = function(s,t){
-    
-    
+    this.texCoords = [
+        (this.c-this.a*Math.cos(this.beta))/s, (-this.a*Math.sin(this.beta))/t,
+        0, this.h/t,
+        this.c/s, this.h/t,
+     ];
+
+
+    this.updateTexCoordsGLBuffers();
 };
 

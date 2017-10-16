@@ -42,8 +42,8 @@
       this.vertices.push(x,y,h);
       this.normals.push(x,y,0);
 
-     this.texCoords.push(s, t);
-     s += 1 / this.slices;
+      this.texCoords.push(s, t);
+      s += 1 / this.slices;
     }
     s = 0;
     t += 1 / this.stacks;
@@ -52,11 +52,11 @@
   for(var i = 0; i < this.stacks; i++){
     for(var j = 0; j < this.slices; j++){
      
-     var s1 = i * (this.slices + 1) + j;
-     var s2 = s1 + this.slices + 1;
+      var s1 = i * (this.slices + 1) + j;
+      var s2 = s1 + this.slices + 1;
 
-     this.indices.push(s1, s2+1, s2);
-     this.indices.push(s1, s1+1, s2+1);
+      this.indices.push(s1, s2+1, s2);
+      this.indices.push(s1, s1+1, s2+1);
     }
  }
 

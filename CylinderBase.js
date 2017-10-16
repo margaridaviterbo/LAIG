@@ -22,15 +22,12 @@ CylinderBase.prototype.initBuffers = function() {
     var angle = 2 * Math.PI / this.slices;
     var s, t;
 
-    this.vertices.push(0, 0, 0);
-    this.texCoords.push(0.5, 0.5);
-
     for (var i=0; i <= this.slices; i++){
         var x = Math.cos(i * angle) * this.radius;
         var y = Math.sin(i * angle) * this.radius;
         this.vertices.push(x, y, 0);
         this.normals.push(1, 0, 0);
-        this.texCoords.push((Math.cos(i * angle)+1)/2, (Math.sin(-i * angle)+1)/2);
+        this.texCoords.push(Math.cos(i * angle), Math.sin(i * angle));
     }
 
     for (var i = 1; i < this.slices; i++){

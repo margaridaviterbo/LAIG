@@ -29,10 +29,6 @@
 
 		for(var j = 0; j <= this.slices; j++){
 			var t = j*2* Math.PI / this.slices;
-			//x=x0 + radius*cos(w)*sin(y)
-			//y=y0 + radius*cos(w)*sin(y)
-			//z=z0 + radius*cos(y)
-			//0<w<2pi;0<y<pi
 			x = this.radius * Math.cos(t) * Math.sin(s);
 			y = this.radius * Math.sin(s) * Math.sin(t);
 			z = this.radius * Math.cos(s);
@@ -45,7 +41,6 @@
 
 	for(var i = 0; i < this.stacks; i++){
  		for(var j = 0; j < this.slices; j++){
-			//http://learningwebgl.com/cookbook/index.php/How_to_draw_a_sphere
 			var s1 = i * (this.slices + 1) + j;
 			var s2 = s1 + this.slices + 1;
 
