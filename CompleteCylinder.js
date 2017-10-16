@@ -50,6 +50,7 @@ CompleteCylinder.prototype.display = function(){
 }
 
 CompleteCylinder.prototype.setTextCoords = function(s,t){
-    
-    
+    this.circleTop.setTextCoords(s, t);
+    this.circleBottom.setTextCoords(s, t);
+    this.cylinder.setTextCoords(s, t); 
 };

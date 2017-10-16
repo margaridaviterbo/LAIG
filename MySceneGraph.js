@@ -1522,6 +1522,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         else{
            material.setTexture(texture[0]); 
            //TODO setTextureWrap??
+           console.log(texture);
            s = texture[1];
            t = texture[2];
         } 

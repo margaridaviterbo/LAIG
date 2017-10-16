@@ -46,10 +46,10 @@ Rectangle.prototype.initBuffers = function () {
 	this.maxT = 1;
 	
 	this.texCoords = [
-		this.minS, this.maxT,
-		this.maxS, this.maxT,
-		this.minS, this.minT,
-		this.maxS, this.minT
+		0, 0,
+		1, 0,
+		1, 1,
+		0, 1
 	];
 
 	this.primitiveType=this.scene.gl.TRIANGLES;
@@ -57,6 +57,14 @@ Rectangle.prototype.initBuffers = function () {
 };
 
 Rectangle.prototype.setTextCoords = function(s,t){
-    
+
+	this.texCoords = [
+		0, 0,
+		(this.coords[2]-this.coords[0])/s, 0,
+		(this.coords[2]-this.coords[0])/s, (this.coords[3]-this.coords[1])/t,
+		0, (this.coords[3]-this.coords[1])/t
+	];
+
+	this.updateTexCoordsGLBuffers();
     
 };
