@@ -35,27 +35,23 @@ Triangle.prototype.initBuffers = function () {
     this.vertices.push(x3,y3,z3);
 
     this.normals = [
-        0, 1, 0,    //0
-        0, 1, 0,    //1
-        0, 1, 0,    //3
+        0, 1, 0,    
+        0, 1, 0,    
+        0, 1, 0,    
     ];
 
     var a=Math.sqrt(Math.pow(x1-x3,2) + Math.pow(y1-y3,2) + Math.pow(z1-z3,2));
     var b=Math.sqrt(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2));
     var c=Math.sqrt(Math.pow(x3-x2,2) + Math.pow(y3-y2,2) + Math.pow(z3-z2,2));
          
-    var angA=(-Math.pow(a,2) + Math.pow(b,2) + Math.pow(c,2))/(2*c*b);
-    var angB=((Math.pow(a,2) - Math.pow(b,2) + Math.pow(c,2))/(2*a*c));
-    var angC=(Math.pow(a,2) + Math.pow(b,2) - Math.pow(c,2))/(2*a*b);
+    var alpha=(-Math.pow(a,2) + Math.pow(b,2) + Math.pow(c,2))/(2*c*b);
+    var beta=((Math.pow(a,2) - Math.pow(b,2) + Math.pow(c,2))/(2*a*c));
+    var gama=(Math.pow(a,2) + Math.pow(b,2) - Math.pow(c,2))/(2*a*b);
     
-
-    var p0x=c - a * Math.cos(b);
-    var p0y=a * Math.sin(b);
-   
     this.texCoords = [
-        p0x, p0y,
-        0, 0,
-        c, 0,
+       c-a*Math.cos(beta), -a*Math.sin(beta),
+       0, 0,
+       c, 0,
     ];
 
     this.indices = [
