@@ -26,10 +26,10 @@ Rectangle.prototype.initBuffers = function () {
 	
 	
 	this.indices = [
-            0, 1, 2,
-			2, 3, 0,
-			2, 1, 0,
-			0, 3, 2,
+		0, 1, 2,
+		2, 3, 0,
+		2, 1, 0,
+		0, 3, 2,
 	];
 		
 
@@ -40,10 +40,10 @@ Rectangle.prototype.initBuffers = function () {
 		0, 0, 1
 	];
 
-	this.minS = -0.5;
-	this.maxS = 1.5;
-	this.minT = -1.0;
-	this.maxT = 1.0;
+	this.minS = 0;
+	this.maxS = 1;
+	this.minT = 0;
+	this.maxT = 1;
 	
 	this.texCoords = [
 		this.minS, this.maxT,
