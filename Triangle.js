@@ -46,13 +46,13 @@ Triangle.prototype.initBuffers = function () {
     this.h=this.a*Math.sin(this.beta);
          
     this.alpha=(-Math.pow(this.a,2) + Math.pow(this.b,2) + Math.pow(this.c,2))/(2*this.c*this.b);
-    this.beta=((Math.pow(this.a,2) - Math.pow(this.b,2) + Math.pow(this.c,2))/(2*this.a*this.c));
+    this.beta=(Math.pow(this.a,2) - Math.pow(this.b,2) + Math.pow(this.c,2))/(2*this.a*this.c);
     this.gama=(Math.pow(this.a,2) + Math.pow(this.b,2) - Math.pow(this.c,2))/(2*this.a*this.b);
     
     this.texCoords = [
-       this.c-this.a*Math.cos(this.beta), -this.a*Math.sin(this.beta),
-       0, 1,
-       this.c, 1,
+       this.c-this.a*Math.cos(this.beta), this.a*Math.sin(Math.acos(this.beta)),
+       0, 0,
+       this.c, 0,
     ];
 
     this.indices = [
@@ -67,9 +67,11 @@ Triangle.prototype.setTextCoords = function(s,t){
     this.texCoords = [];
 
     this.texCoords = [
-        (this.c-this.a*Math.cos(this.beta))/s, (this.a*Math.sin(this.beta))/t,
         0, 0,
         this.c/s, 0,
+        (this.c-this.a*this.beta)/s, (1-this.a*Math.sin(Math.acos(this.beta)))/t
+        
+        
      ];
 
 
