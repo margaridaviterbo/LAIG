@@ -1505,6 +1505,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
     
     var material = nodeMaterial;
     var texture =  nodeTexture;
+    var s, t;
 
     if(node.nodeID != null){
         if(node.materialID != "null"){
@@ -1514,13 +1515,15 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         if(node.textureID != "null"){
             texture = this.textures[node.textureID];
         }
-               
+
         if(texture == "clear" || texture == null){
             material.setTexture(null);
         }
         else{
-            material.setTexture(texture[0]);
-            //TODO setTextureWrap??  
+           material.setTexture(texture[0]); 
+           //TODO setTextureWrap??
+           s = texture[1];
+           t = texture[2];
         } 
 
         if(material != null){
@@ -1529,14 +1532,14 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
 
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
-
+            
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
             
         for(var i=0; i < node.leaves.length; i++){
-            //TODO node.leaves[i].setTextCoords(s, t);   
-            node.leaves[i].display();         
+            node.leaves[i].setTextCoords(s,t);
+            node.leaves[i].display();          
         }
 
         this.scene.popMatrix();
