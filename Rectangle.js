@@ -55,3 +55,8 @@ Rectangle.prototype.initBuffers = function () {
 	this.primitiveType=this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
+
+Rectangle.prototype.setTextCoords = function(s,t){
+    
+    
+};

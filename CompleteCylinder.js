@@ -48,3 +48,8 @@ CompleteCylinder.prototype.display = function(){
    }
 
 }
+
+CompleteCylinder.prototype.setTextCoords = function(s,t){
+    
+    
+};

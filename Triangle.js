@@ -58,6 +58,12 @@ Triangle.prototype.initBuffers = function () {
         0, 1, 2,
     ];
 
-	this.primitiveType=this.scene.gl.TRIANGLES;
+    this.primitiveType=this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
+
+Triangle.prototype.setTextCoords = function(s,t){
+    
+    
+};
+
