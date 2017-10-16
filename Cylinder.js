@@ -60,9 +60,28 @@
     }
  }
 
- 
-
   this.primitiveType = this.scene.gl.TRIANGLES;
   this.initGLBuffers();
 };
+
+Cylinder.prototype.setTextCoords = function(s,t){
+
+  this.texCoords = [];
+
+  var a = 0;
+  var b = 0;
+
+  for (var i = 0; i <= this.stacks; i++) {
+    for (var j = 0; j <= this.slices; j++) {
+      this.texCoords.push(a/s, b/t);
+      a += 1 / this.slices;
+    }
+    a = 0;
+    b += 1 / this.stacks;
+  }
+
+  this.updateTexCoordsGLBuffers();
+};
+
+
 

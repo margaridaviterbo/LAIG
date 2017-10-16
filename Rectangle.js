@@ -57,7 +57,6 @@ Rectangle.prototype.initBuffers = function () {
 };
 
 Rectangle.prototype.setTextCoords = function(s,t){
-	//dividir coordenadas de textura por s e t
 
 	this.texCoords = [
 		0, 0,

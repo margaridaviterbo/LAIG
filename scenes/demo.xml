@@ -60,7 +60,7 @@
 	<!-- Tree trunk -->
     <TEXTURE id="trunk">
         <file path="images/trunk-image.jpg" />               
-        <amplif_factor s="2" t="2" />                           
+        <amplif_factor s="1" t="1" />                           
     </TEXTURE>
 
      <!-- Tree leaves -->

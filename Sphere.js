@@ -54,6 +54,12 @@
 };
 
 Sphere.prototype.setTextCoords = function(s,t){
-    
-    
+	
+	for (var i = this.stacks; i >= 0; i--) {
+		for (var j = this.slices; j >= 0; j--) {
+			this.texCoords.push((j/this.slices)/s, (i/this.stacks)/t);
+		}
+	}
+	
+	this.updateTexCoordsGLBuffers();
 };

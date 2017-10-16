@@ -64,13 +64,16 @@ Triangle.prototype.initBuffers = function () {
 };
 
 Triangle.prototype.setTextCoords = function(s,t){
+    this.texCoords = [];
+
     this.texCoords = [
-        (this.c-this.a*Math.cos(this.beta))/s, (-this.a*Math.sin(this.beta))/t,
-        0, this.h/t,
-        this.c/s, this.h/t,
+        (this.c-this.a*Math.cos(this.beta))/s, (this.a*Math.sin(this.beta))/t,
+        0, 0,
+        this.c/s, 0,
      ];
 
 
     this.updateTexCoordsGLBuffers();
 };
+
 
