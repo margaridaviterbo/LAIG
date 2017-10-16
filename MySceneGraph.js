@@ -1495,49 +1495,52 @@ MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
     // remove log below to avoid performance issues
     var rootNode = this.nodes[this.idRoot]
-    this.processGraph(rootNode, rootNode.materialID, rootNode.textureID);
+    this.processGraph(rootNode, null, null);
 
 
 	
 }
 
-MySceneGraph.prototype.processGraph = function(node, materialID, textureID){
+MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
     
-    var material = materialID;
-    var texture = textureID;
+    var material = nodeMaterial;
+    var texture =  nodeTexture;
 
     if(node.nodeID != null){
         if(node.materialID != "null"){
           material = this.materials[node.materialID];
         }
-
+              
         if(node.textureID != "null"){
-          texture = this.materials[node.textureID];
-        }   
-       
-        for(let i = 0; i < node.children.length; i++){
-           this.scene.pushMatrix();
-           this.scene.multMatrix(node.transformMatrix);
-           this.processGraph(this.nodes[node.children[i]],material,texture);
-           this.scene.popMatrix();
+            texture = this.textures[node.textureID];
         }
+               
+        this.scene.pushMatrix();
+        this.scene.multMatrix(node.transformMatrix);
 
-       
-        for(let i=0; i < node.leaves.length; i++){
-            this.scene.pushMatrix();
-            this.scene.multMatrix(node.transformMatrix);
+        if(texture == "clear" || texture == null){
+            material.setTexture(null);
+        }
+        else{
+           material.setTexture(texture[0]);  
+        } 
 
-            if(texture != null){
-                material.setTexture(texture);    
-            }    
+        if(material != null){
             material.apply();
-
-            node.leaves[i].display(); 
-            this.scene.popMatrix();           
+        }
+       
+        for(var i = 0; i < node.children.length; i++){
+          
+           this.processGraph(this.nodes[node.children[i]],material,texture);
+        }
+            
+        for(var i=0; i < node.leaves.length; i++){
+           
+            
+            node.leaves[i].display();          
         }
 
-       
-        
+        this.scene.popMatrix();
         
     }
 
