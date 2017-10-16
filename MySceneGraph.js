@@ -1172,6 +1172,7 @@ MySceneGraph.prototype.parseLeaves = function(leavesNode) {
     numArgs["cylinder"] = 5;
     numArgs["sphere"] = 3;
     numArgs["triangle"] = 9;
+    numArgs["patch"] = 2;
     
     for (var i = 0; i < children.length; i++) {
         if (children[i].nodeName != "LEAF") {
@@ -1188,7 +1189,7 @@ MySceneGraph.prototype.parseLeaves = function(leavesNode) {
             return "node ID must be unique (conflict: ID = " + nodeID + ")";
         
         // Gets type of leaf.
-        var type = this.reader.getItem(children[i], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+        var type = this.reader.getItem(children[i], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
         if (type == null )
             return "failed to parse type of leaf for ID = " + nodeID;
         
@@ -1410,13 +1411,36 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
 						
 						if (type != null)
 							this.log("   Leaf: "+ type);
 						else
 							this.warn("Error in leaf");
-						
+                            
+
+
+
+
+                            
+                        //TODO estou aqui a tentar ler o patch do ficheiro xml para depois poder corrigir a implementaçao da class patch e ver se consigo desenhar um patch    
+                        if(type == 'patch'){
+
+                            var leafSpecs = descendants[j].children;
+                            console.log("leafSpecs: " + leafSpecs);
+                            var cplineSpecs = leafSpecs.children;
+                            console.log("cplineSpecs: " + cplineSpecs);
+                            /*var specsNames = [];
+                            var possibleValues = ["CPLINE"];*/
+
+                            var xx = this.reader.getFloat(cplineSpecs[0], 'xx');
+                            var yy = this.reader.getFloat(cplineSpecs[0], 'yy');
+                            var zz = this.reader.getFloat(cplineSpecs[0], 'zz');
+                            var ww = this.reader.getFloat(cplineSpecs[0], 'ww');
+                            console.log("cenas do patch:" + xx+yy+zz+ww);
+                        }
+                        
+
                         //parse leaf
 						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;
