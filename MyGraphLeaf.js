@@ -7,6 +7,7 @@ function MyGraphLeaf(graph, xmlelem) {
     
     this.type = graph.reader.getString(xmlelem, 'type');
     this.args = graph.reader.getString(xmlelem, 'args');
+    console.log(xmlelem);
     
     switch (this.type){
         case 'triangle':

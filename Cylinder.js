@@ -45,8 +45,8 @@
      this.texCoords.push(s, t);
      s += 1 / this.slices;
     }
-   s = 0;
-   t += 1 / this.stacks;
+    s = 0;
+    t += 1 / this.stacks;
   }
 
   for(var i = 0; i < this.stacks; i++){

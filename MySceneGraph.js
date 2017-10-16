@@ -1515,29 +1515,28 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             texture = this.textures[node.textureID];
         }
                
-        this.scene.pushMatrix();
-        this.scene.multMatrix(node.transformMatrix);
-
         if(texture == "clear" || texture == null){
             material.setTexture(null);
         }
         else{
-           material.setTexture(texture[0]);  
+            material.setTexture(texture[0]);
+            //TODO setTextureWrap??  
         } 
 
         if(material != null){
             material.apply();
         }
-       
+
+        this.scene.pushMatrix();
+        this.scene.multMatrix(node.transformMatrix);
+
         for(var i = 0; i < node.children.length; i++){
-          
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
             
         for(var i=0; i < node.leaves.length; i++){
-           
-            
-            node.leaves[i].display();          
+            //TODO node.leaves[i].setTextCoords(s, t);   
+            node.leaves[i].display();         
         }
 
         this.scene.popMatrix();
