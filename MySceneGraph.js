@@ -1425,19 +1425,27 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                             
                         //TODO estou aqui a tentar ler o patch do ficheiro xml para depois poder corrigir a implementaçao da class patch e ver se consigo desenhar um patch    
                         if(type == 'patch'){
+                            console.log("DESCENDENTS[J]")
+                            console.log(descendants[j]);
+                            console.log("ENDDESCENDENTS[J]")
+                            console.log("CHILDREN:");
+                            console.log(descendants[j].children);
+                            console.log("ENDCHILDREN");
 
+                            
                             var leafSpecs = descendants[j].children;
                             console.log("leafSpecs: " + leafSpecs);
-                            var cplineSpecs = leafSpecs.children;
+                            var cplineSpecs = leafSpecs[0].children;
                             console.log("cplineSpecs: " + cplineSpecs);
-                            /*var specsNames = [];
-                            var possibleValues = ["CPLINE"];*/
+                            //var specsNames = [];
+                            //var possibleValues = ["CPLINE"];
 
                             var xx = this.reader.getFloat(cplineSpecs[0], 'xx');
                             var yy = this.reader.getFloat(cplineSpecs[0], 'yy');
                             var zz = this.reader.getFloat(cplineSpecs[0], 'zz');
                             var ww = this.reader.getFloat(cplineSpecs[0], 'ww');
                             console.log("cenas do patch:" + xx+yy+zz+ww);
+                            
                         }
                         
 
@@ -1546,7 +1554,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         else{
            material.setTexture(texture[0]); 
            //TODO setTextureWrap??
-           console.log(texture);
+           //console.log(texture);
            s = texture[1];
            t = texture[2];
         } 

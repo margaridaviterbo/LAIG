@@ -641,9 +641,9 @@
         <TRANSLATION x="7.5" y="0" z="0" />
 
         <DESCENDANTS>
-			<LEAF type="patch" args="1 1" />
+			<LEAF type="patch" args="1 1" >
                 <CPLINE>
-                    <CPOINT xx="1" yy="1" zz="1" ww="1">
+                    <CPOINT xx="1" yy="1" zz="1" ww="1" />
                 </CPLINE>
             </LEAF>
         </DESCENDANTS>
