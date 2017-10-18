@@ -1419,38 +1419,25 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
                             
 
-
-
-
                             
-                        //TODO estou aqui a tentar ler o patch do ficheiro xml para depois poder corrigir a implementaçao da class patch e ver se consigo desenhar um patch    
+                        //TODO estou aqui a tentar ler o patch do ficheiro xml para depois poder corrigir a implementaçao da class patch e ver se consigo desenhar um patch  
+                        //para ja só esta a ler uma cpline e um cpoint eventualmente vou ter de por a ler varios dos dois?  
                         if(type == 'patch'){
-                            console.log("DESCENDENTS[J]")
-                            console.log(descendants[j]);
-                            console.log("ENDDESCENDENTS[J]")
-                            console.log("CHILDREN:");
-                            console.log(descendants[j].children);
-                            console.log("ENDCHILDREN");
-
                             
                             var leafSpecs = descendants[j].children;
-                            console.log("leafSpecs: " + leafSpecs);
                             var cplineSpecs = leafSpecs[0].children;
-                            console.log("cplineSpecs: " + cplineSpecs);
-                            //var specsNames = [];
-                            //var possibleValues = ["CPLINE"];
 
+                            this.cpoints = [];
                             var xx = this.reader.getFloat(cplineSpecs[0], 'xx');
                             var yy = this.reader.getFloat(cplineSpecs[0], 'yy');
                             var zz = this.reader.getFloat(cplineSpecs[0], 'zz');
                             var ww = this.reader.getFloat(cplineSpecs[0], 'ww');
-                            console.log("cenas do patch:" + xx+yy+zz+ww);
+                            this.cpoints.push([xx, yy, zz, ww]);
+                            
                             
                         }
                         
-
-                        //parse leaf
-						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
+                        this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;
 					}
 					else
@@ -1554,7 +1541,6 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         else{
            material.setTexture(texture[0]); 
            //TODO setTextureWrap??
-           //console.log(texture);
            s = texture[1];
            t = texture[2];
         } 

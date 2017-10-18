@@ -6,7 +6,6 @@
 function Rectangle(scene, coords) {
 	CGFobject.call(this,scene);
 	
-
 	this.coords = coords;
 
 	this.initBuffers();
@@ -57,7 +56,7 @@ Rectangle.prototype.initBuffers = function () {
 };
 
 Rectangle.prototype.setTextCoords = function(s,t){
-
+	
 	this.texCoords = [
 		0, 0,
 		(this.coords[2]-this.coords[0])/s, 0,

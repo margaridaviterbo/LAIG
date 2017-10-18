@@ -87,7 +87,7 @@
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
 
-   <TEXTURE id="patchTexture">
+    <TEXTURE id="patchTexture">
         <file path="images/texture.jpg" />                
         <amplif_factor s="1" t="1" />                           
     </TEXTURE> 
@@ -183,7 +183,7 @@
             <NODEREF id="arvores" />   
             <NODEREF id="chao" />
             <NODEREF id="bancos" />
-            
+            <NODEREF id="patch" />
         </DESCENDANTS>
 
     </NODE>
