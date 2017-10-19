@@ -20,7 +20,22 @@ function MyGraphLeaf(graph, xmlelem) {
             this.element = new CompleteCylinder(graph.scene,coords);
             break;*/
         case 'patch':
-            this.element = new Patch(graph.scene, coords, graph.cpoints);
+            this.element = new Patch(graph.scene, coords[0], coords[1], graph.controlPoints);
+            /*this.element = new Patch(graph.scene, 1, // degree on U: 2 control vertexes U
+					 1, // degree on V: 2 control vertexes on V
+					[	// U = 0
+						[ // V = 0..1;
+							 [-2.0, -2.0, 0.0, 1 ],
+							 [-2.0,  2.0, 0.0, 1 ]
+							
+						],
+						// U = 1
+						[ // V = 0..1
+							 [ 2.0, -2.0, 0.0, 1 ],
+							 [ 2.0,  2.0, 0.0, 1 ]							 
+						]
+                    ]);*/
+            break;
         /*case 'rectangle':
             this.element = new Rectangle(graph.scene, coords); 
             break;*/

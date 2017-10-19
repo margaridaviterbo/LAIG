@@ -1425,16 +1425,20 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                         if(type == 'patch'){
                             
                             var leafSpecs = descendants[j].children;
-                            var cplineSpecs = leafSpecs[0].children;
 
-                            this.cpoints = [];
-                            var xx = this.reader.getFloat(cplineSpecs[0], 'xx');
-                            var yy = this.reader.getFloat(cplineSpecs[0], 'yy');
-                            var zz = this.reader.getFloat(cplineSpecs[0], 'zz');
-                            var ww = this.reader.getFloat(cplineSpecs[0], 'ww');
-                            this.cpoints.push([xx, yy, zz, ww]);
-                            
-                            
+                            this.controlPoints = [];
+                            for(var k = 0; k < leafSpecs.length; k++){
+                                var cplineSpecs = leafSpecs[k].children;
+                                var cpoints = [];
+                                for(var l = 0; l < cplineSpecs.length; l++){
+                                    var xx = this.reader.getFloat(cplineSpecs[l], 'xx');
+                                    var yy = this.reader.getFloat(cplineSpecs[l], 'yy');
+                                    var zz = this.reader.getFloat(cplineSpecs[l], 'zz');
+                                    var ww = this.reader.getFloat(cplineSpecs[l], 'ww');
+                                    cpoints.push([xx, yy, zz, ww]);
+                                }   
+                                this.controlPoints.push(cpoints);
+                            }
                         }
                         
                         this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
@@ -1540,7 +1544,6 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
         else{
            material.setTexture(texture[0]); 
-           //TODO setTextureWrap??
            s = texture[1];
            t = texture[2];
         } 
