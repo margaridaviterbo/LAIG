@@ -1417,29 +1417,12 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.log("   Leaf: "+ type);
 						else
 							this.warn("Error in leaf");
+                        
                             
-
+                        
                             
-                        //TODO estou aqui a tentar ler o patch do ficheiro xml para depois poder corrigir a implementaçao da class patch e ver se consigo desenhar um patch  
-                        //para ja só esta a ler uma cpline e um cpoint eventualmente vou ter de por a ler varios dos dois?  
-                        if(type == 'patch'){
                             
-                            var leafSpecs = descendants[j].children;
-
-                            this.controlPoints = [];
-                            for(var k = 0; k < leafSpecs.length; k++){
-                                var cplineSpecs = leafSpecs[k].children;
-                                var cpoints = [];
-                                for(var l = 0; l < cplineSpecs.length; l++){
-                                    var xx = this.reader.getFloat(cplineSpecs[l], 'xx');
-                                    var yy = this.reader.getFloat(cplineSpecs[l], 'yy');
-                                    var zz = this.reader.getFloat(cplineSpecs[l], 'zz');
-                                    var ww = this.reader.getFloat(cplineSpecs[l], 'ww');
-                                    cpoints.push([xx, yy, zz, ww]);
-                                }   
-                                this.controlPoints.push(cpoints);
-                            }
-                        }
+                        
                         
                         this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;

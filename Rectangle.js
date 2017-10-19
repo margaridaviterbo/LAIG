@@ -18,10 +18,10 @@ Rectangle.prototype.constructor=Rectangle;
 Rectangle.prototype.initBuffers = function () {
 	
 	this.vertices = [];
-    this.vertices.push(this.coords[0], this.coords[1],0);
-    this.vertices.push(this.coords[2], this.coords[1],0);
-	this.vertices.push(this.coords[2], this.coords[3],0);
-	this.vertices.push(this.coords[0], this.coords[3],0);
+    this.vertices.push(parseInt(this.coords[0]), parseInt(this.coords[1]), 0);
+    this.vertices.push(parseInt(this.coords[2]), parseInt(this.coords[1]), 0);
+	this.vertices.push(parseInt(this.coords[2]), parseInt(this.coords[3]), 0);
+	this.vertices.push(parseInt(this.coords[0]), parseInt(this.coords[3]), 0);
 	
 	
 	this.indices = [
