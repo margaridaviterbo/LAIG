@@ -1172,6 +1172,7 @@ MySceneGraph.prototype.parseLeaves = function(leavesNode) {
     numArgs["cylinder"] = 5;
     numArgs["sphere"] = 3;
     numArgs["triangle"] = 9;
+    numArgs["patch"] = 2;
     
     for (var i = 0; i < children.length; i++) {
         if (children[i].nodeName != "LEAF") {
@@ -1188,7 +1189,7 @@ MySceneGraph.prototype.parseLeaves = function(leavesNode) {
             return "node ID must be unique (conflict: ID = " + nodeID + ")";
         
         // Gets type of leaf.
-        var type = this.reader.getItem(children[i], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+        var type = this.reader.getItem(children[i], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
         if (type == null )
             return "failed to parse type of leaf for ID = " + nodeID;
         
@@ -1410,15 +1411,20 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
 						
 						if (type != null)
 							this.log("   Leaf: "+ type);
 						else
 							this.warn("Error in leaf");
-						
-                        //parse leaf
-						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
+                        
+                            
+                        
+                            
+                            
+                        
+                        
+                        this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;
 					}
 					else
@@ -1521,8 +1527,6 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
         else{
            material.setTexture(texture[0]); 
-           //TODO setTextureWrap??
-           console.log(texture);
            s = texture[1];
            t = texture[2];
         } 
