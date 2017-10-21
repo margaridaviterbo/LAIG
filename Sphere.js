@@ -4,10 +4,10 @@
  */
  function Sphere(scene, coords) {
 	 CGFobject.call(this,scene);
-	 
+
 	 this.slices = parseInt(coords[2]);
 	 this.stacks = parseInt(coords[1]);
-	 this.radius = parseInt(coords[0]);
+	 this.radius = parseFloat(coords[0]);
 
  	this.initBuffers();
  };
@@ -23,7 +23,7 @@
     this.texCoords = [];
 
     var x,y,z;
-    
+
 	for(var i = 0; i <= this.stacks; i++){
 		var s = i* Math.PI / this.stacks;
 
@@ -32,7 +32,7 @@
 			x = this.radius * Math.cos(t) * Math.sin(s);
 			y = this.radius * Math.sin(s) * Math.sin(t);
 			z = this.radius * Math.cos(s);
-			
+
 			this.vertices.push(x, y, z);
 			this.normals.push(x, y, z);
 			this.texCoords.push(1 - j / this.slices, 1 - i / this.stacks);
@@ -54,12 +54,12 @@
 };
 
 Sphere.prototype.setTextCoords = function(s,t){
-	
+
 	for (var i = this.stacks; i >= 0; i--) {
 		for (var j = this.slices; j >= 0; j--) {
 			this.texCoords.push((j/this.slices)/s, (i/this.stacks)/t);
 		}
 	}
-	
+
 	this.updateTexCoordsGLBuffers();
 };
