@@ -85,6 +85,11 @@
         <file path="images/paper.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
+
+     <TEXTURE id="pavement">
+        <file path="images/pav2.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
 </TEXTURES>
 
 <!-- TODO Materials -->
@@ -164,6 +169,7 @@
         <DESCENDANTS>
             <NODEREF id="luzes" />
             <NODEREF id="banco" />
+            
             <NODEREF id="chao" />
             <NODEREF id="parede"/>
             <!--NODEREF id="piramide" /-->
@@ -176,26 +182,56 @@
         <MATERIAL id="null" />
         <TEXTURE id="rocks" />
 
-        <SCALE sx="6" sy="1" sz="5" />
+        <SCALE sx="8" sy="1" sz="6" />
         <TRANSLATION x="0" y="0" z="4" />
         <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+            <NODEREF id="estrada"/>
+            <NODEREF id="passeio"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+<!-- The street-->
+    <NODE id="estrada">
+        <MATERIAL id="null" />
+        <TEXTURE id="rocks" />
+
+         <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- The pavement -->
+    <NODE id="passeio">
+        <MATERIAL id="null" />
+        <TEXTURE id="pavement" />
+
+        <TRANSLATION x="-2.5" y="-0.8" z="-0.45" />  
+        <SCALE sx="1" sy="0.6" sz="0.2"/>       
+        
+        <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
 		</DESCENDANTS>
 
     </NODE>
 
-
+    <!-- The wall -->
     <NODE id="parede">
         <MATERIAL id="null" />
         <TEXTURE id="street" />
 
-        <SCALE sx="6" sy="3" sz="1" />
+        <SCALE sx="8" sy="3" sz="2" />
         <TRANSLATION x="0" y="0" z="0" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+			<LEAF  type="rectangle" args="0 4 5 0" />
 		</DESCENDANTS>
 
     </NODE>
@@ -218,6 +254,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+         <TRANSLATION x="-7" y="0" z="4"/>
+
         <DESCENDANTS>
            <NODEREF id="luz_esfera" />
            <NODEREF id="luz_suporte" />
@@ -230,7 +268,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-7" y="10" z="4"/>
+        <TRANSLATION x="0" y="10" z="0"/>
         <SCALE sx="0.65" sy="0.65" sz="0.65" />
 
         <DESCENDANTS>
@@ -243,8 +281,7 @@
     <NODE id="luz_suporte">
         <MATERIAL id="lightPostMaterial" />
         <TEXTURE id="leg" />
-
-        <TRANSLATION x="-7" y="0" z="4"/>
+       
         <SCALE sx="0.3" sy="2.7" sz="0.3" />
         <ROTATION axis="x" angle="-90" />
 
@@ -259,7 +296,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="24" y="-1.2" z="8.5"/>
+        <TRANSLATION x="4" y="-1.2" z="8.5"/>
         
         <DESCENDANTS>
            <NODEREF id="assento" />
@@ -270,8 +307,8 @@
            <NODEREF id="pernaBanco4" />
            <NODEREF id="jornal" />
         </DESCENDANTS>
-
     </NODE>
+
     <NODE id="assento">
         <MATERIAL id="null" />
         <TEXTURE id="wood" />
@@ -303,8 +340,7 @@
             <NODEREF id="faceCubo4" />
             <NODEREF id="faceCubo5" />
             <NODEREF id="faceCubo6" />
-       	</DESCENDANTS>
-
+      	</DESCENDANTS>
     </NODE>
 
   <NODE id="pernaBanco1">
