@@ -52,33 +52,38 @@
 
 <TEXTURES>
 <TEXTURE id="rocks">
-        <file path="images/rocks.jpg" />
-        <amplif_factor s="5" t="5" />
+        <file path="images/paralelo.jpg" />
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 
 	<TEXTURE id="street">
         <file path="images/street.jpg" />
-        <amplif_factor s="5" t="5" />
+        <amplif_factor s="5" t="4" />
     </TEXTURE>
 
     <TEXTURE id="wood">
         <file path="images/wood.jpg" />
-        <amplif_factor s="4" t="4" />
+        <amplif_factor s="4" t="2" />
     </TEXTURE>
 
     <TEXTURE id="leg">
-        <file path="images/leg.jpg" />
-        <amplif_factor s="5" t="5" />
+        <file path="images/poste_candeeiro.jpg" />
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 
     <TEXTURE id="topStatue">
         <file path="images/vitral.jpg" />
-        <amplif_factor s="5" t="5" />
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 
     <TEXTURE id="bottomStatue">
         <file path="images/statue.jpg" />
-        <amplif_factor s="5" t="5" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="paper">
+        <file path="images/paper.jpg" />
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 </TEXTURES>
 
@@ -113,7 +118,7 @@
 
     <!-- Lamp post material -->
     <MATERIAL id="lightPostMaterial">
-        <shininess value="100" />
+        <shininess value="50" />
         <specular r="0.0" g="0.0" b="0.0" a="1" />
         <diffuse r="0.447" g="0.416" b="0.416" a="1" />
         <ambient r="0.0" g="0.0" b="0.0" a="1" />
@@ -161,7 +166,7 @@
             <NODEREF id="banco" />
             <NODEREF id="chao" />
             <NODEREF id="parede"/>
-            <NODEREF id="piramide" />
+            <!--NODEREF id="piramide" /-->
         </DESCENDANTS>
 
     </NODE>
@@ -186,7 +191,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="street" />
 
-        <SCALE sx="6" sy="3" sz="5" />
+        <SCALE sx="6" sy="3" sz="1" />
         <TRANSLATION x="0" y="0" z="0" />
 
         <DESCENDANTS>
@@ -243,7 +248,7 @@
         <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
-					<LEAF id="cylinder1" type="cylinder" args="4 1 1 20 20" />
+					<LEAF id="cylinder1" type="cylinder" args="4 2 0.5 20 5 0 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -260,6 +265,7 @@
            <NODEREF id="pernaBanco2" />
            <NODEREF id="pernaBanco3" />
            <NODEREF id="pernaBanco4" />
+           <NODEREF id="jornal" />
         </DESCENDANTS>
 
     </NODE>
@@ -267,9 +273,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="wood" />
 
-        <TRANSLATION x="4" y="1" z="15" />
-        <ROTATION axis="y" angle="90"/>
-        <SCALE sx="0.85" sy="0.2" sz="2" />
+        <TRANSLATION x="4" y="2.5" z="5.5"/>
+        <ROTATION axis="x" angle="90"/>
+        <SCALE sx="2" sy="0.85" sz="0.1" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -285,10 +291,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="wood" />
 
-        <TRANSLATION x="4" y="0" z="7.8"/>
-        <ROTATION axis="x" angle="90"/>
-        <ROTATION axis="y" angle="90"/>
-        <SCALE sx="0.85" sy="0.2" sz="2" />
+        <TRANSLATION x="4" y="-1.2" z="8.5"/>
+        <SCALE sx="2" sy="0.85" sz="0.1" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -459,6 +463,85 @@
 
     </NODE>
 
+    <NODE id="jornal">
+        <MATERIAL id="null" />
+        <TEXTURE id="paper" />
+
+        <TRANSLATION x="12" y="3" z="10"/>
+        <SCALE sx="0.5" sy="0.5" sz="0.5" />
+
+        <DESCENDANTS>
+            <NODEREF id="leftPage" />
+            <NODEREF id="rightPage" />
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="rightPage">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="patch" args="20 20" >
+                <CPLINE>
+                    <CPOINT xx="-2.0" yy="-1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="0.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="2.0" zz="-1" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
+                    <CPOINT xx="0" yy="-1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="0" yy="1.0" zz="1.5" ww="1" />
+                    <CPOINT xx="0" yy="2.0" zz="0" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="2.0" yy="-2.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="-1.0" zz="1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="2.0" zz="1.0" ww="1" />
+                </CPLINE>
+            </LEAF>
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="leftPage">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-3.7" y="0.2" z="0"/>
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="patch" args="20 20" >
+                <CPLINE>
+                    <CPOINT xx="-2.0" yy="-1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="0.0" zz="1" ww="1" />
+                    <CPOINT xx="-2.0" yy="1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="2.0" zz="1" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
+                    <CPOINT xx="0" yy="-1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="0" yy="1.0" zz="1.5" ww="1" />
+                    <CPOINT xx="0" yy="2.0" zz="0" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="2.0" yy="-2.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="-1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="2.0" zz="-1.0" ww="1" />
+                </CPLINE>
+            </LEAF>
+       	</DESCENDANTS>
+    </NODE>
+
+
     <!-- A pyramid -->
     <NODE id="piramide">
 
@@ -571,7 +654,7 @@
 			<LEAF id="sphere2" type="sphere" args="2 20 20" />
         </DESCENDANTS>
 
-
+    </NODE>
 </NODES>
 
 </SCENE>
