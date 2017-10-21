@@ -34,14 +34,14 @@ CylinderBase.prototype.initBuffers = function() {
         this.indices.push(0, i, i+1);
     }
     this.indices.push(0, this.slices, 1);
-      
+
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
 
 CylinderBase.prototype.setTextCoords = function(s,t){
-    this.texCoords = [];
+    //this.texCoords = [];
     for (var i=0; i <= this.slices; i++){
         this.texCoords.push(Math.cos(i * this.angle)/s, Math.sin(i * this.angle)/t);
     }

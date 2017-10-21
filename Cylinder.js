@@ -4,10 +4,10 @@
  */
  function Cylinder(scene,coords) {
  	CGFobject.call(this,scene);
-    
-  this.height = parseInt(coords[0]);
-  this.bottomRadius = parseInt(coords[1]);
-  this.topRadius = parseInt(coords[2]);
+
+  this.height = parseFloat(coords[0]);
+  this.bottomRadius = parseFloat(coords[1]);
+  this.topRadius = parseFloat(coords[2]);
   this.stacks = parseInt(coords[3]);
   this.slices = parseInt(coords[4]);
 
@@ -38,7 +38,7 @@
 
       var x = Math.cos(j * angle) * r;
       var y = Math.sin(j * angle) * r;
-      
+
       this.vertices.push(x,y,h);
       this.normals.push(x,y,0);
 
@@ -51,7 +51,7 @@
 
   for(var i = 0; i < this.stacks; i++){
     for(var j = 0; j < this.slices; j++){
-     
+
       var s1 = i * (this.slices + 1) + j;
       var s2 = s1 + this.slices + 1;
 
@@ -65,8 +65,6 @@
 };
 
 Cylinder.prototype.setTextCoords = function(s,t){
-
-  this.texCoords = [];
 
   var a = 0;
   var b = 0;
@@ -82,6 +80,3 @@ Cylinder.prototype.setTextCoords = function(s,t){
 
   this.updateTexCoordsGLBuffers();
 };
-
-
-
