@@ -169,7 +169,6 @@
         <DESCENDANTS>
             <NODEREF id="luzes" />
             <NODEREF id="banco" />
-            
             <NODEREF id="chao" />
             <NODEREF id="parede"/>
             <!--NODEREF id="piramide" /-->
@@ -274,7 +273,6 @@
         <DESCENDANTS>
 			<LEAF id="sphere1" type="sphere" args="2 20 20" />
         </DESCENDANTS>
-
     </NODE>
 
     <!-- The post in the lamp post... -->
@@ -313,11 +311,94 @@
         <MATERIAL id="null" />
         <TEXTURE id="wood" />
 
-        <TRANSLATION x="0" y="4" z="-3"/>
+        <TRANSLATION x="0" y="5" z="-3"/>
         <ROTATION axis="x" angle="90"/>
-        <SCALE sx="2" sy="0.85" sz="0.1" />
-       
+               
         <DESCENDANTS>
+            <NODEREF id="ripa1"/>
+            <NODEREF id="ripa2"/>
+            <NODEREF id="ripa3"/>
+            <NODEREF id="ripa4"/>
+            <NODEREF id="ripa5"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="ripa1">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="6.25" z="0.75"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
+
+         <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+       	</DESCENDANTS>
+    </NODE>
+
+     <NODE id="ripa2">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="5.75" z="0.3"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
+
+         <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="ripa3">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="5" z="0"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
+
+        <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="ripa4">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="4" z="0"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
+
+         <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="ripa5">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="3" z="0"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
+
+         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
             <NODEREF id="faceCubo2" />
             <NODEREF id="faceCubo3" />
@@ -331,7 +412,53 @@
         <MATERIAL id="null" />
         <TEXTURE id="wood" />
 
-        <SCALE sx="2" sy="0.85" sz="0.1" />
+        <DESCENDANTS>
+           <NODEREF id="ripa6"/>
+           <NODEREF id="ripa7"/>
+           <NODEREF id="ripa8"/>
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="ripa6">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="4" z="0"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
+
+         <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+       	</DESCENDANTS>
+    </NODE>
+
+     <NODE id="ripa7">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="5" z="0"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
+
+         <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="ripa8">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="0" y="6" z="0"/>
+        <SCALE sx="2" sy="0.1" sz="0.1" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -340,8 +467,9 @@
             <NODEREF id="faceCubo4" />
             <NODEREF id="faceCubo5" />
             <NODEREF id="faceCubo6" />
-      	</DESCENDANTS>
+        </DESCENDANTS>
     </NODE>
+
 
   <NODE id="pernaBanco1">
         <MATERIAL id="null" />
@@ -358,7 +486,6 @@
             <NODEREF id="faceCubo5" />
             <NODEREF id="faceCubo6" />
         </DESCENDANTS>
-
     </NODE>
 
     <NODE id="pernaBanco2">
