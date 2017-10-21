@@ -299,10 +299,9 @@
         <DESCENDANTS>
            <NODEREF id="assento" />
            <NODEREF id="costas" />
-           <NODEREF id="pernaBanco1" />
-           <NODEREF id="pernaBanco2" />
-           <NODEREF id="pernaBanco3" />
-           <NODEREF id="pernaBanco4" />
+           <NODEREF id="estruturaL" />
+           <NODEREF id="estruturaC"/>
+           <NODEREF id="estruturaR" />
            <NODEREF id="jornal" />
         </DESCENDANTS>
     </NODE>
@@ -471,12 +470,47 @@
     </NODE>
 
 
-  <NODE id="pernaBanco1">
+    <NODE id="estruturaL">
         <MATERIAL id="null" />
-        <TEXTURE id="leg" />
+        <TEXTURE id="topStatue" />
 
-        <TRANSLATION x="5" y="-0.5" z="3" />
-        <SCALE sx="0.1" sy="0.5" sz="0.1"/>
+        <TRANSLATION x="5" y="2.2" z="1"/>
+
+        <DESCENDANTS>
+                <NODEREF id="peBanco1"/>
+                <NODEREF id="peBanco2"/>
+                <NODEREF id="barra2"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="estruturaC">
+        <MATERIAL id="null" />
+        <TEXTURE id="topStatue" />
+
+        <TRANSLATION x="9.5" y="2" z="0.15"/>
+        <SCALE sx="0.1" sy="0.6" sz="0.025"/>
+
+        <DESCENDANTS>
+            <NODEREF id="barra1"/>   
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="estruturaR">
+        <MATERIAL id="null" />
+        <TEXTURE id="topStatue" />
+
+        <TRANSLATION x="15" y="2.2" z="1"/>
+
+        <DESCENDANTS>
+                <NODEREF id="peBanco3"/>
+                <NODEREF id="peBanco4"/>
+                <NODEREF id="barra3"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="barra1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -484,11 +518,91 @@
             <NODEREF id="faceCubo3" />
             <NODEREF id="faceCubo4" />
             <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" />
+            <NODEREF id="faceCubo6" />   
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="pernaBanco2">
+    <NODE id="barra2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+        <TRANSLATION x="-0.2" y="-0.3" z="-1"/>
+        <SCALE sx="0.025" sy="0.6" sz="0.1" />
+
+        <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />   
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="barra3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="-0.3" z="-1"/>
+        <SCALE sx="0.025" sy="0.6" sz="0.1" />
+
+        <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />   
+        </DESCENDANTS>
+    </NODE>
+
+   <NODE id="peBanco1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+                <LEAF id="cylinder2" type="cylinder" args="0.1 0.5 0.5 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="peBanco2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="3"/>
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+                <LEAF id="cylinder2" type="cylinder" args="0.1 0.5 0.5 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="peBanco3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+                <LEAF id="cylinder2" type="cylinder" args="0.1 0.5 0.5 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="peBanco4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="3"/>
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+                <LEAF id="cylinder2" type="cylinder" args="0.1 0.5 0.5 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+   <!-- <NODE id="pernaBanco2">
         <MATERIAL id="null" />
         <TEXTURE id="leg" />
 
@@ -540,7 +654,7 @@
             <NODEREF id="faceCubo6" />
         </DESCENDANTS>
 
-    </NODE>
+    </NODE>-->
 
 
     <!-- A cube face -->
@@ -632,7 +746,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="paper" />
 
-        <TRANSLATION x="8" y="4.5" z="2"/>
+        <TRANSLATION x="8" y="5.5" z="2"/>
         <SCALE sx="0.5" sy="0.5" sz="0.5" />
 
         <DESCENDANTS>
