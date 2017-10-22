@@ -226,7 +226,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="street" />
 
-        <SCALE sx="8" sy="3" sz="2" />
+        <SCALE sx="8" sy="4" sz="2" />
         <TRANSLATION x="0" y="0" z="0" />
 
         <DESCENDANTS>
@@ -256,37 +256,172 @@
          <TRANSLATION x="-7" y="0" z="4"/>
 
         <DESCENDANTS>
-           <NODEREF id="luz_esfera" />
-           <NODEREF id="luz_suporte" />
+           <NODEREF id="luzEsfera1" />
+           <NODEREF id="luzEsfera2" />
+           <NODEREF id="luzEsfera3"/>
+           <NODEREF id="luzSuporte" />
         </DESCENDANTS>
 
     </NODE>
 
     <!-- Light bulb -->
-    <NODE id="luz_esfera">
-        <MATERIAL id="null" />
+    <NODE id="luzEsfera1">
+       <MATERIAL id="null" />
         <TEXTURE id="null" />
-
-        <TRANSLATION x="0" y="10" z="0"/>
-        <SCALE sx="0.65" sy="0.65" sz="0.65" />
+       
+       <TRANSLATION x="-2.5" y="12" z="0"/>
 
         <DESCENDANTS>
-			<LEAF id="sphere1" type="sphere" args="2 20 20" />
+			<LEAF id="sphere1" type="sphere" args="0.8 20 20" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="luzEsfera2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+       <TRANSLATION x="2.5" y="12" z="0"/>
+
+        <DESCENDANTS>
+			<LEAF id="sphere1" type="sphere" args="0.8 20 20" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="luzEsfera3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+       <TRANSLATION x="0" y="12" z="0"/>
+
+        <DESCENDANTS>
+			<LEAF id="sphere1" type="sphere" args="0.8 20 20" />
         </DESCENDANTS>
     </NODE>
 
     <!-- The post in the lamp post... -->
-    <NODE id="luz_suporte">
+    <NODE id="luzSuporte">
         <MATERIAL id="lightPostMaterial" />
         <TEXTURE id="leg" />
+               
+        <DESCENDANTS>
+			<NODEREF id="suporte1"/>
+           <NODEREF id="suporte2"/>	
+            <NODEREF id="suporte3"/>
+            <NODEREF id="poste1"/>
+            <NODEREF id="poste2"/>
+            <NODEREF id="bracoPoste1"/>
+            <NODEREF id="bracoPoste2"/>
+            <NODEREF id="bracoPoste3"/>
+            <NODEREF id="bracoPoste4"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="suporte1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
        
-        <SCALE sx="0.3" sy="2.7" sz="0.3" />
+       <TRANSLATION x="0" y="1" z="0"/>
+       <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF id="cylinder1" type="cylinder" args="0.4 1.5 1.5 20 20 1 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="suporte2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="0" y="1.4" z="0"/>
         <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
-					<LEAF id="cylinder1" type="cylinder" args="4 2 0.5 20 5 0 0" />
+			<LEAF id="cylinder4" type="cylinder" args="0.8 1.5 0.5 20 20 1 0" />
         </DESCENDANTS>
+    </NODE>
 
+    <NODE id="suporte3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="0" y="2.2" z="0"/>
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF id="cylinder5" type="cylinder" args="1.7 1 0.5 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="poste1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="0" y="3.9" z="0"/>
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF id="cylinder6" type="cylinder" args="7 0.25 0.25 20 20 1 0" />
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="poste2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="0" y="10.8" z="0"/>
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF id="cylinder7" type="cylinder" args="1 0.5 1 20 20 1 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="bracoPoste1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="-0.8" y="11.5" z="0"/>
+        <ROTATION axis="y" angle="-90" />
+     
+        <DESCENDANTS>
+			<LEAF id="cylinder8" type="cylinder" args="2 0.15 0.15 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="bracoPoste3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="-2.5" y="11" z="0"/>
+        <ROTATION axis="x" angle="-90" />
+     
+        <DESCENDANTS>
+			<LEAF id="cylinder8" type="cylinder" args="1 0.5 1 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="bracoPoste2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="0.8" y="11.5" z="0"/>
+        <ROTATION axis="y" angle="90" />
+        
+        <DESCENDANTS>
+			<LEAF id="cylinder8" type="cylinder" args="2 0.15 0.15 20 20 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="bracoPoste4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="2.5" y="11" z="0"/>
+        <ROTATION axis="x" angle="-90" />
+     
+        <DESCENDANTS>
+			<LEAF id="cylinder8" type="cylinder" args="1 0.5 1 20 20 1 1" />
+        </DESCENDANTS>
     </NODE>
 
     <!-- Generic bench -->
