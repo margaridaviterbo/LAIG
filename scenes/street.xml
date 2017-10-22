@@ -974,6 +974,7 @@
            <NODEREF id="assento" />
            <NODEREF id="costas" />
            <NODEREF id="pesBanco"/>
+           <NODEREF id="pernasBanco"/>
          <!--  <NODEREF id="estruturaL" />
            <NODEREF id="estruturaC"/>
            <NODEREF id="estruturaR" />-->
@@ -1311,13 +1312,24 @@
         </DESCENDANTS>
     </NODE>
 
+      <NODE id="pernasBanco">
+        <MATERIAL id="null" />
+        <TEXTURE id="leg" />
+
+        <TRANSLATION x="5" y="2.2" z="0.5"/>   
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+                <NODEREF id="pernaBanco1"/>
+                <NODEREF id="pernaBanco2"/>
+                <NODEREF id="pernaBanco3"/>
+                <NODEREF id="pernaBanco4"/>
+        </DESCENDANTS>
+    </NODE>
 
     <NODE id="pernaBanco1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
-         <TRANSLATION x="0" y="0" z="3"/>   
-         <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
             <LEAF id="cylinder3" type="cylinder" args="2.5 0.2 0.2 20 20 1 1" />
@@ -1330,7 +1342,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <ROTATION axis="x" angle="-90" />
+        <TRANSLATION x="0" y="-3" z="0"/>   
 
         <DESCENDANTS>
             <LEAF id="cylinder3" type="cylinder" args="2.5 0.2 0.2 20 20 1 1" />
@@ -1341,9 +1353,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <TRANSLATION x="0" y="0" z="3"/>   
-         <ROTATION axis="x" angle="-90" />
-       
+        <TRANSLATION x="10" y="0" z="0"/>  
+
         <DESCENDANTS>
             <LEAF id="cylinder3" type="cylinder" args="2.5 0.2 0.2 20 20 1 1" />
         </DESCENDANTS>
@@ -1353,9 +1364,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <ROTATION axis="x" angle="-90" />
+        <TRANSLATION x="10" y="-3" z="0"/>  
 
-         <DESCENDANTS>
+        <DESCENDANTS>
             <LEAF id="cylinder3" type="cylinder" args="2.5 0.2 0.2 20 20 1 1" />
         </DESCENDANTS>
     </NODE>
