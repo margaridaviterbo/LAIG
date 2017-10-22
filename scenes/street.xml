@@ -294,6 +294,8 @@
         <DESCENDANTS>
             <NODEREF id="pilarPortao1" />
             <NODEREF id="pilarPortao2" />
+            <NODEREF id="piramidePortao1"/>
+            <NODEREF id="piramidePortao2"/>
 		</DESCENDANTS>
     </NODE>
 
@@ -313,6 +315,18 @@
 		</DESCENDANTS>
     </NODE>
 
+    <NODE id="piramidePortao1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+         <TRANSLATION x="2" y="23.5" z="2"/>
+         <SCALE sx="0.15" sy="0.2" sz="0.15" />
+
+        <DESCENDANTS>
+            <NODEREF id="piramide"/>
+        </DESCENDANTS>
+    </NODE>
+
     <NODE id="pilarPortao2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -330,6 +344,17 @@
 		</DESCENDANTS>
     </NODE>
 
+    <NODE id="piramidePortao2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+         <TRANSLATION x="20" y="23.5" z="2"/>
+         <SCALE sx="0.15" sy="0.2" sz="0.15" />
+
+        <DESCENDANTS>
+            <NODEREF id="piramide"/>
+        </DESCENDANTS>
+    </NODE>
     
 
     <!-- The lights -->
@@ -1074,104 +1099,89 @@
     <NODE id="piramide">
 
         <MATERIAL id="statueMaterial" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="24" y="2.25" z="8" />
-        <SCALE sx="0.2" sy="0.75" sz="0.2" />
+        <TEXTURE id="leg"/>
 
         <DESCENDANTS>
        		<NODEREF id="meiaPiramide1" />
             <NODEREF id="meiaPiramide2" />
-            <NODEREF id="basePiramide" />
-            <NODEREF id="statue2" />
+           <!-- <NODEREF id="basePiramide" />-->
+           <!-- <NODEREF id="statue2" />-->
         </DESCENDANTS>
 
     </NODE>
 
     <!-- The pyramid base -->
-    <NODE id="basePiramide">
+   <!-- <NODE id="basePiramide">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
        	<ROTATION axis="x" angle="90" />
-       	<TRANSLATION x="1" y="6" z="2.87" />
-       	<SCALE sx="2.8" sy="3.5" sz="1" />
-
+     
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+			<LEAF  type="rectangle" args="0 4 5 0" />
         </DESCENDANTS>
-
-    </NODE>
+    </NODE>-->
 
     <!-- Half a pyramid -->
     <NODE id="meiaPiramide1">
         <MATERIAL id="null" />
-        <TEXTURE id="bottomStatue" />
+        <TEXTURE id="null" />
 
         <DESCENDANTS>
             <NODEREF id="meiaPiramide" />
         </DESCENDANTS>
-
     </NODE>
 
     <!-- The other half -->
     <NODE id="meiaPiramide2">
         <MATERIAL id="null" />
-        <TEXTURE id="bottomStatue" />
+        <TEXTURE id="null" />
 
-		<TRANSLATION x="16" y="0" z="26"	/>
 		<ROTATION axis="y" angle="180" />
 
         <DESCENDANTS>
             <NODEREF id="meiaPiramide" />
         </DESCENDANTS>
-
     </NODE>
 
     <!-- Generic half a pyramid -->
     <NODE id="meiaPiramide">
         <MATERIAL id="null" />
-        <TEXTURE id="bottomStatue" />
+        <TEXTURE id="null" />
 
         <DESCENDANTS>
             <NODEREF id="facePiramide1" />
             <NODEREF id="facePiramide2" />
         </DESCENDANTS>
-
     </NODE>
 
     <!-- Pyramid face -->
    <NODE id="facePiramide1">
         <MATERIAL id="null" />
-        <TEXTURE id="bottomStatue" />
+        <TEXTURE id="null" />
 
-		<TRANSLATION x="8" y="4" z="13" />
 		<ROTATION axis="x" angle="44.42" />
        	<ROTATION axis="y" angle="-45" />
 
         <DESCENDANTS>
 					<LEAF id="triangle1" type="triangle" args="2 0 12 12 0 2 0 0 0" />
         </DESCENDANTS>
-
     </NODE>
 
     <!-- Another pyramid face -->
     <NODE id="facePiramide2">
         <MATERIAL id="null" />
-        <TEXTURE id="bottomStatue" />
+        <TEXTURE id="null" />
 
-       	<TRANSLATION x="10" y="4" z="15" />
-        <TRANSLATION x="-2" y="0" z="-2" />
        	<ROTATION axis="z" angle="-44.42" />
        	<ROTATION axis="y" angle="45" />
 
         <DESCENDANTS>
 					<LEAF id="triangle1" type="triangle" args="2 0 12 12 0 2 0 0 0" />
         </DESCENDANTS>
-
     </NODE>
 
-    <NODE id="statue2">
+ <!--   <NODE id="statue2">
         <MATERIAL id="null" />
         <TEXTURE id="topStatue" />
 
@@ -1182,7 +1192,7 @@
 			<LEAF id="sphere2" type="sphere" args="2 20 20" />
         </DESCENDANTS>
 
-    </NODE>
+    </NODE>-->
 </NODES>
 
 </SCENE>
