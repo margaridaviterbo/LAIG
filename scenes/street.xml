@@ -57,7 +57,7 @@
     </TEXTURE>
 
 	<TEXTURE id="street">
-        <file path="images/street.jpg" />
+        <file path="images/garden.jpeg" />
         <amplif_factor s="5" t="4" />
     </TEXTURE>
 
@@ -86,9 +86,14 @@
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-     <TEXTURE id="pavement">
+    <TEXTURE id="pavement">
         <file path="images/pav2.jpg" />
         <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="brick">
+        <file path="images/brick.jpg" />
+        <amplif_factor s="1" t="3" />
     </TEXTURE>
 </TEXTURES>
 
@@ -170,6 +175,7 @@
             <NODEREF id="luzes" />
             <NODEREF id="banco" />
             <NODEREF id="chao" />
+            <NODEREF id="jardim"/>
             <NODEREF id="parede"/>
             <!--NODEREF id="piramide" /-->
         </DESCENDANTS>
@@ -181,7 +187,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="rocks" />
 
-        <SCALE sx="8" sy="1" sz="6" />
+        <SCALE sx="12" sy="1" sz="6" />
         <TRANSLATION x="0" y="0" z="4" />
         <ROTATION axis="x" angle="-90" />
 
@@ -192,7 +198,7 @@
 
     </NODE>
 
-<!-- The street-->
+    <!-- The street-->
     <NODE id="estrada">
         <MATERIAL id="null" />
         <TEXTURE id="rocks" />
@@ -218,34 +224,124 @@
             <NODEREF id="faceCubo5" />
             <NODEREF id="faceCubo6" />
 		</DESCENDANTS>
+    </NODE>
 
+    <!-- The garden -->
+    <NODE id="jardim">
+        <MATERIAL id="null" />
+        <TEXTURE id="street" />
+
+        <SCALE sx="12" sy="6" sz="2" />
+        
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="0 4 5 0" />
+		</DESCENDANTS>
     </NODE>
 
     <!-- The wall -->
     <NODE id="parede">
         <MATERIAL id="null" />
-        <TEXTURE id="street" />
+        <TEXTURE id="null" />
 
-        <SCALE sx="8" sy="4" sz="2" />
-        <TRANSLATION x="0" y="0" z="0" />
+        <TRANSLATION x="-10" y="-11" z="-0.75"/>
+                    
+        <DESCENDANTS>
+			<NODEREF id="muro1" />
+            <NODEREF id="muro2" />
+            <NODEREF id="portao"/>
+		</DESCENDANTS>
+    </NODE>
+
+     <NODE id="muro1">
+        <MATERIAL id="null" />
+        <TEXTURE id="brick" />
+     
+         <SCALE sx="4" sy="3" sz="0.4" />
 
         <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 5 0" />
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
 		</DESCENDANTS>
-
     </NODE>
+
+    <NODE id="muro2">
+        <MATERIAL id="null" />
+        <TEXTURE id="brick" />
+
+        <TRANSLATION x="40" y="0" z="0"/>
+        <SCALE sx="4" sy="3" sz="0.4" />
+           
+        <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+		</DESCENDANTS>
+    </NODE>
+
+     <NODE id="portao">
+        <MATERIAL id="null" />
+        <TEXTURE id="leg" />
+
+        <TRANSLATION x="29" y="0" z="0"/>
+           
+        <DESCENDANTS>
+            <NODEREF id="pilarPortao1" />
+            <NODEREF id="pilarPortao2" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="pilarPortao1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <SCALE sx="0.4" sy="2.8" sz="0.4" />
+
+        <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+		</DESCENDANTS>
+    </NODE>
+
+    <NODE id="pilarPortao2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="18" y="0" z="0"/>
+        <SCALE sx="0.4" sy="2.8" sz="0.4" />         
+                   
+        <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+		</DESCENDANTS>
+    </NODE>
+
+    
 
     <!-- The lights -->
      <NODE id="luzes">
         <MATERIAL id="lightMaterial" />
         <TEXTURE id="clear" />
 
-        <TRANSLATION x="30" y="0" z="0" />
+        <TRANSLATION x="10" y="0" z="0" />
 
        <DESCENDANTS>
            <NODEREF id="luz_candeeiro" />
         </DESCENDANTS>
-
     </NODE>
 
     <!-- Lamp post -->
