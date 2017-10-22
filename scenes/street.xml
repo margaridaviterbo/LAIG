@@ -68,7 +68,7 @@
 
 <TEXTURES>
 <TEXTURE id="rocks">
-        <file path="images/paralelo.jpg" />
+        <file path="images/floor.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -84,16 +84,6 @@
 
     <TEXTURE id="leg">
         <file path="images/poste_candeeiro.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <TEXTURE id="topStatue">
-        <file path="images/vitral.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <TEXTURE id="bottomStatue">
-        <file path="images/statue.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -113,14 +103,24 @@
     </TEXTURE>
 
     <TEXTURE id="gate">
-        <file path="images/gate2.jpg" />
-        <amplif_factor s="1" t="4" />
+        <file path="images/gate3.jpg" />
+        <amplif_factor s="1" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="bush">
+        <file path="images/garden.jpeg" />
+        <amplif_factor s="4" t="4" />
+    </TEXTURE>
+    <TEXTURE id="lampPost">
+         <file path="images/gate3.jpg" />
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 
     <TEXTURE id="direction">
         <file path="images/direction.jpg" />
         <amplif_factor s="5" t="4" />
     </TEXTURE>
+
 </TEXTURES>
 
 <!-- TODO Materials -->
@@ -197,6 +197,8 @@
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
 
+        <TRANSLATION x="-15" y="0" z="-5" />
+
         <DESCENDANTS>
             <NODEREF id="luzes" />
             <NODEREF id="posteDirecoes" />
@@ -204,7 +206,23 @@
             <NODEREF id="chao" />
             <NODEREF id="jardim"/>
             <NODEREF id="parede"/>
+            <NODEREF id="arbusto"/>
         </DESCENDANTS>
+    </NODE>
+
+
+     <!-- The floor -->
+    <NODE id="arbusto">
+        <MATERIAL id="null" />
+        <TEXTURE id="bush" />
+
+        <SCALE sx="1" sy="6" sz="4.8" />
+        <ROTATION axis="y" angle="-90" />
+        
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 5 0" />
+        </DESCENDANTS>
+
     </NODE>
 
     <!-- The floor -->
@@ -760,7 +778,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
 
-        <TRANSLATION x="10" y="0" z="0" />
+
+        <TRANSLATION x="13" y="0" z="0" />
 
        <DESCENDANTS>
            <NODEREF id="luzCandeeiro" />
@@ -783,6 +802,7 @@
 
     <!-- Light bulbs -->
      <NODE id="luzEsfera">
+
         <MATERIAL id="lightMaterial" />
         <TEXTURE id="null" />
        
@@ -829,7 +849,7 @@
     <!-- The post in the lamp post... -->
     <NODE id="luzSuporte">
         <MATERIAL id="lightPostMaterial" />
-        <TEXTURE id="leg" />
+        <TEXTURE id="lampPost" />
                
         <DESCENDANTS>
 			<NODEREF id="luzBase"/>
