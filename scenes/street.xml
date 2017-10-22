@@ -97,8 +97,8 @@
     </TEXTURE>
 
     <TEXTURE id="gate">
-        <file path="images/green.png" />
-        <amplif_factor s="1" t="1" />
+        <file path="images/gate2.jpg" />
+        <amplif_factor s="1" t="4" />
     </TEXTURE>
 </TEXTURES>
 
@@ -297,7 +297,7 @@
 
      <NODE id="portao">
         <MATERIAL id="null" />
-        <TEXTURE id="leg" />
+        <TEXTURE id="gate" />
               
         <DESCENDANTS>
             <NODEREF id="pilaresPortao" />
@@ -1125,6 +1125,26 @@
         </DESCENDANTS>
     </NODE>
 
+   
+
+  
+
+      <NODE id="barrasBanco">
+        <MATERIAL id="null" />
+        <TEXTURE id="leg" />
+
+        <TRANSLATION x="9.5" y="2" z="0.15"/>
+        
+
+        <DESCENDANTS>
+            <NODEREF id="barraBanco1" />
+            <NODEREF id="barraBanco2" />
+            <NODEREF id="barraBanco3" />
+            <NODEREF id="barraBanco4" />
+            <NODEREF id="barraBanco5" />
+        </DESCENDANTS>
+    </NODE>
+
     <NODE id="barraBanco1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -1200,7 +1220,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-       <TRANSLATION x="5.4" y="2" z="-3"/>
+        <TRANSLATION x="5.4" y="2" z="-3"/>
        <ROTATION axis="z" angle="90" />
        <ROTATION axis="x" angle="90" />
        <SCALE sx="0.1" sy="0.8" sz="0.025"/>
