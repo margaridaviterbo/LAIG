@@ -116,6 +116,11 @@
         <file path="images/gate2.jpg" />
         <amplif_factor s="1" t="4" />
     </TEXTURE>
+
+    <TEXTURE id="direction">
+        <file path="images/direction.jpg" />
+        <amplif_factor s="5" t="4" />
+    </TEXTURE>
 </TEXTURES>
 
 <!-- TODO Materials -->
@@ -194,6 +199,7 @@
 
         <DESCENDANTS>
             <NODEREF id="luzes" />
+            <NODEREF id="posteDirecoes" />
             <NODEREF id="banco" />
             <NODEREF id="chao" />
             <NODEREF id="jardim"/>
@@ -978,6 +984,116 @@
 			<LEAF id="cylinder8" type="cylinder" args="1 0.5 1 20 20 1 1" />
         </DESCENDANTS>
     </NODE>
+
+    <!-- Posto informaçoes -->
+     <NODE id="posteDirecoes">
+        <MATERIAL id="null" />
+        <TEXTURE id="clear" />
+
+        <TRANSLATION x="65" y="0" z="8" />
+
+       <DESCENDANTS>
+           <NODEREF id="poste" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- post -->
+    <NODE id="poste">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+         <TRANSLATION x="-21" y="0" z="4"/>
+
+        <DESCENDANTS>
+           <NODEREF id="placas" />
+           <NODEREF id="suporte" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="suporte">
+        <MATERIAL id="lightPostMaterial" />
+        <TEXTURE id="leg" />
+               
+        <DESCENDANTS>
+			<NODEREF id="luzBase"/>
+            <NODEREF id="postePlacas"/>
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="postePlacas">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <TRANSLATION x="0" y="3.9" z="0"/>
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+			<NODEREF id="luzPoste1"/>
+            <NODEREF id="topoPoste"/>
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="topoPoste">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="7"/>
+       
+        <DESCENDANTS>
+			<LEAF id="spherePoste" type="sphere" args="0.5 20 20" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!--  -->
+    <NODE id="placas">
+        <MATERIAL id="null" />
+        <TEXTURE id="direction" />
+   
+        <DESCENDANTS>
+			<NODEREF id="placa1" />
+            <NODEREF id="placa2" />
+            <NODEREF id="placa3" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!--  -->
+    <NODE id="placa1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <ROTATION axis="y" angle="180"/>
+        <TRANSLATION x="4.5" y="7" z="0"/>
+
+        <DESCENDANTS>
+			<NODEREF id="barraBanco4"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="placa2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <ROTATION axis="y" angle="60"/>
+        <TRANSLATION x="4.5" y="6.5" z="0"/>
+
+        <DESCENDANTS>
+			<NODEREF id="barraBanco4"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="placa3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+       
+        <ROTATION axis="y" angle="-60"/>
+        <TRANSLATION x="4.5" y="6" z="0"/>
+
+        <DESCENDANTS>
+			<NODEREF id="barraBanco4"/>
+        </DESCENDANTS>
+    </NODE>
+
 
     <!-- Generic bench -->
     <NODE id="banco">
