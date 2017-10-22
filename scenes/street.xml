@@ -19,7 +19,23 @@
 <LIGHTS>
     <LIGHT id="light0">
         <enable value ="1" />
-        <position  x="0" y="10" z="0" w="1" />
+        <position  x="3" y="12" z="4" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light0.1">
+        <enable value ="1" />
+        <position  x="1" y="12" z="4" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light0.2">
+        <enable value ="1" />
+        <position  x="5" y="12" z="4" w="1" />
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -143,10 +159,10 @@
     <!-- Light bulb material -->
     <MATERIAL id="lightMaterial">
         <shininess value="100" />
-        <specular r="0.5" g="0.5" b="0.5" a="1" />
-        <diffuse r="0.5" g="0.5" b="0.5" a="1" />
-        <ambient r="0.0" g="0.0" b="0.0" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
+        <specular r="0.5" g="0.5" b="0.5" a="0" />
+        <diffuse r="0.5" g="0.5" b="0.5" a="0" />
+        <ambient r="0.0" g="0.0" b="0.0" a="0" />
+        <emission r="0.0" g="0.0" b="0.0" a="0" />
     </MATERIAL>
 
     <!-- A default material -->
@@ -735,7 +751,7 @@
 
     <!-- The lights -->
      <NODE id="luzes">
-        <MATERIAL id="lightMaterial" />
+        <MATERIAL id="null" />
         <TEXTURE id="clear" />
 
         <TRANSLATION x="10" y="0" z="0" />
@@ -761,7 +777,7 @@
 
     <!-- Light bulbs -->
      <NODE id="luzEsfera">
-       <MATERIAL id="null" />
+        <MATERIAL id="lightMaterial" />
         <TEXTURE id="null" />
        
        <TRANSLATION x="-2.5" y="12" z="0"/>
