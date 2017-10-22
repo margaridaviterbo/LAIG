@@ -103,7 +103,7 @@
     </TEXTURE>
 
     <TEXTURE id="gate">
-        <file path="images/gate3.jpg" />
+        <file path="images/gate2.jpg" />
         <amplif_factor s="1" t="2" />
     </TEXTURE>
 
@@ -111,11 +111,7 @@
         <file path="images/garden.jpeg" />
         <amplif_factor s="4" t="4" />
     </TEXTURE>
-    <TEXTURE id="lampPost">
-         <file path="images/gate3.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
+   
     <TEXTURE id="direction">
         <file path="images/direction.jpg" />
         <amplif_factor s="5" t="4" />
@@ -849,7 +845,7 @@
     <!-- The post in the lamp post... -->
     <NODE id="luzSuporte">
         <MATERIAL id="lightPostMaterial" />
-        <TEXTURE id="lampPost" />
+        <TEXTURE id="leg" />
                
         <DESCENDANTS>
 			<NODEREF id="luzBase"/>
@@ -1010,7 +1006,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
 
-        <TRANSLATION x="65" y="0" z="8" />
+        <TRANSLATION x="70" y="0" z="5" />
 
        <DESCENDANTS>
            <NODEREF id="poste" />
