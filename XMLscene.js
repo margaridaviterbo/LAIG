@@ -90,6 +90,8 @@ XMLscene.prototype.onGraphLoaded = function()
     
     this.initLights();
 
+    this.setUpdatePeriod(50);    
+
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
 }
@@ -150,6 +152,15 @@ XMLscene.prototype.display = function() {
 
     this.popMatrix();
     
-    // ---- END Background, camera and axis setup
-    
+    // ---- END Background, camera and axis setup   
+}
+
+XMLscene.prototype.update = function(currTime) {
+    console.log("ola aqui");  
+    for (nodeID in this.graph.nodes) {
+        const node = this.graph.nodes[nodeID];
+        if (node.animation != undefined) {
+            node.animation.update(currTime);
+        }
+    }
 }

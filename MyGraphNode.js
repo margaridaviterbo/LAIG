@@ -22,6 +22,10 @@ function MyGraphNode(graph, nodeID) {
 
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
+
+    if(this.nodeID == "jornal"){
+        this.animation = new LinearAnimation(this.graph.scene, this, [[0, 0, 0], [1, 0, 0], [1, 1, 0]], 10);        
+    }
 }
 
 /**
