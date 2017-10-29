@@ -64,7 +64,6 @@ Triangle.prototype.initBuffers = function () {
 };
 
 Triangle.prototype.setTextCoords = function(s,t){
-    //this.texCoords = [];
 
     this.texCoords = [
         0, 0,

@@ -13,13 +13,12 @@
 <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />
     <background r="0" g="0" b="0" a="1" />
-    <!--double or single side illumination??-->
 </ILLUMINATION>
 
 <LIGHTS>
     <LIGHT id="light0">
         <enable value ="1" />
-        <position  x="3" y="12" z="4" w="1" />
+        <position  x="-11.5" y="8.5" z="-1" w="1" />
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -27,7 +26,7 @@
 
     <LIGHT id="light0.1">
         <enable value ="1" />
-        <position  x="1" y="12" z="4" w="1" />
+        <position  x="-9" y="8.5" z="-1" w="1" />
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -35,7 +34,7 @@
 
     <LIGHT id="light0.2">
         <enable value ="1" />
-        <position  x="5" y="12" z="4" w="1" />
+        <position  x="-6" y="8.5" z="-1" w="1" />
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -103,7 +102,7 @@
     </TEXTURE>
 
     <TEXTURE id="gate">
-        <file path="images/gate3.jpg" />
+        <file path="images/gate2.jpg" />
         <amplif_factor s="1" t="2" />
     </TEXTURE>
 
@@ -111,11 +110,7 @@
         <file path="images/garden.jpeg" />
         <amplif_factor s="4" t="4" />
     </TEXTURE>
-    <TEXTURE id="lampPost">
-         <file path="images/gate3.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
+   
     <TEXTURE id="direction">
         <file path="images/direction.jpg" />
         <amplif_factor s="5" t="4" />
@@ -123,26 +118,7 @@
 
 </TEXTURES>
 
-<!-- TODO Materials -->
 <MATERIALS>
-
-	<!-- Tree leaves material -->
-	<MATERIAL id="leavesTreeMaterial">
-        <shininess value="1" />
-        <specular r="0.2" g="0.2" b="0.2" a="1" />
-        <diffuse r="0.0" g="0.207" b="0.0" a="1" />
-        <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-	<!-- Tree trunk material -->
-	<MATERIAL id="woodMaterial">
-        <shininess value="1" />
-        <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.6" g="0.298" b="0.0" a="1" />
-        <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
 
     <MATERIAL id="statueMaterial">
         <shininess value="50" />
@@ -197,7 +173,7 @@
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-15" y="0" z="-5" />
+        <TRANSLATION x="-15" y="-3" z="-5" />
 
         <DESCENDANTS>
             <NODEREF id="luzes" />
@@ -211,7 +187,6 @@
     </NODE>
 
 
-     <!-- The floor -->
     <NODE id="arbusto">
         <MATERIAL id="null" />
         <TEXTURE id="bush" />
@@ -305,7 +280,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="muro1">
+    <NODE id="muro1">
         <MATERIAL id="null" />
         <TEXTURE id="brick" />
 
@@ -316,7 +291,7 @@
             <NODEREF id="faceCubo4" />
             <NODEREF id="faceCubo5" />
             <NODEREF id="faceCubo6" />
-		</DESCENDANTS>
+        </DESCENDANTS>
     </NODE>
 
     <NODE id="muro2">
@@ -335,10 +310,10 @@
 		</DESCENDANTS>
     </NODE>
 
-     <NODE id="portao">
+    <NODE id="portao">
         <MATERIAL id="null" />
         <TEXTURE id="gate" />
-              
+            
         <DESCENDANTS>
             <NODEREF id="pilaresPortao" />
             <NODEREF id="piramidesPortao"/>
@@ -347,7 +322,7 @@
     </NODE>
 
 
-     <NODE id="barrasPortao">
+    <NODE id="barrasPortao">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -372,7 +347,7 @@
             <NODEREF id="barraPortao16" />
             <NODEREF id="barraPortao17" />
             <NODEREF id="barraPortao18" />
-           </DESCENDANTS>
+        </DESCENDANTS>
     </NODE>
 
     <NODE id="barraPortao1">
@@ -849,7 +824,7 @@
     <!-- The post in the lamp post... -->
     <NODE id="luzSuporte">
         <MATERIAL id="lightPostMaterial" />
-        <TEXTURE id="lampPost" />
+        <TEXTURE id="leg" />
                
         <DESCENDANTS>
 			<NODEREF id="luzBase"/>
@@ -918,7 +893,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="luzPoste1">
+    <NODE id="luzPoste1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -927,7 +902,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="luzPoste2">
+    <NODE id="luzPoste2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -1010,7 +985,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
 
-        <TRANSLATION x="65" y="0" z="8" />
+        <TRANSLATION x="70" y="0" z="5" />
 
        <DESCENDANTS>
            <NODEREF id="poste" />
@@ -1041,7 +1016,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="postePlacas">
+    <NODE id="postePlacas">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -1054,7 +1029,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="topoPoste">
+    <NODE id="topoPoste">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -1065,7 +1040,6 @@
         </DESCENDANTS>
     </NODE>
 
-    <!--  -->
     <NODE id="placas">
         <MATERIAL id="null" />
         <TEXTURE id="direction" />
@@ -1077,7 +1051,6 @@
         </DESCENDANTS>
     </NODE>
 
-    <!--  -->
     <NODE id="placa1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -1181,7 +1154,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="ripa4">
+    <NODE id="ripa4">
         <MATERIAL id="null" />
         <TEXTURE id="wood"/>
 
@@ -1277,11 +1250,8 @@
         </DESCENDANTS>
     </NODE>
 
-   
 
-  
-
-      <NODE id="barrasBanco">
+    <NODE id="barrasBanco">
         <MATERIAL id="null" />
         <TEXTURE id="leg" />
 
@@ -1404,7 +1374,7 @@
         </DESCENDANTS>
     </NODE>
 
-   <NODE id="peBanco1">
+    <NODE id="peBanco1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -1413,7 +1383,7 @@
         </DESCENDANTS>
    </NODE>
 
-     <NODE id="peBanco2">
+    <NODE id="peBanco2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -1470,7 +1440,7 @@
         </DESCENDANTS>
     </NODE>
  
-   <NODE id="pernaBanco2">
+    <NODE id="pernaBanco2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -1677,27 +1647,9 @@
         <DESCENDANTS>
        		<NODEREF id="meiaPiramide1" />
             <NODEREF id="meiaPiramide2" />
-           <!-- <NODEREF id="basePiramide" />-->
-           <!-- <NODEREF id="statue2" />-->
         </DESCENDANTS>
 
     </NODE>
-
-    <!-- The pyramid base -->
-   
-   
-   
-   
-   <!-- <NODE id="basePiramide">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-       	<ROTATION axis="x" angle="90" />
-     
-        <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 5 0" />
-        </DESCENDANTS>
-    </NODE>-->
 
     <!-- Half a pyramid -->
     <NODE id="meiaPiramide1">
@@ -1758,18 +1710,6 @@
         </DESCENDANTS>
     </NODE>
 
- <!--   <NODE id="statue2">
-        <MATERIAL id="null" />
-        <TEXTURE id="topStatue" />
-
-        <TRANSLATION x="8" y="2" z="14"/>
-        <SCALE sx="3.5" sy="1" sz="3.5" />
-
-        <DESCENDANTS>
-			<LEAF id="sphere2" type="sphere" args="2 20 20" />
-        </DESCENDANTS>
-
-    </NODE>-->
 </NODES>
 
 </SCENE>
