@@ -156,7 +156,6 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(currTime) {
-    console.log("ola aqui");  
     for (nodeID in this.graph.nodes) {
         const node = this.graph.nodes[nodeID];
         if (node.animation != undefined) {

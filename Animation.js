@@ -8,9 +8,11 @@ function Animation(){
         console.log("Sou o pai");
     };
 
+    /*função desnecessaria???
     Animation.prototype.update = function(currTime){
         
         //TODO chamar funçoes update de todas as animations??????????????    
         
     };
+    */
 }
