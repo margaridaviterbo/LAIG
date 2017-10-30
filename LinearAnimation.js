@@ -3,74 +3,76 @@
  * 
  */
 class LinearAnimation extends Animation{
-	constructor(scene, node, controlPoints, velocity) {
+	constructor(scene, controlPoints, velocity) {
 		super();
         this.say();
     
         this.scene = scene;
-        this.node = node;
+        //this.node = node;
         this.controlPoints = controlPoints;
         this.velocity = velocity;
         
         this.positionX = 0;
         this.positionY = 0;
         this.positionZ = 0;
+
+        this.controlVar = -1;
+        this.previousCurrTime = 0;
     }
     
-    //TODO transpor este codigo para funcionar com qualquer movimento linear, quantidade de controlPoints...etc
     //TODO implementar as rotaçoes
 
     update(currTime){
-        if(this.positionX < this.controlPoints[1][0]){
-            var direction = [
-                this.controlPoints[1][0] - this.controlPoints[0][0],
-                this.controlPoints[1][1] - this.controlPoints[0][1],
-                this.controlPoints[1][2] - this.controlPoints[0][2],
-            ];
-        
-            var x = direction[0];
-            var y = direction[1];
-            var z = direction[2];
-        
-            this.positionX += x*0.04*this.velocity;
-            this.positionZ += z*0.04*this.velocity;
-            this.positionY += y*0.04*this.velocity;
+
+        if(this.previousCurrTime == 0){
+            this.previousCurrTime = currTime;
         }
-        else{
-            if(this.positionY < this.controlPoints[2][1]){
-                var direction = [
-                    this.controlPoints[2][0] - this.controlPoints[1][0],
-                    this.controlPoints[2][1] - this.controlPoints[1][1],
-                    this.controlPoints[2][2] - this.controlPoints[1][2],
-                ];
-            
-                var x = direction[0];
-                var y = direction[1];
-                var z = direction[2];
-            
-                this.positionX += x*0.04*this.velocity;
-                this.positionZ += z*0.04*this.velocity;
-                this.positionY += y*0.04*this.velocity;
-            }
-            else{
-                if(this.positionZ < this.controlPoints[3][2]){
-                    var direction = [
-                        this.controlPoints[3][0] - this.controlPoints[2][0],
-                        this.controlPoints[3][1] - this.controlPoints[2][1],
-                        this.controlPoints[3][2] - this.controlPoints[2][2],
-                    ];
-                
-                    var x = direction[0];
-                    var y = direction[1];
-                    var z = direction[2];
-                
-                    this.positionX += x*0.04*this.velocity;
-                    this.positionZ += z*0.04*this.velocity;
-                    this.positionY += y*0.04*this.velocity;
+        var dt = (currTime - this.previousCurrTime)/1000;
+        this.previousCurrTime = currTime;
+       
+        if(this.controlVar < this.controlPoints.length - 1){
+            if(this.positionX == this.controlPoints[this.controlVar + 1][0] && this.positionY == this.controlPoints[this.controlVar + 1][1] && this.positionZ == this.controlPoints[this.controlVar + 1][2]){
+                this.controlVar++;
+
+                if(this.controlVar != this.controlPoints.length - 1){
+                    this.direction = [
+                        this.controlPoints[this.controlVar + 1][0] - this.controlPoints[this.controlVar][0],
+                        this.controlPoints[this.controlVar + 1][1] - this.controlPoints[this.controlVar][1],
+                        this.controlPoints[this.controlVar + 1][2] - this.controlPoints[this.controlVar][2],
+                    ]; 
                 }
+                else{
+                    this.direction = [0, 0, 0];
+                } 
             }
-        }        
-        
+           
+            var x = this.direction[0];
+            var y = this.direction[1];
+            var z = this.direction[2];
+
+            this.positionX += x*dt*this.velocity;
+            this.positionZ += z*dt*this.velocity;
+            this.positionY += y*dt*this.velocity;
+
+            var nextX = this.positionX + x*dt*this.velocity;
+            var nextY = this.positionY + y*dt*this.velocity;
+            var nextZ = this.positionZ + z*dt*this.velocity;
+
+            if(this.controlVar != this.controlPoints.length - 1){
+                if(((this.positionX <= this.controlPoints[this.controlVar + 1][0] && this.controlPoints[this.controlVar + 1][0] <= nextX) || (this.positionX >= this.controlPoints[this.controlVar + 1][0] && this.controlPoints[this.controlVar + 1][0] >= nextX)) &&
+                ((this.positionY <= this.controlPoints[this.controlVar + 1][1] && this.controlPoints[this.controlVar + 1][1] <= nextY) || (this.positionY >= this.controlPoints[this.controlVar + 1][1] && this.controlPoints[this.controlVar + 1][1] >= nextY)) && 
+                ((this.positionZ <= this.controlPoints[this.controlVar + 1][2] && this.controlPoints[this.controlVar + 1][2] <= nextZ) || (this.positionZ >= this.controlPoints[this.controlVar + 1][2] && this.controlPoints[this.controlVar + 1][2] >= nextZ))){
+
+                this.positionX = this.controlPoints[this.controlVar + 1][0];
+                this.positionY = this.controlPoints[this.controlVar + 1][1];
+                this.positionZ = this.controlPoints[this.controlVar + 1][2];
+            }
+            }   
+        }
+    }
+
+    push(){
+        this.scene.translate(this.positionX, this.positionY, this.positionZ);        
     }
 	
 }
