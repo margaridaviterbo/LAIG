@@ -1537,6 +1537,9 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
 
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
+        if (node.animation != undefined) {
+            node.animation.push();
+        }
             
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);

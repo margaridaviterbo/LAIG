@@ -41,7 +41,7 @@ CylinderBase.prototype.initBuffers = function() {
 };
 
 CylinderBase.prototype.setTextCoords = function(s,t){
-    //this.texCoords = [];
+    
     for (var i=0; i <= this.slices; i++){
         this.texCoords.push(Math.cos(i * this.angle)/s, Math.sin(i * this.angle)/t);
     }
