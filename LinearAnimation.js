@@ -8,7 +8,6 @@ class LinearAnimation extends Animation{
         this.say();
     
         this.scene = scene;
-        //this.node = node;
         this.controlPoints = controlPoints;
         this.velocity = velocity;
         
@@ -18,9 +17,46 @@ class LinearAnimation extends Animation{
 
         this.controlVar = -1;
         this.previousCurrTime = 0;
+
+        this.angle = 0;
+        this.previousDirection = [0, 0, 0];
     }
     
-    //TODO implementar as rotaçoes
+   
+    //TODO as rotaçoes ainda nao estao completamente bem, p.e. para subir nao é suposto rodar a roda....
+    calcAngle() {
+        
+        if(this.previousDirection != undefined){
+            var prevDir = this.previousDirection;
+        }
+        else{
+            var prevDir = [0, 0, 0];
+        }
+
+        if(this.direction != undefined){
+            var dir = [this.direction[0], 0, this.direction[2]];
+        }
+        else{
+            var dir = [0, 0, 0];
+        }
+
+        prevDir[1] = 0;
+        
+		var dotProduct = function(vec1, vec2) {
+			return vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
+		};
+
+		var length = function(vec) {
+			return Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
+		};
+
+		if (length(dir) == 0 || length(prevDir) == 0) {
+			return 0;
+		}
+
+        return Math.acos(dotProduct(prevDir, dir) / (length(dir)*length(prevDir)));
+        
+    }
 
     update(currTime){
 
@@ -31,18 +67,24 @@ class LinearAnimation extends Animation{
         this.previousCurrTime = currTime;
        
         if(this.controlVar < this.controlPoints.length - 1){
+
             if(this.positionX == this.controlPoints[this.controlVar + 1][0] && this.positionY == this.controlPoints[this.controlVar + 1][1] && this.positionZ == this.controlPoints[this.controlVar + 1][2]){
                 this.controlVar++;
 
                 if(this.controlVar != this.controlPoints.length - 1){
+
+                    this.previousDirection = this.direction;
                     this.direction = [
                         this.controlPoints[this.controlVar + 1][0] - this.controlPoints[this.controlVar][0],
                         this.controlPoints[this.controlVar + 1][1] - this.controlPoints[this.controlVar][1],
                         this.controlPoints[this.controlVar + 1][2] - this.controlPoints[this.controlVar][2],
-                    ]; 
+                    ];
+                    
+                    this.angle = this.calcAngle();
                 }
                 else{
                     this.direction = [0, 0, 0];
+                    this.angle = 0;
                 } 
             }
            
@@ -68,16 +110,13 @@ class LinearAnimation extends Animation{
                     this.positionZ += z*dt*this.velocity;
                     this.positionY += y*dt*this.velocity;
                 }
-            } else {
-                this.positionX += x*dt*this.velocity;
-                this.positionZ += z*dt*this.velocity;
-                this.positionY += y*dt*this.velocity;
             }
         }
     }
 
     push(){
-        this.scene.translate(this.positionX, this.positionY, this.positionZ);        
+        this.scene.translate(this.positionX, this.positionY, this.positionZ);
+        this.scene.rotate(this.angle, 0, 1, 0);
     }
 	
 }
