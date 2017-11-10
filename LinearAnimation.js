@@ -50,7 +50,7 @@ class LinearAnimation extends Animation{
             var dir = [0, 0, 0];
         }
 
-        prevDir[1] = 0; //por causa de se mover apenas no xz???
+        prevDir[1] = 0;
         
 	    if (this.length(dir) == 0 || this.length(prevDir) == 0) {
 			return 0;
