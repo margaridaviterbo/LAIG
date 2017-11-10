@@ -5,8 +5,7 @@
 class LinearAnimation extends Animation{
 	constructor(scene, controlPoints, velocity) {
 		super();
-        this.say();
-    
+          
         this.scene = scene;
         this.controlPoints = controlPoints;
         this.velocity = velocity;
@@ -19,10 +18,21 @@ class LinearAnimation extends Animation{
         this.previousCurrTime = 0;
 
         this.angle = 0;
-        this.previousDirection = [0, 0, 0];
+        //this.previousDirection = [0, 0, 0]; - desnecessário
     }
     
-   
+    getType(){
+        return "linear";
+    }
+
+    dotProduct(vec1,vec2){
+        return vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
+    }   
+
+    length(vec){
+        return Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
+    }
+
     //TODO as rotaçoes ainda nao estao completamente bem, p.e. para subir nao é suposto rodar a roda....
     calcAngle() {
         
@@ -40,21 +50,13 @@ class LinearAnimation extends Animation{
             var dir = [0, 0, 0];
         }
 
-        prevDir[1] = 0;
+        prevDir[1] = 0; //por causa de se mover apenas no xz???
         
-		var dotProduct = function(vec1, vec2) {
-			return vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
-		};
-
-		var length = function(vec) {
-			return Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
-		};
-
-		if (length(dir) == 0 || length(prevDir) == 0) {
+	    if (this.length(dir) == 0 || this.length(prevDir) == 0) {
 			return 0;
 		}
 
-        return Math.acos(dotProduct(prevDir, dir) / (length(dir)*length(prevDir)));
+        return Math.acos(this.dotProduct(prevDir, dir) / (this.length(dir)*this.length(prevDir)));
         
     }
 

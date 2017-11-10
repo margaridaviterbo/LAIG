@@ -1540,7 +1540,8 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         if (node.animation != undefined) {
             node.animation.push();
         }
-            
+
+                  
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
@@ -1549,7 +1550,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             node.leaves[i].setTextCoords(s,t);
             node.leaves[i].display();          
         }
-
+        
         this.scene.popMatrix();
         
     }
