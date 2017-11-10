@@ -3,74 +3,122 @@
  * 
  */
 class LinearAnimation extends Animation{
-	constructor(scene, node, controlPoints, velocity) {
+	constructor(scene, controlPoints, velocity) {
 		super();
-        this.say();
-    
+          
         this.scene = scene;
-        this.node = node;
         this.controlPoints = controlPoints;
         this.velocity = velocity;
         
         this.positionX = 0;
         this.positionY = 0;
         this.positionZ = 0;
+
+        this.controlVar = -1;
+        this.previousCurrTime = 0;
+
+        this.angle = 0;
+        //this.previousDirection = [0, 0, 0]; - desnecessário
     }
     
-    //TODO transpor este codigo para funcionar com qualquer movimento linear, quantidade de controlPoints...etc
-    //TODO implementar as rotaçoes
+    getType(){
+        return "linear";
+    }
 
-    update(currTime){
-        if(this.positionX < this.controlPoints[1][0]){
-            var direction = [
-                this.controlPoints[1][0] - this.controlPoints[0][0],
-                this.controlPoints[1][1] - this.controlPoints[0][1],
-                this.controlPoints[1][2] - this.controlPoints[0][2],
-            ];
+    dotProduct(vec1,vec2){
+        return vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
+    }   
+
+    length(vec){
+        return Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
+    }
+
+    //TODO as rotaçoes ainda nao estao completamente bem, p.e. para subir nao é suposto rodar a roda....
+    calcAngle() {
         
-            var x = direction[0];
-            var y = direction[1];
-            var z = direction[2];
-        
-            this.positionX += x*0.04*this.velocity;
-            this.positionZ += z*0.04*this.velocity;
-            this.positionY += y*0.04*this.velocity;
+        if(this.previousDirection != undefined){
+            var prevDir = this.previousDirection;
         }
         else{
-            if(this.positionY < this.controlPoints[2][1]){
-                var direction = [
-                    this.controlPoints[2][0] - this.controlPoints[1][0],
-                    this.controlPoints[2][1] - this.controlPoints[1][1],
-                    this.controlPoints[2][2] - this.controlPoints[1][2],
-                ];
-            
-                var x = direction[0];
-                var y = direction[1];
-                var z = direction[2];
-            
-                this.positionX += x*0.04*this.velocity;
-                this.positionZ += z*0.04*this.velocity;
-                this.positionY += y*0.04*this.velocity;
-            }
-            else{
-                if(this.positionZ < this.controlPoints[3][2]){
-                    var direction = [
-                        this.controlPoints[3][0] - this.controlPoints[2][0],
-                        this.controlPoints[3][1] - this.controlPoints[2][1],
-                        this.controlPoints[3][2] - this.controlPoints[2][2],
+            var prevDir = [0, 0, 0];
+        }
+
+        if(this.direction != undefined){
+            var dir = [this.direction[0], 0, this.direction[2]];
+        }
+        else{
+            var dir = [0, 0, 0];
+        }
+
+        prevDir[1] = 0;
+        
+	    if (this.length(dir) == 0 || this.length(prevDir) == 0) {
+			return 0;
+		}
+
+        return Math.acos(this.dotProduct(prevDir, dir) / (this.length(dir)*this.length(prevDir)));
+        
+    }
+
+    update(currTime){
+
+        if(this.previousCurrTime == 0){
+            this.previousCurrTime = currTime;
+        }
+        var dt = (currTime - this.previousCurrTime)/1000;
+        this.previousCurrTime = currTime;
+       
+        if(this.controlVar < this.controlPoints.length - 1){
+
+            if(this.positionX == this.controlPoints[this.controlVar + 1][0] && this.positionY == this.controlPoints[this.controlVar + 1][1] && this.positionZ == this.controlPoints[this.controlVar + 1][2]){
+                this.controlVar++;
+
+                if(this.controlVar != this.controlPoints.length - 1){
+
+                    this.previousDirection = this.direction;
+                    this.direction = [
+                        this.controlPoints[this.controlVar + 1][0] - this.controlPoints[this.controlVar][0],
+                        this.controlPoints[this.controlVar + 1][1] - this.controlPoints[this.controlVar][1],
+                        this.controlPoints[this.controlVar + 1][2] - this.controlPoints[this.controlVar][2],
                     ];
-                
-                    var x = direction[0];
-                    var y = direction[1];
-                    var z = direction[2];
-                
-                    this.positionX += x*0.04*this.velocity;
-                    this.positionZ += z*0.04*this.velocity;
-                    this.positionY += y*0.04*this.velocity;
+                    
+                    this.angle = this.calcAngle();
+                }
+                else{
+                    this.direction = [0, 0, 0];
+                    this.angle = 0;
+                } 
+            }
+           
+            var x = this.direction[0];
+            var y = this.direction[1];
+            var z = this.direction[2];
+
+            var nextX = this.positionX + x*dt*this.velocity;
+            var nextY = this.positionY + y*dt*this.velocity;
+            var nextZ = this.positionZ + z*dt*this.velocity;
+
+            if(this.controlVar < this.controlPoints.length - 1) {
+                if(((this.positionX <= this.controlPoints[this.controlVar + 1][0] && this.controlPoints[this.controlVar + 1][0] <= nextX) || (this.positionX >= this.controlPoints[this.controlVar + 1][0] && this.controlPoints[this.controlVar + 1][0] >= nextX)) &&
+                    ((this.positionY <= this.controlPoints[this.controlVar + 1][1] && this.controlPoints[this.controlVar + 1][1] <= nextY) || (this.positionY >= this.controlPoints[this.controlVar + 1][1] && this.controlPoints[this.controlVar + 1][1] >= nextY)) && 
+                    ((this.positionZ <= this.controlPoints[this.controlVar + 1][2] && this.controlPoints[this.controlVar + 1][2] <= nextZ) || (this.positionZ >= this.controlPoints[this.controlVar + 1][2] && this.controlPoints[this.controlVar + 1][2] >= nextZ))){
+
+                    this.positionX = this.controlPoints[this.controlVar + 1][0];
+                    this.positionY = this.controlPoints[this.controlVar + 1][1];
+                    this.positionZ = this.controlPoints[this.controlVar + 1][2];
+                }
+                else {
+                    this.positionX += x*dt*this.velocity;
+                    this.positionZ += z*dt*this.velocity;
+                    this.positionY += y*dt*this.velocity;
                 }
             }
-        }        
-        
+        }
+    }
+
+    push(){
+        this.scene.translate(this.positionX, this.positionY, this.positionZ);
+        this.scene.rotate(this.angle, 0, 1, 0);
     }
 	
 }

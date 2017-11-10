@@ -1538,10 +1538,10 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
         if (node.animation != undefined) {
-            //TODO eventualmete as deslocaçoes na scene vao depender do tipo de animaçao, podera até ter verios tipos....adicionar ids às animaçoes para verificar que movimentos tenho de execuar??
-            this.scene.translate(node.animation.positionX, node.animation.positionY, node.animation.positionZ);
+            node.animation.push();
         }
-            
+
+                  
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
@@ -1550,7 +1550,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             node.leaves[i].setTextCoords(s,t);
             node.leaves[i].display();          
         }
-
+        
         this.scene.popMatrix();
         
     }

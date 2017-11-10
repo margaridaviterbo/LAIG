@@ -766,6 +766,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+
          <TRANSLATION x="-7" y="0" z="4"/>
 
         <DESCENDANTS>
@@ -777,7 +778,6 @@
 
     <!-- Light bulbs -->
      <NODE id="luzEsfera">
-
         <MATERIAL id="lightMaterial" />
         <TEXTURE id="null" />
        

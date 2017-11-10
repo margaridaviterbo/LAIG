@@ -25,7 +25,7 @@ function MyGraphNode(graph, nodeID) {
 
     //TODO eventualmente dar parse das animaçoes do xml e escolher qual animaçao criar ou quais
     if(this.nodeID == "jornal"){
-        this.animation = new LinearAnimation(this.graph.scene, this, [[0, 0, 0], [10, 0, 0], [10, 10, 0], [10, 10, 10]], 10);        
+        this.animation = new LinearAnimation(this.graph.scene, [[0, 0, 0], [10, 0, 0], [10, 0, 10], [10, 10, 10]], 1);        
     }
 }
 
