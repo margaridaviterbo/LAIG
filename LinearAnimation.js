@@ -18,7 +18,8 @@ class LinearAnimation extends Animation{
         this.previousCurrTime = 0;
 
         this.angle = 0;
-        //this.previousDirection = [0, 0, 0]; - desnecessário
+        this.direction = [0, 0, 0];
+        this.previousDirection = [0, 0, 0];
     }
     
     getType(){
@@ -33,9 +34,8 @@ class LinearAnimation extends Animation{
         return Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
     }
 
-    //TODO as rotaçoes ainda nao estao completamente bem, p.e. para subir nao é suposto rodar a roda....
     calcAngle() {
-        
+
         if(this.previousDirection != undefined){
             var prevDir = this.previousDirection;
         }
@@ -50,7 +50,7 @@ class LinearAnimation extends Animation{
             var dir = [0, 0, 0];
         }
 
-        prevDir[1] = 0; //por causa de se mover apenas no xz???
+        prevDir[1] = 0;
         
 	    if (this.length(dir) == 0 || this.length(prevDir) == 0) {
 			return 0;
@@ -75,18 +75,25 @@ class LinearAnimation extends Animation{
 
                 if(this.controlVar != this.controlPoints.length - 1){
 
-                    this.previousDirection = this.direction;
+                    if(this.direction[0] != 0 || this.direction[2] != 0){
+                        this.previousDirection = this.direction;
+                    }
+                    
                     this.direction = [
                         this.controlPoints[this.controlVar + 1][0] - this.controlPoints[this.controlVar][0],
                         this.controlPoints[this.controlVar + 1][1] - this.controlPoints[this.controlVar][1],
                         this.controlPoints[this.controlVar + 1][2] - this.controlPoints[this.controlVar][2],
                     ];
                     
-                    this.angle = this.calcAngle();
+                    this.previousAngle = this.angle;
+                    this.angle += this.calcAngle();
+                    if(this.angle == 0){
+                        this.angle = this.previousAngle;
+                    }
                 }
                 else{
                     this.direction = [0, 0, 0];
-                    this.angle = 0;
+                    this.angle = this.previousAngle;
                 } 
             }
            
