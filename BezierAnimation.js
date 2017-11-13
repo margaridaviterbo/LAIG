@@ -22,20 +22,6 @@ class BezierAnimation extends Animation{
 		this.angle = 0;
 		this.runDistance = 0;
 
-	
-		/*this.horizontalRotAngle = horizontalAngle || 0;
-		this.verticalRotAngle = verticalAngle || 0;
-		this.orientation = 0;
-		this.direction = this.calculateDirection();
-		this.animationTime;
-		this.P2;
-		this.P3;
-		this.P4;
-		
-		this.timePassed;*/
-
-
-
 	}
 
 	getType(){

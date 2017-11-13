@@ -25,7 +25,7 @@ function MyGraphNode(graph, nodeID) {
 
     //TODO eventualmente dar parse das animaçoes do xml e escolher qual animaçao criar ou quais
     if(this.nodeID == "jornal"){
-        this.animation = new BezierAnimation(this.graph.scene, [[0, 0, 0], [5, 5, 5], [10, 0, -5], [20, -5, 10]], 0.5);        
+        this.animation = new ComboAnimation(this.graph.scene, animations);        
     }
 }
 
