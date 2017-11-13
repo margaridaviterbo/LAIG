@@ -23,10 +23,6 @@ class CircularAnimation extends Animation{
 
 	}
 
-	getType(){
-        return "circular";
-	}
-	
 	update(currTime){
 
 		if(this.previousCurrTime == 0){

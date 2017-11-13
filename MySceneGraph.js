@@ -7,8 +7,7 @@ var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
 var ANIMATIONS_INDEX = 5;
-var LEAVES_INDEX = 6;
-var NODES_INDEX = 7;
+var NODES_INDEX = 6;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -72,6 +71,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         return "root tag <SCENE> missing";
     
     var nodes = rootElement.children;
+
     
     // Reads the names of the nodes to an auxiliary buffer.
     var nodeNames = [];
@@ -95,7 +95,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         if ((error = this.parseInitials(nodes[index])) != null )
             return error;
     }
-    
+   
     // <ILLUMINATION>
     if ((index = nodeNames.indexOf("ILLUMINATION")) == -1)
         return "tag <ILLUMINATION> missing";
@@ -139,18 +139,19 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         if ((error = this.parseMaterials(nodes[index])) != null )
             return error;
     }
-
+    
     // <ANIMATIONS>
     if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
         return "tag <ANIMATIONS> missing";
     else {
         if (index != ANIMATIONS_INDEX)
             this.onXMLMinorError("tag <ANIMATIONS> out of order");
-        
+
         if ((error = this.parseAnimations(nodes[index])) != null )
             return error;
     }
-    
+
+
     // <NODES>
     if ((index = nodeNames.indexOf("NODES")) == -1)
         return "tag <NODES> missing";
@@ -161,7 +162,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         if ((error = this.parseNodes(nodes[index])) != null )
             return error;
     }
-
+    
 }
 
 /**
@@ -1170,47 +1171,78 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
     console.log("Parsed materials");
 }
 
-
-
 /**
  * Parses the <ANIMATIONS> node.
  */
 MySceneGraph.prototype.parseAnimations = function(animationsNode) {
-    
     var children = animationsNode.children;
     // Each animation.
-    
+
     this.animations = [];
 
-   // var oneMaterialDefined = false;
-    
     for (var i = 0; i < children.length; i++) {
         if (children[i].nodeName != "ANIMATIONS") {
             this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
             continue;
         }
-        
+
         var animationID = this.reader.getString(children[i], 'id');
         if (animationID == null )
             return "no ID defined for animation";
-        
+
         if (this.animations[animationID] != null )
             return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
-    
+
         var animationType = this.reader.getString(children[i], 'type');
         if (animationType == null )
             return "no type defined for animation";
 
+        var animationSpeed;
         if(animationType != 'combo'){
-            var animationSpeed = this.reader.getFloat(children[i], 'speed');
+            animationSpeed = this.reader.getFloat(children[i], 'speed');
             if (animationSpeed == null )
                 return "no speed defined for animation";
         }
-        
+
+        var animationSpecs = children[i].children;
+        if(animationType == 'bezier' && animationSpecs.length != 4){
+            return "bezier animation needs 4 and only 4 controlpoints";
+        }
+        else if(animationType == 'linear' && animationSpecs.length < 2){
+            return "linear animation needs at least 2 controlpoints";
+        }
+        else if(animationType == 'circular' && animationSpecs.length != 0){
+            return "circular animation should not have children"
+        }
+        else if(animationType == 'combo' && animationSpecs.length < 1){
+            return "combo animation needs at least one children animation"
+        }
+    
 
         if (animationType == 'linear' || animationType == 'bezier'){
-            //TODO parse animationspecs
+            var controlPoints = [];
+            for (var j = 0; j < animationSpecs.length; j++){
+
+                var x = this.reader.getFloat(animationSpecs[j], 'xx');
+                var y = this.reader.getFloat(animationSpecs[j], 'yy');
+                var z = this.reader.getFloat(animationSpecs[j], 'zz');
+                if (x == null || y == null || z == null)
+                    return "unable to parse control point coordinates for animation with ID = " + animationID;
+                else if (isNaN(x) || isNaN(y) || isNaN(z))
+                    return "some coordinate is a non numeric value on the ANIMATIONS block";
+                var controlPoint = [x, y, z];
+                controlPoints.push(controlPoint);
+            }
+        
+            var animation;
+            if(animationType == 'linear')
+                animation = new LinearAnimation(this.scene, controlPoints, animationSpeed);
+            else
+                animation = new BezierAnimation(this.scene, controlPoints, animationSpeed);
+            var animationParent = new Animation(animationID, animationType, animation);
+            this.animations.push(animation);
         }
+    
         else if(animationType == 'circular'){
             var animationCenterx = this.reader.getFloat(children[i], 'centerx');
             if (animationCenterx == null )
@@ -1230,218 +1262,34 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             var animationRotang = this.reader.getFloat(children[i], 'rotang');
             if (animationRotang == null )
                 return "no rotang defined for animation";
+
+            var animation = new CircularAnimation(this.scene, [animationCenterx, animationCentery, animationCenterz], animationRadius, animationStartang, animationRotang, animationSpeed);
+            var animationParent = new Animation(animationID, animationType, animation);
+            this.animations.push(animation);
         }
         else{ //combo
-            //TODO parse animation specs
-        } 
+            for (var j = 0; j < animationSpecs.length; j++){
+                var animationRefs = [];
+                var ref = this.reader.getString(animationSpecs[j], 'id');
+                if (x == null || y == null || z == null)
+                    return "unable to parse reference for animation with ID = " + animationID;
 
-        var animationSpecs = children[i].children;
-        
-        var nodeNames = [];
-        
-        for (var j = 0; j < animationSpecs.length; j++)
-            nodeNames.push(animationSpecs[j].nodeName);
-        
-        //TODO controlpoint ou animationrefs
-        var shininessIndex = nodeNames.indexOf("shininess");
-        if (shininessIndex == -1)
-            return "no shininess value defined for material with ID = " + materialID;
-        var shininess = this.reader.getFloat(materialSpecs[shininessIndex], 'value');
-        if (shininess == null )
-            return "unable to parse shininess value for material with ID = " + materialID;
-        else if (isNaN(shininess))
-            return "'shininess' is a non numeric value";
-        else if (shininess <= 0)
-            return "'shininess' must be positive";
-        
-        // Specular component.
-        var specularIndex = nodeNames.indexOf("specular");
-        if (specularIndex == -1)
-            return "no specular component defined for material with ID = " + materialID;
-        var specularComponent = [];
-        // R.
-        var r = this.reader.getFloat(materialSpecs[specularIndex], 'r');
-        if (r == null ) 
-            return "unable to parse R component of specular reflection for material with ID = " + materialID;
-        else if (isNaN(r))
-            return "specular 'r' is a non numeric value on the MATERIALS block";
-        else if (r < 0 || r > 1)
-            return "specular 'r' must be a value between 0 and 1 on the MATERIALS block"
-        specularComponent.push(r);
-        // G.
-        var g = this.reader.getFloat(materialSpecs[specularIndex], 'g');
-        if (g == null )
-           return "unable to parse G component of specular reflection for material with ID = " + materialID;
-        else if (isNaN(g))
-           return "specular 'g' is a non numeric value on the MATERIALS block";
-        else if (g < 0 || g > 1)
-           return "specular 'g' must be a value between 0 and 1 on the MATERIALS block";
-        specularComponent.push(g);
-        // B.
-        var b = this.reader.getFloat(materialSpecs[specularIndex], 'b');
-        if (b == null )
-            return "unable to parse B component of specular reflection for material with ID = " + materialID;
-        else if (isNaN(b))
-            return "specular 'b' is a non numeric value on the MATERIALS block";
-        else if (b < 0 || b > 1)
-            return "specular 'b' must be a value between 0 and 1 on the MATERIALS block";
-        specularComponent.push(b);
-        // A.
-        var a = this.reader.getFloat(materialSpecs[specularIndex], 'a');
-        if (a == null )
-            return "unable to parse A component of specular reflection for material with ID = " + materialID;
-        else if (isNaN(a))
-            return "specular 'a' is a non numeric value on the MATERIALS block";
-        else if (a < 0 || a > 1)
-            return "specular 'a' must be a value between 0 and 1 on the MATERIALS block";
-        specularComponent.push(a);
-        
-        // Diffuse component.
-        var diffuseIndex = nodeNames.indexOf("diffuse");
-        if (diffuseIndex == -1)
-            return "no diffuse component defined for material with ID = " + materialID;
-        var diffuseComponent = [];
-        // R.
-        r = this.reader.getFloat(materialSpecs[diffuseIndex], 'r');
-        if (r == null )
-            return "unable to parse R component of diffuse reflection for material with ID = " + materialID;
-        else if (isNaN(r))
-            return "diffuse 'r' is a non numeric value on the MATERIALS block";
-        else if (r < 0 || r > 1)
-            return "diffuse 'r' must be a value between 0 and 1 on the MATERIALS block";
-        diffuseComponent.push(r);
-        // G.
-        g = this.reader.getFloat(materialSpecs[diffuseIndex], 'g');
-        if (g == null )
-            return "unable to parse G component of diffuse reflection for material with ID = " + materialID;
-        else if (isNaN(g))
-            return "diffuse 'g' is a non numeric value on the MATERIALS block";
-        else if (g < 0 || g > 1)
-            return "diffuse 'g' must be a value between 0 and 1 on the MATERIALS block";
-        diffuseComponent.push(g);
-        // B.
-        b = this.reader.getFloat(materialSpecs[diffuseIndex], 'b');
-        if (b == null )
-            return "unable to parse B component of diffuse reflection for material with ID = " + materialID;
-        else if (isNaN(b))
-            return "diffuse 'b' is a non numeric value on the MATERIALS block";
-        else if (b < 0 || b > 1)
-            return "diffuse 'b' must be a value between 0 and 1 on the MATERIALS block";
-        diffuseComponent.push(b);
-        // A.
-        a = this.reader.getFloat(materialSpecs[diffuseIndex], 'a');
-        if (a == null )
-            return "unable to parse A component of diffuse reflection for material with ID = " + materialID;
-        else if (isNaN(a))
-            return "diffuse 'a' is a non numeric value on the MATERIALS block";
-        else if (a < 0 || a > 1)
-            return "diffuse 'a' must be a value between 0 and 1 on the MATERIALS block";
-        diffuseComponent.push(a);
-        
-        // Ambient component.
-        var ambientIndex = nodeNames.indexOf("ambient");
-        if (ambientIndex == -1)
-            return "no ambient component defined for material with ID = " + materialID;
-        var ambientComponent = [];
-        // R.
-        r = this.reader.getFloat(materialSpecs[ambientIndex], 'r');
-        if (r == null )
-            return "unable to parse R component of ambient reflection for material with ID = " + materialID;
-        else if (isNaN(r))
-            return "ambient 'r' is a non numeric value on the MATERIALS block";
-        else if (r < 0 || r > 1)
-            return "ambient 'r' must be a value between 0 and 1 on the MATERIALS block";
-        ambientComponent.push(r);
-        // G.
-        g = this.reader.getFloat(materialSpecs[ambientIndex], 'g');
-        if (g == null )
-            return "unable to parse G component of ambient reflection for material with ID = " + materialID;
-        else if (isNaN(g))
-            return "ambient 'g' is a non numeric value on the MATERIALS block";
-        else if (g < 0 || g > 1)
-            return "ambient 'g' must be a value between 0 and 1 on the MATERIALS block";
-        ambientComponent.push(g);
-        // B.
-        b = this.reader.getFloat(materialSpecs[ambientIndex], 'b');
-        if (b == null )
-             return "unable to parse B component of ambient reflection for material with ID = " + materialID;
-        else if (isNaN(b))
-             return "ambient 'b' is a non numeric value on the MATERIALS block";
-        else if (b < 0 || b > 1)
-             return "ambient 'b' must be a value between 0 and 1 on the MATERIALS block";
-        ambientComponent.push(b);
-        // A.
-        a = this.reader.getFloat(materialSpecs[ambientIndex], 'a');
-        if (a == null )
-            return "unable to parse A component of ambient reflection for material with ID = " + materialID;
-        else if (isNaN(a))
-            return "ambient 'a' is a non numeric value on the MATERIALS block";
-        else if (a < 0 || a > 1)
-            return "ambient 'a' must be a value between 0 and 1 on the MATERIALS block";
-        ambientComponent.push(a);
-        
-        // Emission component.
-        var emissionIndex = nodeNames.indexOf("emission");
-        if (emissionIndex == -1)
-            return "no emission component defined for material with ID = " + materialID;
-        var emissionComponent = [];
-        // R.
-        r = this.reader.getFloat(materialSpecs[emissionIndex], 'r');
-        if (r == null )
-            return "unable to parse R component of emission for material with ID = " + materialID;
-        else if (isNaN(r))
-            return "emisson 'r' is a non numeric value on the MATERIALS block";
-        else if (r < 0 || r > 1)
-            return "emisson 'r' must be a value between 0 and 1 on the MATERIALS block";
-        emissionComponent.push(r);
-        // G.
-        g = this.reader.getFloat(materialSpecs[emissionIndex], 'g');
-        if (g == null )
-            return "unable to parse G component of emission for material with ID = " + materialID;
-        if (isNaN(g))
-            return "emisson 'g' is a non numeric value on the MATERIALS block";
-        else if (g < 0 || g > 1)
-            return "emisson 'g' must be a value between 0 and 1 on the MATERIALS block";
-        emissionComponent.push(g);
-        // B.
-        b = this.reader.getFloat(materialSpecs[emissionIndex], 'b');
-        if (b == null )
-            return "unable to parse B component of emission for material with ID = " + materialID;
-        else if (isNaN(b))
-            return "emisson 'b' is a non numeric value on the MATERIALS block";
-        else if (b < 0 || b > 1)
-            return "emisson 'b' must be a value between 0 and 1 on the MATERIALS block";
-        emissionComponent.push(b);
-        // A.
-        a = this.reader.getFloat(materialSpecs[emissionIndex], 'a');
-        if (a == null )
-            return "unable to parse A component of emission for material with ID = " + materialID;
-        else if (isNaN(a))
-            return "emisson 'a' is a non numeric value on the MATERIALS block";
-        else if (a < 0 || a > 1)
-            return "emisson 'a' must be a value between 0 and 1 on the MATERIALS block";
-        emissionComponent.push(a);
-        
-        // Creates material with the specified characteristics.
-        var newMaterial = new CGFappearance(this.scene);
-        newMaterial.setShininess(shininess);
-        newMaterial.setAmbient(ambientComponent[0], ambientComponent[1], ambientComponent[2], ambientComponent[3]);
-        newMaterial.setDiffuse(diffuseComponent[0], diffuseComponent[1], diffuseComponent[2], diffuseComponent[3]);
-        newMaterial.setSpecular(specularComponent[0], specularComponent[1], specularComponent[2], specularComponent[3]);
-        newMaterial.setEmission(emissionComponent[0], emissionComponent[1], emissionComponent[2], emissionComponent[3]);
-        this.materials[materialID] = newMaterial;
-        oneMaterialDefined = true;
+                for(var i = 0; i < this.animations.length; i++){
+                    if(this.animations[i][0] == ref && this.animations[i][1] == 'combo'){
+                        return "combo animations cannot have combo animations inside";
+                    }
+                }
+
+                animationRefs.push(ref);
+                var animation = new ComboAnimation(this.scene,animationRefs);
+                var animationParent = new Animation(animationID, animationType, animation);
+                this.animations.push(animation);
+            }
+        }
     }
-
-    if (!oneMaterialDefined)
-        return "at least one material must be defined on the MATERIALS block";
-
-    // Generates a default material.
-    this.generateDefaultMaterial();
+    console.log("Parsed animations");
     
-    console.log("Parsed materials");
 }
-
 
 /**
  * Parses the <LEAVES> block.
@@ -1523,208 +1371,237 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
     // Traverses nodes.
     var children = nodesNode.children;
     
-    for (var i = 0; i < children.length; i++) {
-        var nodeName;
-        if ((nodeName = children[i].nodeName) == "ROOT") {
-            // Retrieves root node.
-            if (this.idRoot != null )
-                return "there can only be one root node";
-            else {
-                var root = this.reader.getString(children[i], 'id');
-                if (root == null )
-                    return "failed to retrieve root node ID";
-                this.idRoot = root;
-            }
-        } 
-        else if (nodeName == "NODE") {
-            // Retrieves node ID.
-            var nodeID = this.reader.getString(children[i], 'id');
-            if (nodeID == null )
-                return "failed to retrieve node ID";
-            // Checks if ID is valid.
-            if (this.nodes[nodeID] != null )
-                return "node ID must be unique (conflict: ID = " + nodeID + ")";
-            
-            this.log("Processing node "+nodeID);
-
-            // Creates node.
-            this.nodes[nodeID] = new MyGraphNode(this,nodeID);
-
-            // Gathers child nodes.
-            var nodeSpecs = children[i].children;
-            var specsNames = [];
-            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
-            for (var j = 0; j < nodeSpecs.length; j++) {
-                var name = nodeSpecs[j].nodeName;
-                specsNames.push(nodeSpecs[j].nodeName);
-                
-                // Warns against possible invalid tag names.
-                if (possibleValues.indexOf(name) == -1)
-                    this.onXMLMinorError("unknown tag <" + name + ">");
-            }
-            
-            // Retrieves material ID.
-            var materialIndex = specsNames.indexOf("MATERIAL");
-            if (materialIndex == -1)
-                return "material must be defined (node ID = " + nodeID + ")";
-            var materialID = this.reader.getString(nodeSpecs[materialIndex], 'id');
-            if (materialID == null )
-                return "unable to parse material ID (node ID = " + nodeID + ")";
-            if (materialID != "null" && this.materials[materialID] == null )
-                return "ID does not correspond to a valid material (node ID = " + nodeID + ")";
-            
-            this.nodes[nodeID].materialID = materialID;
-            
-            // Retrieves texture ID.
-            var textureIndex = specsNames.indexOf("TEXTURE");
-            if (textureIndex == -1)
-                return "texture must be defined (node ID = " + nodeID + ")";
-            var textureID = this.reader.getString(nodeSpecs[textureIndex], 'id');
-            if (textureID == null )
-                return "unable to parse texture ID (node ID = " + nodeID + ")";
-            if (textureID != "null" && textureID != "clear" && this.textures[textureID] == null )
-                return "ID does not correspond to a valid texture (node ID = " + nodeID + ")";
-            
-            this.nodes[nodeID].textureID = textureID;
-            
-            // Retrieves possible transformations.
-            for (var j = 0; j < nodeSpecs.length; j++) {
-                switch (nodeSpecs[j].nodeName) {
-                case "TRANSLATION":
-                    // Retrieves translation parameters.
-                    var x = this.reader.getFloat(nodeSpecs[j], 'x');
-                    if (x == null ) {
-                        this.onXMLMinorError("unable to parse x-coordinate of translation; discarding transform");
-                        break;
-                    }
-                    else if (isNaN(x))
-                        return "non-numeric value for x-coordinate of translation (node ID = " + nodeID + ")";
-
-                    var y = this.reader.getFloat(nodeSpecs[j], 'y');
-                    if (y == null ) {
-                        this.onXMLMinorError("unable to parse y-coordinate of translation; discarding transform");
-                        break;
-                    }
-                    else if (isNaN(y))
-                        return "non-numeric value for y-coordinate of translation (node ID = " + nodeID + ")";
-
-                    var z = this.reader.getFloat(nodeSpecs[j], 'z');
-                    if (z == null ) {
-                        this.onXMLMinorError("unable to parse z-coordinate of translation; discarding transform");
-                        break;
-                    }
-                    else if (isNaN(z))
-                        return "non-numeric value for z-coordinate of translation (node ID = " + nodeID + ")";
-
-                    mat4.translate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [x, y, z]);
-                    break;
-                case "ROTATION":
-                    // Retrieves rotation parameters.
-                    var axis = this.reader.getItem(nodeSpecs[j], 'axis', ['x', 'y', 'z']);
-                    if (axis == null ) {
-                        this.onXMLMinorError("unable to parse rotation axis; discarding transform");
-                        break;
-                    }
-                    var angle = this.reader.getFloat(nodeSpecs[j], 'angle');
-                    if (angle == null ) {
-                        this.onXMLMinorError("unable to parse rotation angle; discarding transform");
-                        break;
-                    }
-                    else if (isNaN(angle))
-                        return "non-numeric value for rotation angle (node ID = " + nodeID + ")";
-
-                    mat4.rotate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
-                    break;
-                case "SCALE":
-                    // Retrieves scale parameters.
-                    var sx = this.reader.getFloat(nodeSpecs[j], 'sx');
-                    if (sx == null ) {
-                        this.onXMLMinorError("unable to parse x component of scaling; discarding transform");
-                        break;
-                    }
-                    else if (isNaN(sx))
-                        return "non-numeric value for x component of scaling (node ID = " + nodeID + ")";
-
-                    var sy = this.reader.getFloat(nodeSpecs[j], 'sy');
-                    if (sy == null ) {
-                        this.onXMLMinorError("unable to parse y component of scaling; discarding transform");
-                        break;
-                    }
-                    else if (isNaN(sy))
-                        return "non-numeric value for y component of scaling (node ID = " + nodeID + ")";
-
-                    var sz = this.reader.getFloat(nodeSpecs[j], 'sz');
-                    if (sz == null ) {
-                        this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
-                        break;
-                    }
-                    else if (isNaN(sz))
-                        return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
-                        
-                    mat4.scale(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [sx, sy, sz]);
-                    break;
-                default:
-                    break;
+        for (var i = 0; i < children.length; i++) {
+            var nodeName;
+            if ((nodeName = children[i].nodeName) == "ROOT") {
+                // Retrieves root node.
+                if (this.idRoot != null )
+                    return "there can only be one root node";
+                else {
+                    var root = this.reader.getString(children[i], 'id');
+                    if (root == null )
+                        return "failed to retrieve root node ID";
+                    this.idRoot = root;
                 }
             }
-            
-            // Retrieves information about children.
-            var descendantsIndex = specsNames.indexOf("DESCENDANTS");
-            if (descendantsIndex == -1)
-                return "an intermediate node must have descendants";
-
-            var descendants = nodeSpecs[descendantsIndex].children;
-            
-            var sizeChildren = 0;
-            for (var j = 0; j < descendants.length; j++) {
-                if (descendants[j].nodeName == "NODEREF")
-				{
-                    
-					var curId = this.reader.getString(descendants[j], 'id');
-
-					this.log("   Descendant: "+curId);
-
-                    if (curId == null )
-                        this.onXMLMinorError("unable to parse descendant id");
-                    else if (curId == nodeID)
-                        return "a node may not be a child of its own";
-                    else {
-                        this.nodes[nodeID].addChild(curId);
-                        sizeChildren++;
+            else if (nodeName == "NODE") {
+                // Retrieves node ID.
+                var nodeID = this.reader.getString(children[i], 'id');
+                if (nodeID == null )
+                    return "failed to retrieve node ID";
+                // Checks if ID is valid.
+                if (this.nodes[nodeID] != null )
+                    return "node ID must be unique (conflict: ID = " + nodeID + ")";
+    
+                var nodeSelectable = this.reader.getString(children[i], 'selectable');
+                if(nodeSelectable == null)
+                    nodeSelectable = 'false';
+                else if(nodeSelectable != 'true' && nodeSelectable != 'false'){
+                    return "selectable property must be either 'true' or 'false'";
+                }
+    
+                this.log("Processing node "+nodeID);
+    
+                // Creates node.
+                this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+                this.nodes[nodeID].selectable = nodeSelectable;
+    
+                // Gathers child nodes.
+                var nodeSpecs = children[i].children;
+                var specsNames = [];
+                var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "ANIMATIONREFS", "DESCENDANTS"];
+                for (var j = 0; j < nodeSpecs.length; j++) {
+                    var name = nodeSpecs[j].nodeName;
+                    specsNames.push(nodeSpecs[j].nodeName);
+    
+                    // Warns against possible invalid tag names.
+                    if (possibleValues.indexOf(name) == -1)
+                        this.onXMLMinorError("unknown tag <" + name + ">");
+                }
+    
+                // Retrieves material ID.
+                var materialIndex = specsNames.indexOf("MATERIAL");
+                if (materialIndex == -1)
+                    return "material must be defined (node ID = " + nodeID + ")";
+                var materialID = this.reader.getString(nodeSpecs[materialIndex], 'id');
+                if (materialID == null )
+                    return "unable to parse material ID (node ID = " + nodeID + ")";
+                if (materialID != "null" && this.materials[materialID] == null )
+                    return "ID does not correspond to a valid material (node ID = " + nodeID + ")";
+    
+                this.nodes[nodeID].materialID = materialID;
+    
+                // Retrieves texture ID.
+                var textureIndex = specsNames.indexOf("TEXTURE");
+                if (textureIndex == -1)
+                    return "texture must be defined (node ID = " + nodeID + ")";
+                var textureID = this.reader.getString(nodeSpecs[textureIndex], 'id');
+                if (textureID == null )
+                    return "unable to parse texture ID (node ID = " + nodeID + ")";
+                if (textureID != "null" && textureID != "clear" && this.textures[textureID] == null )
+                    return "ID does not correspond to a valid texture (node ID = " + nodeID + ")";
+    
+                this.nodes[nodeID].textureID = textureID;
+    
+                // Retrieves possible transformations.
+                for (var j = 0; j < nodeSpecs.length; j++) {
+                    switch (nodeSpecs[j].nodeName) {
+                    case "TRANSLATION":
+                        // Retrieves translation parameters.
+                        var x = this.reader.getFloat(nodeSpecs[j], 'x');
+                        if (x == null ) {
+                            this.onXMLMinorError("unable to parse x-coordinate of translation; discarding transform");
+                            break;
+                        }
+                        else if (isNaN(x))
+                            return "non-numeric value for x-coordinate of translation (node ID = " + nodeID + ")";
+    
+                        var y = this.reader.getFloat(nodeSpecs[j], 'y');
+                        if (y == null ) {
+                            this.onXMLMinorError("unable to parse y-coordinate of translation; discarding transform");
+                            break;
+                        }
+                        else if (isNaN(y))
+                            return "non-numeric value for y-coordinate of translation (node ID = " + nodeID + ")";
+    
+                        var z = this.reader.getFloat(nodeSpecs[j], 'z');
+                        if (z == null ) {
+                            this.onXMLMinorError("unable to parse z-coordinate of translation; discarding transform");
+                            break;
+                        }
+                        else if (isNaN(z))
+                            return "non-numeric value for z-coordinate of translation (node ID = " + nodeID + ")";
+    
+                        mat4.translate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [x, y, z]);
+                        break;
+                    case "ROTATION":
+                        // Retrieves rotation parameters.
+                        var axis = this.reader.getItem(nodeSpecs[j], 'axis', ['x', 'y', 'z']);
+                        if (axis == null ) {
+                            this.onXMLMinorError("unable to parse rotation axis; discarding transform");
+                            break;
+                        }
+                        var angle = this.reader.getFloat(nodeSpecs[j], 'angle');
+                        if (angle == null ) {
+                            this.onXMLMinorError("unable to parse rotation angle; discarding transform");
+                            break;
+                        }
+                        else if (isNaN(angle))
+                            return "non-numeric value for rotation angle (node ID = " + nodeID + ")";
+    
+                        mat4.rotate(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis]);
+                        break;
+                    case "SCALE":
+                        // Retrieves scale parameters.
+                        var sx = this.reader.getFloat(nodeSpecs[j], 'sx');
+                        if (sx == null ) {
+                            this.onXMLMinorError("unable to parse x component of scaling; discarding transform");
+                            break;
+                        }
+                        else if (isNaN(sx))
+                            return "non-numeric value for x component of scaling (node ID = " + nodeID + ")";
+    
+                        var sy = this.reader.getFloat(nodeSpecs[j], 'sy');
+                        if (sy == null ) {
+                            this.onXMLMinorError("unable to parse y component of scaling; discarding transform");
+                            break;
+                        }
+                        else if (isNaN(sy))
+                            return "non-numeric value for y component of scaling (node ID = " + nodeID + ")";
+    
+                        var sz = this.reader.getFloat(nodeSpecs[j], 'sz');
+                        if (sz == null ) {
+                            this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
+                            break;
+                        }
+                        else if (isNaN(sz))
+                            return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
+    
+                        mat4.scale(this.nodes[nodeID].transformMatrix, this.nodes[nodeID].transformMatrix, [sx, sy, sz]);
+                        break;
+                    default:
+                        break;
                     }
-                }                    
-                else
-					if (descendants[j].nodeName == "LEAF")
-					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
-						
-						if (type != null)
-							this.log("   Leaf: "+ type);
-						else
-							this.warn("Error in leaf");
-                        
-                            
-                        
-                            
-                            
-                        
-                        
-                        this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
-                        sizeChildren++;
-					}
-					else
-						this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
-
+                }
+    
+    
+    
+    
+                // Retrieves possible animations.
+                var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
+    
+                var descendants = nodeSpecs[animationsIndex].children;
+    
+                for (var j = 0; j < descendants.length; j++) {
+                    if (descendants[j].nodeName == "ANIMATIONREF")
+                    {
+    
+                        var curId = this.reader.getString(descendants[j], 'id');
+    
+                        this.log("   Descendant: "+curId);
+    
+                        if (curId == null )
+                            this.onXMLMinorError("unable to parse animation id");
+                        else {
+                            this.nodes[nodeID].animations.push(curId);
+                        }
+                    }
+                }
+    
+    
+    
+                // Retrieves information about children.
+                var descendantsIndex = specsNames.indexOf("DESCENDANTS");
+                if (descendantsIndex == -1)
+                    return "an intermediate node must have descendants";
+    
+                var descendants = nodeSpecs[descendantsIndex].children;
+    
+                var sizeChildren = 0;
+                for (var j = 0; j < descendants.length; j++) {
+                    if (descendants[j].nodeName == "NODEREF")
+                    {
+    
+                        var curId = this.reader.getString(descendants[j], 'id');
+    
+                        this.log("   Descendant: "+curId);
+    
+                        if (curId == null )
+                            this.onXMLMinorError("unable to parse descendant id");
+                        else if (curId == nodeID)
+                            return "a node may not be a child of its own";
+                        else {
+                            this.nodes[nodeID].addChild(curId);
+                            sizeChildren++;
+                        }
+                    }
+                    else
+                        if (descendants[j].nodeName == "LEAF")
+                        {
+                            var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
+    
+                            if (type != null)
+                                this.log("   Leaf: "+ type);
+                            else
+                                this.warn("Error in leaf");
+    
+    
+                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
+                            sizeChildren++;
+                        }
+                        else
+                            this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
+    
+                }
+                if (sizeChildren == 0)
+                    return "at least one descendant must be defined for each intermediate node";
             }
-            if (sizeChildren == 0)
-                return "at least one descendant must be defined for each intermediate node";
-        } 
-        else
-            this.onXMLMinorError("unknown tag name <" + nodeName);
-    }
-
-    console.log("Parsed nodes");
-    return null ;
+            else
+                this.onXMLMinorError("unknown tag name <" + nodeName);
+        }
+    
+        console.log("Parsed nodes");
+        return null ;
 }
 
 /*
@@ -1822,8 +1699,14 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
 
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
-        if (node.animation != undefined) {
-            node.animation.push();
+        if (node.selectable == 'true') {
+            for(var i = 0; i < node.animations.length; i++){
+                for(var j = 0; j < this.animations.length; j++){
+                    if(node.animations[i] == this.animations.id){
+                        this.animations.animation.push();
+                    }
+                }
+            }
         }
 
                   

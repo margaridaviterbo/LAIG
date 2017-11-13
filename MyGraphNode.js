@@ -14,6 +14,12 @@ function MyGraphNode(graph, nodeID) {
     // IDs of child nodes.
     this.leaves = [];
 
+    //IDs of animations.
+    this.animations = [];
+
+    //property selectable
+    this.selectable = false;
+
     // The material ID.
     this.materialID = null ;
 
@@ -23,10 +29,6 @@ function MyGraphNode(graph, nodeID) {
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
 
-    //TODO eventualmente dar parse das animaçoes do xml e escolher qual animaçao criar ou quais
-    if(this.nodeID == "jornal"){
-        this.animation = new ComboAnimation(this.graph.scene, animations);        
-    }
 }
 
 /**

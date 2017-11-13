@@ -24,9 +24,6 @@ class BezierAnimation extends Animation{
 
 	}
 
-	getType(){
-        return "bezier";
-	}
 	
 	middle(a, b){
 

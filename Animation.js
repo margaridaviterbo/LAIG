@@ -2,11 +2,11 @@
  * Animation
  * 
  */
-function Animation(){
+function Animation(id, type, animation){
 
-   Animation.prototype.getType = function(){}; //será util para o parsing?
-   Animation.prototype.update = function(currTime){};
-        
-    
-    
+    Animation.prototype.update = function(currTime){};
+    this.id = id;
+    this.type = type;
+    this.animation = animation;    
+
 }
