@@ -11,23 +11,28 @@ class BezierAnimation extends Animation{
 		this.velocity = velocity;
 
 		this.positionX = 0;
+		this.positionY = 0;
 		this.positionZ = 0;
+		this.previousPositionX = 0;
+		this.previousPositionY = 0;
+		this.previousPositionZ = 0;
 
 		this.previousCurrTime = 0;
-
-
+		this.t = 0;
+		this.angle = 0;
+		this.runDistance = 0;
 
 	
-		//this.horizontalRotAngle = horizontalAngle || 0;
-		//this.verticalRotAngle = verticalAngle || 0;
+		/*this.horizontalRotAngle = horizontalAngle || 0;
+		this.verticalRotAngle = verticalAngle || 0;
 		this.orientation = 0;
 		this.direction = this.calculateDirection();
 		this.animationTime;
 		this.P2;
 		this.P3;
 		this.P4;
-		this.t = 0;
-		this.timePassed;
+		
+		this.timePassed;*/
 
 
 
@@ -37,10 +42,19 @@ class BezierAnimation extends Animation{
         return "bezier";
 	}
 	
-	lerp(a, b, t){
-		var point = [a[0] + (b[0]-a[0])*t, 0, a[2] + (b[2]-a[2])*t];
+	middle(a, b){
+
+		var x = (a[0] + b[0])/2;
+		var y = (a[1] + b[1])/2;
+		var z = (a[2] + b[2])/2;
+
+		var point = [x, y, z];
 
 		return point;
+	}
+
+	bezierPoint(coord1, coord2, coord3, coord4, t){
+		return Math.pow((1-t),3)*coord1 + 3*t*Math.pow((1-t),2)*coord2 + 3*Math.pow(t,2)*(1-t)*coord3 +	Math.pow(t,3)*coord4;
 	}
 
 	update(currTime){
@@ -51,163 +65,40 @@ class BezierAnimation extends Animation{
         var dt = (currTime - this.previousCurrTime)/1000;
         this.previousCurrTime = currTime;
 
-		if(this.positionX == this.controlPoints[3][0] && this.positionZ == this.controlPoints[3][2]){
+		if(this.t < 1){
 
-			var ab = this.lerp(this.controlPoints[0], this.controlPoints[1], dt * this.velocity);
-			var bc = this.lerp(this.controlPoints[1], this.controlPoints[2], dt * this.velocity);
-			var cd = this.lerp(this.controlPoints[2], this.controlPoints[3], dt * this.velocity);
-			var abbc = this.lerp(ab, bc, dt * this.velocity);
-			var bccd = this.lerp(bc, cd, dt * this.velocity);
-			var point = this.lerp(abbc, bccd, dt * this.velocity);
+			var ab = this.middle(this.controlPoints[0], this.controlPoints[1]);
+			var bc = this.middle(this.controlPoints[1], this.controlPoints[2]);
+			var cd = this.middle(this.controlPoints[2], this.controlPoints[3]);
+			var abbc = this.middle(ab, bc);
+			var bccd = this.middle(bc, cd);
+			var point = this.middle(abbc, bccd);
+			var d1 = Math.sqrt(Math.pow((point[0]-this.controlPoints[0][0]), 2) + Math.pow((point[1]-this.controlPoints[0][1]), 2) + Math.pow((point[2]-this.controlPoints[0][2]), 2));
+			var d2 = Math.sqrt(Math.pow((point[0]-this.controlPoints[3][0]), 2) + Math.pow((point[1]-this.controlPoints[3][1]), 2) + Math.pow((point[2]-this.controlPoints[3][2]), 2));
+			var distance = d1 + d2;
+			this.runDistance += dt * this.velocity;
+			this.t += this.runDistance / distance;		
+
+			this.previousPositionX = this.positionX;
+			this.previousPositionY = this.positionY;
+			this.previousPositionZ = this.positionZ;
+
+			this.positionX = this.bezierPoint(this.controlPoints[0][0], this.controlPoints[1][0], this.controlPoints[2][0], this.controlPoints[3][0], this.t);
+			this.positionY = this.bezierPoint(this.controlPoints[0][1], this.controlPoints[1][1], this.controlPoints[2][1], this.controlPoints[3][1], this.t);
+			this.positionZ = this.bezierPoint(this.controlPoints[0][2], this.controlPoints[1][2], this.controlPoints[2][2], this.controlPoints[3][2], this.t);
+
+			var x = this.positionX - this.previousPositionX;
+			var z = this.positionZ - this.previousPositionZ;
+			this.angle = Math.atan2(z, x)
 			
-			this.positionX = point[0];
-			this.positionZ = point[2];
-
-			console.log("X: " + this.positionX + " Z: " + this.positionZ);
+			console.log("X: " + this.positionX + "Y: " + this.positionY + " Z: " + this.positionZ);
 
 		}
-
-		/*
-
-		this.timePassed = 0;
-		var distance = this.calculateDistance();
-		this.animationTime = parseInt(distance);
-		this.calculateBezierPoints();
-
-
-
-		var dif = currTime - this.timePassed;
-
-		if(this.bezierAnimation){
-			var finalAngle = this.calculateRotationAngle();
-			var direction = this.direction;
-
-			if(this.t <= 1){
-				var oldPosition = [this.positionX, this.positionY, this.positionZ];
-				var t = this.t;
-
-				this.positionX = Math.pow((1-t), 3) * this.positionX + 3*Math.pow((1-t), 2) * t * this.P2[0] + 3*(1-t) * Math.pow(t, 2) * this.P3[0] + Math.pow(t, 3) * this.P4[0];
-				this.positionY = Math.pow((1-t), 3) * this.positionY + 3*Math.pow((1-t), 2) * t * this.P2[1] + 3*(1-t) * Math.pow(t, 2) * this.P3[1] + Math.pow(t, 3) * this.P4[1];
-				this.positionZ = Math.pow((1-t), 3) * this.positionZ + 3*Math.pow((1-t), 2) * t * this.P2[2] + 3*(1-t) * Math.pow(t, 2) * this.P3[2] + Math.pow(t, 3) * this.P4[2];
-
-				this.t += 1/(this.animationTime * 10);
-				var vector = [this.positionX - oldPosition[0], this.positionY - oldPosition[1], this.positionZ - oldPosition[2]];
-
-				var escalar = vector[1]*direction[1] + vector[2]*direction[2];
-				var n1 = Math.sqrt(vector[1]*vector[1] + vector[2]*vector[2]);
-				var n2 = Math.sqrt(direction[1]*direction[1] + direction[2]*direction[2]);
-				var cos = escalar / (n1*n2);
-				this.orientation += finalAngle/(this.animationTime*10);
-
-				var escalar = vector[0]*direction[0] + vector[2]*direction[2];
-				var n1 = Math.sqrt(vector[0]*vector[0] + vector[2]*vector[2]);
-				var n2 = Math.sqrt(direction[0]*direction[0] + direction[2]*direction[2]);
-				var cos = escalar / (n1*n2);
-				this.horizontalRotAngle = Math.acos(cos); //angulo com z
-			}
-			else{
-				this.bezierAnimation = false;
-				this.scene.destroy = true;
-			}
-		}
-		this.timePassed = currTime;*/
-
 	}
-
-
-
-
-/*
-
-
-	updatePosition(posX, posY, posZ){
-		
-			if (this.enableUpdate){
-				this.positionX = posX;
-				this.positionY = posY - 1.1;
-				this.positionZ = posZ;
-			}
-	}
-		
-	calculateVector(){
-		
-			this.P4 = [this.scene.targets[0].positionX,
-					   this.scene.targets[0].positionY,
-					   this.scene.targets[0].positionZ];
-		
-			var vector = [this.P4[0] - this.positionX,
-						  this.P4[1] - this.positionY,
-						  this.P4[2] - this.positionZ];
-		
-			return vector;
-	}
-		
-	calculateRotationAngle(){
-		
-			//calculate angle between vector and origin ("z")
-			var vector = this.calculateVector();
-		
-			var n1 = Math.sqrt(vector[0]*vector[0] + vector[2] * vector[2]);
-			var cos = vector[2] / n1;
-			var angle = Math.acos(cos);
-		
-			if (vector[0] > 0)
-				return angle;
-			else
-				return 2*Math.PI - angle;
-		
-	}
-
-	calculateDistance(){
-		var vector = this.calculateVector();
-		return Math.sqrt(vector[0]*vector[0] + vector[2] * vector[2]);
-	}
-		
-		
-	calculateDirection(){
-	
-		var vectorHorizontal = [Math.sin(this.horizontalRotAngle), 0, Math.cos(this.horizontalRotAngle)];
-		var vectorVertical = [0, Math.sin(-this.verticalRotAngle), Math.cos(-this.verticalRotAngle)];
-	
-		var final = [vectorHorizontal[0] + vectorVertical[0], vectorHorizontal[1] + vectorVertical[1], vectorHorizontal[2] + vectorVertical[2]];
-		var distance = Math.sqrt(final[0]*final[0] + final[1]*final[1] + final[2]*final[2]);
-		var angle = Math.PI/2+this.verticalRotAngle;
-	
-		var direction = [
-			Math.sin(angle) * Math.sin(this.horizontalRotAngle),
-			Math.cos(angle),
-			Math.sin(angle) * Math.cos(this.horizontalRotAngle)
-		];
-	
-		this.direction = direction;
-	
-		return direction;
-	}
-		
-	
-	calculateBezierPoints(){
-
-		var direction = this.calculateDirection();
-		var vector = this.calculateVector();
-
-		this.P2 = [
-			this.positionX + direction[0] * 6,
-			this.positionY + direction[1] * 6,
-			this.positionZ + direction[2] * 6,
-		];
-
-		this.P3 = [
-			this.scene.targets[0].positionX,
-			this.positionY + 3,
-			this.scene.targets[0].positionZ
-		];
-	}
-*/
-
-
 
 	push(){
-		this.scene.translate(this.positionX, 0, this.positionZ);
+		this.scene.translate(this.positionX, this.positionY, this.positionZ);
+		this.scene.rotate(this.angle, 0, 1, 0);
 	}
 
 	
