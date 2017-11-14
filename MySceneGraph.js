@@ -71,7 +71,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         return "root tag <SCENE> missing";
     
     var nodes = rootElement.children;
-
+    console.log(rootElement);
     
     // Reads the names of the nodes to an auxiliary buffer.
     var nodeNames = [];
@@ -150,8 +150,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         if ((error = this.parseAnimations(nodes[index])) != null )
             return error;
     }
-
-
+    
     // <NODES>
     if ((index = nodeNames.indexOf("NODES")) == -1)
         return "tag <NODES> missing";
@@ -1393,7 +1392,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 if (this.nodes[nodeID] != null )
                     return "node ID must be unique (conflict: ID = " + nodeID + ")";
     
-                var nodeSelectable = this.reader.getString(children[i], 'selectable');
+                var nodeSelectable = this.reader.getString(children[i], 'selectable');  //TODO perguntar ao prof se tem mal os erros do node selectable ou se ha forma de nao aparecerem
                 if(nodeSelectable == null)
                     nodeSelectable = 'false';
                 else if(nodeSelectable != 'true' && nodeSelectable != 'false'){
@@ -1412,6 +1411,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "ANIMATIONREFS", "DESCENDANTS"];
                 for (var j = 0; j < nodeSpecs.length; j++) {
                     var name = nodeSpecs[j].nodeName;
+
                     specsNames.push(nodeSpecs[j].nodeName);
     
                     // Warns against possible invalid tag names.
@@ -1524,32 +1524,30 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                     }
                 }
     
-    
-    
-    
                 // Retrieves possible animations.
                 var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
+
+                if(animationsIndex != -1){
     
-                var descendants = nodeSpecs[animationsIndex].children;
-    
-                for (var j = 0; j < descendants.length; j++) {
-                    if (descendants[j].nodeName == "ANIMATIONREF")
-                    {
-    
-                        var curId = this.reader.getString(descendants[j], 'id');
-    
-                        this.log("   Descendant: "+curId);
-    
-                        if (curId == null )
-                            this.onXMLMinorError("unable to parse animation id");
-                        else {
-                            this.nodes[nodeID].animations.push(curId);
+                    var animationsRefs = nodeSpecs[animationsIndex].children;
+        
+                    for (var j = 0; j < animationsRefs.length; j++) {
+                        if (animationsRefs[j].nodeName == "ANIMATIONREF")
+                        {
+        
+                            var curId = this.reader.getString(animationsRefs[j], 'id');
+        
+                            this.log("   Descendant: "+curId);
+        
+                            if (curId == null )
+                                this.onXMLMinorError("unable to parse animation id");
+                            else {
+                                this.nodes[nodeID].animations.push(curId);
+                            }
                         }
                     }
                 }
-    
-    
-    
+                
                 // Retrieves information about children.
                 var descendantsIndex = specsNames.indexOf("DESCENDANTS");
                 if (descendantsIndex == -1)
@@ -1699,11 +1697,18 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
 
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
+
+        console.log("node.selectable: " + node.selectable);
+
         if (node.selectable == 'true') {
+
+            console.log("aqui2");
+
             for(var i = 0; i < node.animations.length; i++){
                 for(var j = 0; j < this.animations.length; j++){
                     if(node.animations[i] == this.animations.id){
-                        this.animations.animation.push();
+                        console.log("aniamtions: " + this.animations[j]);
+                        this.animations[j].animation.push();
                     }
                 }
             }
