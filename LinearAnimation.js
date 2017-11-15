@@ -3,10 +3,9 @@
  * 
  */
 class LinearAnimation extends Animation{
-	constructor(scene, controlPoints, velocity) {
-		super();
+	constructor(scene, id, type, controlPoints, velocity) {
+		super(scene, id, type);
           
-        this.scene = scene;
         this.controlPoints = controlPoints;
         this.velocity = velocity;
         
@@ -22,9 +21,6 @@ class LinearAnimation extends Animation{
         this.previousDirection = [0, 0, 0];
     }
     
-    getType(){
-        return "linear";
-    }
 
     dotProduct(vec1,vec2){
         return vec1[0]*vec2[0] + vec1[1]*vec2[1] + vec1[2]*vec2[2];
@@ -120,6 +116,10 @@ class LinearAnimation extends Animation{
                     this.positionY += y*dt*this.velocity;
                 }
             }
+        }
+        else{
+            this.finished = true;
+            console.log("FINISHEDDDDDDDDDDDDDDDDDDD");
         }
     }
 

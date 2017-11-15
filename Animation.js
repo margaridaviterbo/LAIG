@@ -2,11 +2,17 @@
  * Animation
  * 
  */
-function Animation(){
+class Animation{
 
-   Animation.prototype.getType = function(){}; //será util para o parsing?
-   Animation.prototype.update = function(currTime){};
-        
-    
-    
+    constructor(scene, id, type){
+        this.scene = scene;
+        this.id = id;
+        this.type = type;
+        this.finished = false;
+    }
+       
+    update(currTime){}
+
+    push(){}
+
 }
