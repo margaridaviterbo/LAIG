@@ -3,10 +3,9 @@
  * 
  */
 class BezierAnimation extends Animation{
-	constructor(scene, controlPoints, velocity) {
-		super();
+	constructor(scene, id, type, controlPoints, velocity) {
+		super(scene, id, type);
 	
-		this.scene = scene;
 		this.controlPoints = controlPoints;
 		this.velocity = velocity;
 
@@ -73,9 +72,11 @@ class BezierAnimation extends Animation{
 			var x = this.positionX - this.previousPositionX;
 			var z = this.positionZ - this.previousPositionZ;
 			this.angle = Math.atan2(z, x)
-			
-			console.log("X: " + this.positionX + "Y: " + this.positionY + " Z: " + this.positionZ);
 
+		}
+		else{
+			this.finished = true;
+			console.log("FINISHEDDDDDDDDDDDDDDDDDDD");
 		}
 	}
 

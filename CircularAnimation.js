@@ -3,14 +3,13 @@
  * 
  */
 class CircularAnimation extends Animation{
-	constructor(scene, center, radius, initAngle, rotAngle, velocity) {
-		super();
+	constructor(scene, id, type, center, radius, initAngle, rotAngle, velocity) {
+		super(scene, id, type);
 
 		var toRad = function(deg) {
 			return deg*(Math.PI/180.0);
 		}
 		
-		this.scene = scene;
 		this.center = center;
 		this.radius = radius;
 		this.initAngle = toRad(initAngle);
@@ -33,7 +32,11 @@ class CircularAnimation extends Animation{
        
         if(this.angle < this.endAngle){
 			this.angle += dt * this.velocity;
-        }
+		}
+		else{
+			this.finished = true;
+			console.log("FINISHEDDDDDDDDDDDDDDDDDDD");
+		}
     }
 
     push(){

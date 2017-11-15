@@ -2,11 +2,17 @@
  * Animation
  * 
  */
-function Animation(id, type, animation){
+class Animation{
 
-    Animation.prototype.update = function(currTime){};
-    this.id = id;
-    this.type = type;
-    this.animation = animation;    
+    constructor(scene, id, type){
+        this.scene = scene;
+        this.id = id;
+        this.type = type;
+        this.finished = false;
+    }
+       
+    update(currTime){}
+
+    push(){}
 
 }

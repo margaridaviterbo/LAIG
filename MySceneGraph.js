@@ -71,7 +71,6 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         return "root tag <SCENE> missing";
     
     var nodes = rootElement.children;
-    console.log(rootElement);
     
     // Reads the names of the nodes to an auxiliary buffer.
     var nodeNames = [];
@@ -1180,7 +1179,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
     this.animations = [];
 
     for (var i = 0; i < children.length; i++) {
-        if (children[i].nodeName != "ANIMATIONS") {
+        if (children[i].nodeName != "ANIMATION") {
             this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
             continue;
         }
@@ -1192,6 +1191,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         if (this.animations[animationID] != null )
             return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
+        
         var animationType = this.reader.getString(children[i], 'type');
         if (animationType == null )
             return "no type defined for animation";
@@ -1232,13 +1232,13 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
                 var controlPoint = [x, y, z];
                 controlPoints.push(controlPoint);
             }
-        
+
             var animation;
             if(animationType == 'linear')
-                animation = new LinearAnimation(this.scene, controlPoints, animationSpeed);
+                animation = new LinearAnimation(this.scene, animationID, animationType, controlPoints, animationSpeed);
             else
-                animation = new BezierAnimation(this.scene, controlPoints, animationSpeed);
-            var animationParent = new Animation(animationID, animationType, animation);
+                animation = new BezierAnimation(this.scene, animationID, animationType, controlPoints, animationSpeed);
+            
             this.animations.push(animation);
         }
     
@@ -1262,28 +1262,25 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             if (animationRotang == null )
                 return "no rotang defined for animation";
 
-            var animation = new CircularAnimation(this.scene, [animationCenterx, animationCentery, animationCenterz], animationRadius, animationStartang, animationRotang, animationSpeed);
-            var animationParent = new Animation(animationID, animationType, animation);
+            var animation = new CircularAnimation(this.scene, animationID, animationType, [animationCenterx, animationCentery, animationCenterz], animationRadius, animationStartang, animationRotang, animationSpeed);
             this.animations.push(animation);
         }
         else{ //combo
+            var animationRefs = [];
             for (var j = 0; j < animationSpecs.length; j++){
-                var animationRefs = [];
                 var ref = this.reader.getString(animationSpecs[j], 'id');
-                if (x == null || y == null || z == null)
+                if (ref == null)
                     return "unable to parse reference for animation with ID = " + animationID;
 
                 for(var i = 0; i < this.animations.length; i++){
-                    if(this.animations[i][0] == ref && this.animations[i][1] == 'combo'){
+                    if(this.animations[i].id == ref && this.animations[i].type == 'combo'){
                         return "combo animations cannot have combo animations inside";
                     }
                 }
-
                 animationRefs.push(ref);
-                var animation = new ComboAnimation(this.scene,animationRefs);
-                var animationParent = new Animation(animationID, animationType, animation);
-                this.animations.push(animation);
             }
+            var animation = new ComboAnimation(this.scene, animationID, animationType, animationRefs);
+            this.animations.push(animation);
         }
     }
     console.log("Parsed animations");
@@ -1698,23 +1695,29 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
 
-        console.log("node.selectable: " + node.selectable);
-
         if (node.selectable == 'true') {
-
-            console.log("aqui2");
-
             for(var i = 0; i < node.animations.length; i++){
                 for(var j = 0; j < this.animations.length; j++){
-                    if(node.animations[i] == this.animations.id){
-                        console.log("aniamtions: " + this.animations[j]);
-                        this.animations[j].animation.push();
+                    if(node.animations[i] == this.animations[j].id){
+                        this.animations[j].push();
+
+
+for(var k=0;k<21;k++){console.log(this.animations[j].finished);}    //TODO porque é que as minhas animaçoes nunca ficam finished? 
+                                                                    //este metodo do finished eventualmente tmb nao vai funcionar 
+                                                                    //porque so permite uma a animaçao 1x, alias a animaçao em si
+                                                                    // so pode ser usada uma vez (era suposto??, vou ter de mudar 
+                                                                    //de forma a que a condiçao de paragem do update das animaçoes
+                                                                    // volte a executar o codigo??)
+                        
+                       /*     
+                        while(this.animations[j].finished == false){
+                            console.log("Executing animation " + this.animations[j].id);
+                        }*/
                     }
                 }
             }
         }
-
-                  
+          
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }

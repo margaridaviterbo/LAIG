@@ -3,10 +3,9 @@
  * 
  */
 class LinearAnimation extends Animation{
-	constructor(scene, controlPoints, velocity) {
-		super();
+	constructor(scene, id, type, controlPoints, velocity) {
+		super(scene, id, type);
           
-        this.scene = scene;
         this.controlPoints = controlPoints;
         this.velocity = velocity;
         
@@ -117,6 +116,10 @@ class LinearAnimation extends Animation{
                     this.positionY += y*dt*this.velocity;
                 }
             }
+        }
+        else{
+            this.finished = true;
+            console.log("FINISHEDDDDDDDDDDDDDDDDDDD");
         }
     }
 
