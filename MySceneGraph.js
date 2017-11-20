@@ -1389,18 +1389,17 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 if (this.nodes[nodeID] != null )
                     return "node ID must be unique (conflict: ID = " + nodeID + ")";
     
-                var nodeSelectable = this.reader.getString(children[i], 'selectable');  //TODO perguntar ao prof se tem mal os erros do node selectable ou se ha forma de nao aparecerem
+                var nodeSelectable = this.reader.getString(children[i], 'selectable');  
                 if(nodeSelectable == null)
                     nodeSelectable = 'false';
                 else if(nodeSelectable != 'true' && nodeSelectable != 'false'){
                     return "selectable property must be either 'true' or 'false'";
                 }
-    
+
                 this.log("Processing node "+nodeID);
     
                 // Creates node.
-                this.nodes[nodeID] = new MyGraphNode(this,nodeID);
-                this.nodes[nodeID].selectable = nodeSelectable;
+                this.nodes[nodeID] = new MyGraphNode(this,nodeID, nodeSelectable);
     
                 // Gathers child nodes.
                 var nodeSpecs = children[i].children;
@@ -1695,24 +1694,26 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
 
+        console.log("aqui1");
+
         if (node.selectable == 'true') {
+
             for(var i = 0; i < node.animations.length; i++){
+               // var last = 0;
                 for(var j = 0; j < this.animations.length; j++){
                     if(node.animations[i] == this.animations[j].id){
                         this.animations[j].push();
+                   
 
+                        //TODO 
+                        //este metodo do finished eventualmente tmb nao vai funcionar 
+                        //porque so permite uma a animaçao 1x, alias a animaçao em si
+                        // so pode ser usada uma vez (era suposto??, vou ter de mudar 
+                        //de forma a que a condiçao de paragem do update das animaçoes
+                        // volte a executar o codigo??)
 
-for(var k=0;k<21;k++){console.log(this.animations[j].finished);}    //TODO porque é que as minhas animaçoes nunca ficam finished? 
-                                                                    //este metodo do finished eventualmente tmb nao vai funcionar 
-                                                                    //porque so permite uma a animaçao 1x, alias a animaçao em si
-                                                                    // so pode ser usada uma vez (era suposto??, vou ter de mudar 
-                                                                    //de forma a que a condiçao de paragem do update das animaçoes
-                                                                    // volte a executar o codigo??)
+                        //CAGA NESTA MERDA É SÓ ATUALIZAR O FINISHED?!!!!
                         
-                       /*     
-                        while(this.animations[j].finished == false){
-                            console.log("Executing animation " + this.animations[j].id);
-                        }*/
                     }
                 }
             }

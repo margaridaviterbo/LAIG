@@ -27,7 +27,8 @@ class ComboAnimation extends Animation{
 
 	}
 
-	push(){		//TODO verificar se o objetivo do combo animation é este de faze las todas seguidas ou se uma animaao devia começar onde a anterior acabou
+	push(){		//TODO uma animaao devia começar onde a anterior acabou mesmo que nao seja combo animation elas têm de ser sempre fluidas corrigir isto
+				//JA ESTÁ FEITO?!!! VERIFICAR SE FUNCIONA PARA A COMBO TMB
 		for(var i = 0; i < this.animations.length; i++){
 			for(var j = 0; j < this.scene.graph.animations.length; j++){
 				if(this.animations[i] == this.scene.graph.animations[j].id){
