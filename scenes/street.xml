@@ -158,7 +158,7 @@
 </MATERIALS>
 
 <ANIMATIONS>
-    <ANIMATION id="l1" speed="10" type="linear">
+    <ANIMATION id="l1" speed="1" type="linear">
         <controlpoint xx="0" yy="0" zz="0" />
         <controlpoint xx="10" yy="0" zz="0" />
         <controlpoint xx="10" yy="10" zz="0" />

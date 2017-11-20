@@ -4,8 +4,8 @@
  */
 class LinearAnimation extends Animation{
 	constructor(scene, id, type, controlPoints, velocity) {
-		super(scene, id, type);
-          
+        super(scene, id, type);
+         
         this.controlPoints = controlPoints;
         this.velocity = velocity;
         
@@ -65,7 +65,7 @@ class LinearAnimation extends Animation{
         this.previousCurrTime = currTime;
        
         if(this.controlVar < this.controlPoints.length - 1){
-
+            console.log("entrei na animaçao");
             if(this.positionX == this.controlPoints[this.controlVar + 1][0] && this.positionY == this.controlPoints[this.controlVar + 1][1] && this.positionZ == this.controlPoints[this.controlVar + 1][2]){
                 this.controlVar++;
 
