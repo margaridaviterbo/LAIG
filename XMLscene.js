@@ -166,16 +166,30 @@ XMLscene.prototype.update = function(currTime) {
         }
     }*/
 
-    var last = 0;
-    for (var i = 0; i < this.graph.animations.length; i++) { 
-        if(i == 0){
-            this.graph.animations[i].update(currTime);
-            last = i;
-        } 
-        else if(this.graph.animations[last].finished == true){
-            this.graph.animations[i].update(currTime);
-            last = i;
+   // var last = 0;
+
+
+    for (var i = 0; i < this.graph.animations.length; i++) {
+        for(nodeID in this.graph.nodes){
+            const node = this.graph.nodes[nodeID];
+
+            console.log("TESTE AQUI!!!");
+            console.log(node.animations);
+
+            if(node.animations.length > i){
+                node.animations[i].push();
+            }
         }
     }
+        
+    //if(i == 0){
+        //this.graph.animations[i].update(currTime);
+    /*     last = i;
+    } 
+    else if(this.graph.animations[last].finished == true){
+        this.graph.animations[i].update(currTime);
+        last = i;
+    }*/
+    
 
 }

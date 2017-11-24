@@ -12,6 +12,10 @@ class Animation{
         this.id = id;
         this.type = type;
         this.finished = false;
+
+        this.lastPositionX = 0;
+        this.lastPositionY = 0;
+        this.lastPositionZ = 0;
     }
        
    // update(currTime){}

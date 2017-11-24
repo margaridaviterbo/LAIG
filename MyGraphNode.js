@@ -14,7 +14,7 @@ function MyGraphNode(graph, nodeID, selectable) {
     // IDs of child nodes.
     this.leaves = [];
 
-    //IDs of animations.
+    //node animations.
     this.animations = [];
 
     //property selectable
