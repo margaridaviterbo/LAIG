@@ -4,18 +4,16 @@
  */
 class Animation{
 
-    //TODO sempre que uma animaçao é chamada tem de ser criada uma copia dela para ter as posiçoes certas e o finished certo e o momento em que está certo
-    // AFINAL SÓ VOU TER DE ATUALIZAR O FINISHED?!!!
+    //TODO testar as nimations em todas as formas e feitios e varios objetos etc
+    //TODO testar combo animation
+    //TODO deixar o trabalho com as animaçoes dos criterios
 
     constructor(scene, id, type){
         this.scene = scene;
         this.id = id;
         this.type = type;
         this.finished = false;
-    }
-       
-   // update(currTime){}
 
-   // push(){}
+    }
 
 }

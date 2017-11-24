@@ -1538,7 +1538,13 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                             if (curId == null )
                                 this.onXMLMinorError("unable to parse animation id");
                             else {
-                                this.nodes[nodeID].animations.push(curId);
+
+                                for(var m = 0; m < this.animations.length; m++){
+                                    if(this.animations[m].id == curId){
+                                        var anim = this.animations[m];
+                                        this.nodes[nodeID].animations.push(anim);
+                                    }
+                                }
                             }
                         }
                     }
@@ -1694,28 +1700,9 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
 
-        console.log("aqui1");
-
-        if (node.selectable == 'true') {
-
+        if (node.selectable == 'true') {        // TODO posso ter de mudar porque o selectable se calhar diz respeito a shaders
             for(var i = 0; i < node.animations.length; i++){
-               // var last = 0;
-                for(var j = 0; j < this.animations.length; j++){
-                    if(node.animations[i] == this.animations[j].id){
-                        this.animations[j].push();
-                   
-
-                        //TODO 
-                        //este metodo do finished eventualmente tmb nao vai funcionar 
-                        //porque so permite uma a animaçao 1x, alias a animaçao em si
-                        // so pode ser usada uma vez (era suposto??, vou ter de mudar 
-                        //de forma a que a condiçao de paragem do update das animaçoes
-                        // volte a executar o codigo??)
-
-                        //CAGA NESTA MERDA É SÓ ATUALIZAR O FINISHED?!!!!
-                        
-                    }
-                }
+                node.animations[i].push();
             }
         }
           

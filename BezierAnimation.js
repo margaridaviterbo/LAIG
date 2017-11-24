@@ -10,8 +10,8 @@ class BezierAnimation extends Animation{
 		this.velocity = velocity;
 
 		this.positionX = 0;
-		this.positionY = 0;
-		this.positionZ = 0;
+        this.positionY = 0;
+        this.positionZ = 0;
 		this.previousPositionX = 0;
 		this.previousPositionY = 0;
 		this.previousPositionZ = 0;
@@ -45,7 +45,7 @@ class BezierAnimation extends Animation{
             this.previousCurrTime = currTime;
         }
         var dt = (currTime - this.previousCurrTime)/1000;
-        this.previousCurrTime = currTime;
+		this.previousCurrTime = currTime;
 
 		if(this.t < 1){
 
@@ -76,7 +76,6 @@ class BezierAnimation extends Animation{
 		}
 		else{
 			this.finished = true;
-			console.log("FINISHEDDDDDDDDDDDDDDDDDDD");
 		}
 	}
 
