@@ -8,7 +8,6 @@ class BezierAnimation extends Animation{
 	
 		this.controlPoints = controlPoints;
 		this.velocity = velocity;
-		this.controlVar = 0;
 
 		this.positionX = 0;
         this.positionY = 0;
@@ -47,10 +46,6 @@ class BezierAnimation extends Animation{
         }
         var dt = (currTime - this.previousCurrTime)/1000;
 		this.previousCurrTime = currTime;
-		
-		if(this.controlVar == 0){
-			this.controlVar ++;
-		}
 
 		if(this.t < 1){
 
@@ -80,24 +75,13 @@ class BezierAnimation extends Animation{
 
 		}
 		else{
-
-			if(this.controlVar == 1){
-                this.controlVar ++;
-                this.lastPositionX = this.positionX;
-                this.lastPositionY = this.positionY;
-                this.lastPositionZ = this.positionZ;
-            }
-
 			this.finished = true;
-			console.log("FINISHEDDDDDDDDDDDDDDDDDDD");
 		}
 	}
 
 	push(){
-		if(this.controlVar != 0){
-			this.scene.translate(this.positionX, this.positionY, this.positionZ);
-			this.scene.rotate(this.angle, 0, 1, 0);
-		}
+		this.scene.translate(this.positionX, this.positionY, this.positionZ);
+		this.scene.rotate(this.angle, 0, 1, 0);
 	}
 
 	

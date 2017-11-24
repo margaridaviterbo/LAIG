@@ -157,39 +157,16 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.update = function(currTime) {
 
-    //TODO mudei alguma coisa que tenha de alterar aqui?
-
-   /* for (nodeID in this.graph.nodes) {
+    for(nodeID in this.graph.nodes){
         const node = this.graph.nodes[nodeID];
-        if (node.animation != undefined) {
-            node.animation.update(currTime);
-        }
-    }*/
-
-   // var last = 0;
-
-
-    for (var i = 0; i < this.graph.animations.length; i++) {
-        for(nodeID in this.graph.nodes){
-            const node = this.graph.nodes[nodeID];
-
-            console.log("TESTE AQUI!!!");
-            console.log(node.animations);
-
-            if(node.animations.length > i){
-                node.animations[i].push();
+        if(node.animations.length > 0){
+            if(node.animations[node.currAnimation].finished == false){
+                node.animations[node.currAnimation].update(currTime);
+            }
+            else if(node.currAnimation + 1 < node.animations.length){
+                node.currAnimation ++;
+                node.animations[node.currAnimation].update(currTime);
             }
         }
     }
-        
-    //if(i == 0){
-        //this.graph.animations[i].update(currTime);
-    /*     last = i;
-    } 
-    else if(this.graph.animations[last].finished == true){
-        this.graph.animations[i].update(currTime);
-        last = i;
-    }*/
-    
-
 }

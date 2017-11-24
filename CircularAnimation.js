@@ -15,6 +15,10 @@ class CircularAnimation extends Animation{
 		this.initAngle = toRad(initAngle);
 		this.rotAngle = toRad(rotAngle);
 		this.angle = 0;
+		this.centerX = 0;
+		this.centerY = 0;
+		this.centerZ = 0;
+		this.initRadius = 0;
 		this.endAngle = this.initAngle + this.rotAngle;
 		this.velocity = velocity;
 		this.controlVar = 0;
@@ -34,31 +38,24 @@ class CircularAnimation extends Animation{
 		if(this.controlVar == 0){
 			this.controlVar ++;
 			this.angle = this.initAngle;
+			this.centerX = this.center[0];
+			this.centerY = this.center[1];
+			this.centerZ = this.center[2];
+			this.initRadius = this.radius;
 		}
        
         if(this.angle < this.endAngle){
 			this.angle += dt * this.velocity;
 		}
 		else{
-
-			if(this.controlVar == 1){
-                this.controlVar ++;
-                this.lastPositionX = this.positionX;
-                this.lastPositionY = this.positionY;
-                this.lastPositionZ = this.positionZ;
-            }
-
 			this.finished = true;
-			console.log("FINISHEDDDDDDDDDDDDDDDDDDD");
 		}
     }
 
     push(){
-		if(this.controlVar != 0){
-			this.scene.translate(this.center[0], this.center[1], this.center[2]);
-			this.scene.rotate(this.angle, 0, 1, 0);
-			this.scene.translate(this.radius, 0, 0);
-		}
+		this.scene.translate(this.centerX, this.centerY, this.centerZ);
+		this.scene.rotate(this.angle, 0, 1, 0);
+		this.scene.translate(this.initRadius, 0, 0);
     }
 	
 }

@@ -17,6 +17,9 @@ function MyGraphNode(graph, nodeID, selectable) {
     //node animations.
     this.animations = [];
 
+    //node current animation
+    this.currAnimation = 0;
+
     //property selectable
     this.selectable = selectable;
 
