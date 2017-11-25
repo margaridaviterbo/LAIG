@@ -70,14 +70,5 @@ MyInterface.prototype.addNodesGroup = function(nodes){
    
     var group = this.gui.addFolder("Shaders");
     this.gui.add(this.scene,'selected',nodes).name('Select Node');
-
-    
 }
 
-
-
-MyInterface.prototype.addSelectableNodes = function(nodes)
-{
-    var shadersGroup = this.gui.addFolder("Shaders");
-    this.gui.add(this.scene, "selectableNodes", nodes).name("Select Node");
-}
