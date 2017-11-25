@@ -735,7 +735,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piramidesPortao">
+    <NODE id="piramidesPortao" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -770,7 +770,7 @@
     
 
     <!-- The lights -->
-     <NODE id="luzes">
+     <NODE id="luzes" >
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
 
@@ -798,7 +798,7 @@
     </NODE>
 
     <!-- Light bulbs -->
-     <NODE id="luzEsfera" selectable="true">
+     <NODE id="luzEsfera">
         <MATERIAL id="lightMaterial" />
         <TEXTURE id="null" />
        
@@ -811,7 +811,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera1" selectable="true">
+    <NODE id="luzEsfera1" >
        <MATERIAL id="null" />
        <TEXTURE id="null" />
        
@@ -820,7 +820,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera2"  selectable="true" >
+    <NODE id="luzEsfera2" >
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -831,7 +831,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera3"  selectable="true">
+    <NODE id="luzEsfera3" >
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -1002,7 +1002,7 @@
     </NODE>
 
     <!-- Posto informaçoes -->
-     <NODE id="posteDirecoes">
+     <NODE id="posteDirecoes" >
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
 

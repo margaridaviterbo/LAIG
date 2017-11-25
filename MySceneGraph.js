@@ -1366,6 +1366,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
     
     // Traverses nodes.
     var children = nodesNode.children;
+    this.selectableList = [];
     
         for (var i = 0; i < children.length; i++) {
             var nodeName;
@@ -1390,8 +1391,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                     return "node ID must be unique (conflict: ID = " + nodeID + ")";
     
                 var nodeSelectable = this.reader.getString(children[i], 'selectable');  
-                if(nodeSelectable == null)
-                    nodeSelectable = 'false';
+                if(nodeSelectable == 'true'){
+                   this.selectableList.push(nodeID);
+                }
+                else if(nodeSelectable == null)
+                        nodeSelectable = 'false';
                 else if(nodeSelectable != 'true' && nodeSelectable != 'false'){
                     return "selectable property must be either 'true' or 'false'";
                 }
@@ -1697,8 +1701,8 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             material.apply();
         }
 
-        if(node.nodeSelectable == 'true'){
-            console.log(node)
+        if(node.selectable == 'true'){
+            
             this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
             
         }
@@ -1721,7 +1725,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
 
         this.scene.popMatrix();
-        if(node.nodeSelectable == 'true'){
+        if(node.selectable == 'true'){
             this.scene.setActiveShader(this.scene.defaultShader);
         }
         

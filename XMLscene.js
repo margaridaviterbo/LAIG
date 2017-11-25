@@ -12,6 +12,7 @@ function XMLscene(interface) {
     this.lightValues = {};
     this.selectedShader = 0;
     this.selectedColour = 0;
+    this.selectedNode=0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -35,6 +36,9 @@ XMLscene.prototype.init = function(application) {
     this.shaders=[
         new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag")
     ];
+
+    this.selected = [];
+    this.selectedStatus = [];
     
     this.axis = new CGFaxis(this);
 }
@@ -73,6 +77,14 @@ XMLscene.prototype.initLights = function() {
     
 }
 
+XMLscene.prototype.selectedList = function() {
+
+    for( var i=0; i < this.graph.selectableList.length; i++){
+        this.selected.push(this.graph.selectableList[i]);
+        this.selectedStatus.push('false');
+    }
+}
+
 /**
  * Initializes the scene cameras.
  */
@@ -95,11 +107,13 @@ XMLscene.prototype.onGraphLoaded = function()
     this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
     
     this.initLights();
-
+    this.selectedList();
+   
     this.setUpdatePeriod(50);    
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
+    this.interface.addNodesGroup(this.selected);
 }
 
 /**
@@ -166,7 +180,6 @@ XMLscene.prototype.updateScaleFactor=function(currTime)
     var amp=50;
     var c = [1.0,0.0,0.0,1.0];
     var wave = amp * Math.sin(2*Math.PI*(1/10000)*currTime);
-    console.log(wave);
     this.shaders[0].setUniformsValues({normScale: wave, selectedColour:c});
     
 }
@@ -188,7 +201,7 @@ XMLscene.prototype.update = function(currTime) {
 
     for(nodeID in this.graph.nodes){
         const node = this.graph.nodes[nodeID];
-        if(node.nodeSelectable == 'true'){
+        if(node.selectable == 'true'){
             this.updateScaleFactor(currTime);
         }
     }

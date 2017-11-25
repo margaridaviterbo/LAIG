@@ -21,8 +21,8 @@ MyInterface.prototype.init = function(application) {
     
     this.gui = new dat.GUI();
 
-    // add a group of controls (and open/expand by defult)
     
+
     return true;
 };
 
@@ -64,3 +64,20 @@ MyInterface.prototype.addTexturesGroup = function(textures) {
             }
         }
     }
+
+
+MyInterface.prototype.addNodesGroup = function(nodes){
+   
+    var group = this.gui.addFolder("Select Nodes");
+    group.open();
+
+    // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+    // e.g. this.option1=true; this.option2=false;
+
+    for (var key in nodes) {
+        if (nodes.hasOwnProperty(key)) {
+           
+            group.add(this.scene.selected, key);
+        }
+    }
+}
