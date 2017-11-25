@@ -13,7 +13,9 @@ class Animation{
         this.id = id;
         this.type = type;
         this.finished = false;
-
     }
 
+    pop() {
+        this.scene.popMatrix();
+    }
 }

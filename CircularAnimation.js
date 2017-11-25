@@ -5,15 +5,11 @@
 class CircularAnimation extends Animation{
 	constructor(scene, id, type, center, radius, initAngle, rotAngle, velocity) {
 		super(scene, id, type);
-
-		var toRad = function(deg) {
-			return deg*(Math.PI/180.0);
-		}
 		
 		this.center = center;
 		this.radius = radius;
-		this.initAngle = toRad(initAngle);
-		this.rotAngle = toRad(rotAngle);
+		this.initAngle = initAngle;
+		this.rotAngle = rotAngle;
 		this.angle = 0;
 		this.centerX = 0;
 		this.centerY = 0;
@@ -49,13 +45,15 @@ class CircularAnimation extends Animation{
 		}
 		else{
 			this.finished = true;
+			console.log("finished circular");
 		}
     }
 
     push(){
+		this.scene.pushMatrix();
+		this.scene.translate(0, 0, this.radius);
 		this.scene.translate(this.centerX, this.centerY, this.centerZ);
 		this.scene.rotate(this.angle, 0, 1, 0);
-		this.scene.translate(this.initRadius, 0, 0);
     }
 	
 }

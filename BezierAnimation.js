@@ -76,10 +76,12 @@ class BezierAnimation extends Animation{
 		}
 		else{
 			this.finished = true;
+			console.log("finished bezier");
 		}
 	}
 
 	push(){
+		this.scene.pushMatrix();
 		this.scene.translate(this.positionX, this.positionY, this.positionZ);
 		this.scene.rotate(this.angle, 0, 1, 0);
 	}

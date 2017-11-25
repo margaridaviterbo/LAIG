@@ -1243,6 +1243,11 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         }
     
         else if(animationType == 'circular'){
+
+            var toRad = function(deg) {
+                return deg*(Math.PI/180.0);
+            }
+
             var animationCenterx = this.reader.getFloat(children[i], 'centerx');
             if (animationCenterx == null )
                 return "no center defined for animation";
@@ -1262,7 +1267,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             if (animationRotang == null )
                 return "no rotang defined for animation";
 
-            var animation = new CircularAnimation(this.scene, animationID, animationType, [animationCenterx, animationCentery, animationCenterz], animationRadius, animationStartang, animationRotang, animationSpeed);
+            var animation = new CircularAnimation(this.scene, animationID, animationType, [animationCenterx, animationCentery, animationCenterz], animationRadius, toRad(animationStartang), toRad(animationRotang), animationSpeed);
             this.animations.push(animation);
         }
         else{ //combo
@@ -1541,7 +1546,23 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
                                 for(var m = 0; m < this.animations.length; m++){
                                     if(this.animations[m].id == curId){
-                                        var anim = this.animations[m];
+                                        var anim;
+                                        switch (this.animations[m].type){
+                                            case 'linear':
+                                                anim = new LinearAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].controlPoints, this.animations[m].velocity);
+                                                break;
+                                            case 'bezier':
+                                                anim = new BezierAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].controlPoints, this.animations[m].velocity);
+                                                break;
+                                            case 'circular':
+                                                anim = new CircularAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].center, this.animations[m].radius, this.animations[m].initAngle, this.animations[m].rotAngle, this.animations[m].velocity);
+                                                break;
+                                            case 'combo':
+                                                anim = new ComboAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].animations);
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                         this.nodes[nodeID].animations.push(anim);
                                     }
                                 }
@@ -1700,12 +1721,10 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
 
-        if (node.selectable == 'true') {        // TODO posso ter de mudar porque o selectable se calhar diz respeito a shaders
-            for(var i = 0; i < node.animations.length; i++){
-                node.animations[i].push();
-            }
+        for(var i = 0; i < node.animations.length; i++){
+            node.animations[i].push();
         }
-          
+
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
@@ -1714,8 +1733,12 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             node.leaves[i].setTextCoords(s,t);
             node.leaves[i].display();          
         }
-        
+
         this.scene.popMatrix();
+
+        for (var i = 0; i < node.animations.length; i++) {
+            node.animations[i].pop();
+        }
         
     }
 

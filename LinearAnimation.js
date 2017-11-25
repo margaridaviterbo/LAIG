@@ -36,14 +36,14 @@ class LinearAnimation extends Animation{
             var prevDir = this.previousDirection;
         }
         else{
-            var prevDir = [0, 0, 0];
+            var prevDir = [0, 0, 1];
         }
 
         if(this.direction != undefined){
             var dir = [this.direction[0], 0, this.direction[2]];
         }
         else{
-            var dir = [0, 0, 0];
+            var dir = [0, 0, 1];
         }
 
         prevDir[1] = 0;
@@ -87,7 +87,7 @@ class LinearAnimation extends Animation{
                     }
                 }
                 else{
-                    this.direction = [0, 0, 0];
+                    this.direction = [0, 0, 1];
                     this.angle = this.previousAngle;
                 } 
             }
@@ -118,12 +118,15 @@ class LinearAnimation extends Animation{
         }
         else{
             this.finished = true;
+            console.log("finished linear");
         }
     }
 
     push(){
+        this.scene.pushMatrix();
         this.scene.translate(this.positionX, this.positionY, this.positionZ);
         this.scene.rotate(this.angle, 0, 1, 0);
+        console.log(this.angle);
     }
 	
 }
