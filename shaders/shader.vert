@@ -5,12 +5,15 @@ attribute vec2 aTextureCoord;
 uniform mat4 uMVMatrix; 
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
-
 uniform float normScale;
+
+varying vec2 vTextureCoord;
 varying vec4 coords;
 varying vec4 normal;
 
 void main() {
+
+	vTextureCoord = aTextureCoord;
 
 	vec4 vertex=vec4(aVertexPosition+aVertexNormal*normScale*0.1, 1.0);
 

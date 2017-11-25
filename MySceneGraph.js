@@ -1702,7 +1702,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
 
         if(this.scene.selectedNode == node.nodeID){
-          this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
+            this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
         }
         
         this.scene.pushMatrix();
