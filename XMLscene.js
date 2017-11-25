@@ -177,7 +177,7 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.updateScaleFactor=function(currTime)
 {
-    var amp=50;
+    var amp=40;
     var c = [1.0,0.0,0.0,1.0];
     var wave = amp * Math.sin(2*Math.PI*(1/10000)*currTime);
     this.shaders[0].setUniformsValues({normScale: wave, selectedColour:c});

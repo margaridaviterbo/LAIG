@@ -68,16 +68,16 @@ MyInterface.prototype.addTexturesGroup = function(textures) {
 
 MyInterface.prototype.addNodesGroup = function(nodes){
    
-    var group = this.gui.addFolder("Select Nodes");
-    group.open();
+    var group = this.gui.addFolder("Shaders");
+    this.gui.add(this.scene,'selected',nodes).name('Select Node');
 
-    // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-    // e.g. this.option1=true; this.option2=false;
+    
+}
 
-    for (var key in nodes) {
-        if (nodes.hasOwnProperty(key)) {
-           
-            group.add(this.scene.selected, key);
-        }
-    }
+
+
+MyInterface.prototype.addSelectableNodes = function(nodes)
+{
+    var shadersGroup = this.gui.addFolder("Shaders");
+    this.gui.add(this.scene, "selectableNodes", nodes).name("Select Node");
 }

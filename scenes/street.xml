@@ -1110,7 +1110,7 @@
 
 
     <!-- Generic bench -->
-    <NODE id="banco">
+    <NODE id="banco" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -1126,7 +1126,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="assento">
+    <NODE id="assento" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="wood" />
 
@@ -1141,7 +1141,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="ripa2">
+     <NODE id="ripa2" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="wood"/>
 
