@@ -798,7 +798,7 @@
     </NODE>
 
     <!-- Light bulbs -->
-     <NODE id="luzEsfera">
+     <NODE id="luzEsfera" selectable="true">
         <MATERIAL id="lightMaterial" />
         <TEXTURE id="null" />
        
@@ -811,7 +811,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera1">
+    <NODE id="luzEsfera1" selectable="true">
        <MATERIAL id="null" />
        <TEXTURE id="null" />
        
@@ -820,7 +820,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera2">
+    <NODE id="luzEsfera2"  selectable="true" >
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -831,7 +831,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera3">
+    <NODE id="luzEsfera3"  selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -1580,7 +1580,7 @@
 
     </NODE>
 
-    <NODE id="jornal" selectable="true">
+    <NODE id="jornal">
         <MATERIAL id="null" />
         <TEXTURE id="paper" />
 

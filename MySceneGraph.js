@@ -1697,14 +1697,19 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             material.apply();
         }
 
+        if(node.nodeSelectable == 'true'){
+            console.log(node)
+            this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
+            
+        }
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
 
-        if (node.selectable == 'true') {        // TODO posso ter de mudar porque o selectable se calhar diz respeito a shaders
+       /* if (node.selectable == 'true') {        // TODO posso ter de mudar porque o selectable se calhar diz respeito a shaders
             for(var i = 0; i < node.animations.length; i++){
                 node.animations[i].push();
             }
-        }
+        }*/
           
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
@@ -1714,8 +1719,11 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             node.leaves[i].setTextCoords(s,t);
             node.leaves[i].display();          
         }
-        
+
         this.scene.popMatrix();
+        if(node.nodeSelectable == 'true'){
+            this.scene.setActiveShader(this.scene.defaultShader);
+        }
         
     }
 
