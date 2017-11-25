@@ -69,6 +69,6 @@ MyInterface.prototype.addTexturesGroup = function(textures) {
 MyInterface.prototype.addNodesGroup = function(nodes){
    
     var group = this.gui.addFolder("Shaders");
-    this.gui.add(this.scene,'selected',nodes).name('Select Node');
+    this.gui.add(this.scene,'selectedNode',nodes).name('Select Node');
 }
 

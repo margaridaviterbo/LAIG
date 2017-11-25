@@ -1701,9 +1701,8 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             material.apply();
         }
 
-        if(node.selectable == 'true'){
-            
-            this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
+        if(this.scene.selectedNode == node.nodeID){
+          this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
         }
         
         this.scene.pushMatrix();
@@ -1713,6 +1712,10 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
+
+        if(this.scene.selectedNode == node.nodeID && node.children.length!=0){
+            this.scene.setActiveShader(this.scene.defaultShader);
+        }
             
         for(var i=0; i < node.leaves.length; i++){
             node.leaves[i].setTextCoords(s,t);
@@ -1720,7 +1723,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
 
         this.scene.popMatrix();
-        if(node.selectable == 'true'){
+        if(this.scene.selectedNode == node.nodeID && node.children.length==0){
             this.scene.setActiveShader(this.scene.defaultShader);
         }
         

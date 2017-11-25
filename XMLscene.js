@@ -12,7 +12,7 @@ function XMLscene(interface) {
     this.lightValues = {};
     this.selectedShader = 0;
     this.selectedColour = 0;
-    this.selectedNode=0;
+    this.selectedNode = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -38,8 +38,7 @@ XMLscene.prototype.init = function(application) {
     ];
 
     this.selected = [];
-    this.selectedStatus = [];
-    
+      
     this.axis = new CGFaxis(this);
 }
 
@@ -81,7 +80,6 @@ XMLscene.prototype.selectedList = function() {
 
     for( var i=0; i < this.graph.selectableList.length; i++){
         this.selected.push(this.graph.selectableList[i]);
-        this.selectedStatus.push('false');
     }
 }
 
@@ -200,8 +198,7 @@ XMLscene.prototype.update = function(currTime) {
     }
 
     for(nodeID in this.graph.nodes){
-        const node = this.graph.nodes[nodeID];
-        if(node.selectable == 'true'){
+        if(nodeID == this.selectedNode){
             this.updateScaleFactor(currTime);
         }
     }
