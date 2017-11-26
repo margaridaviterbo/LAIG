@@ -167,7 +167,7 @@
         <controlpoint xx="10" yy="10" zz="10"/>
     </ANIMATION>
 
-    <ANIMATION id="c1" speed="1" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="0" rotang="720"/>
+    <ANIMATION id="c1" speed="1" type="circular" centerx="10" centery="10" centerz="10" radius="0" startang="0" rotang="720"/>
 
     <ANIMATION id="b1" speed="0.5" type="bezier">
         <controlpoint xx="0" yy="0" zz="0" />

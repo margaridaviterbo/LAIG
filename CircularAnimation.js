@@ -51,9 +51,9 @@ class CircularAnimation extends Animation{
 
     push(){
 		this.scene.pushMatrix();
-		this.scene.translate(0, 0, this.radius);
 		this.scene.translate(this.centerX, this.centerY, this.centerZ);
 		this.scene.rotate(this.angle, 0, 1, 0);
+		this.scene.translate(0, 0, this.radius);
     }
 	
 }

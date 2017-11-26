@@ -32,7 +32,7 @@ main=function()
 
     myInterface.setActiveCamera(myScene.camera);
 
-	var filename=getUrlVars()['file'] || "street.xml";
+	var filename=getUrlVars()['file'] || "street.1.xml";
 
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors

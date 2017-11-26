@@ -13,11 +13,7 @@ class ComboAnimation extends Animation{
 
 		var auxFinish = true;
 		for(var i = 0; i < this.animations.length; i++){
-			for(var j = 0; j < this.scene.graph.animations.length; j++){
-				if(this.animations[i] == this.scene.graph.animations[j].id){
-					auxFinish = auxFinish && this.scene.graph.animations[j].finished;
-				}
-			}
+			auxFinish = auxFinish && this.animations[i].finished;
 		}
 		this.finished = auxFinish;
 
@@ -29,12 +25,7 @@ class ComboAnimation extends Animation{
 
 	push(){
 		for(var i = 0; i < this.animations.length; i++){
-			for(var j = 0; j < this.scene.graph.animations.length; j++){
-				if(this.animations[i] == this.scene.graph.animations[j].id){
-					this.scene.graph.animations[j].push();
-				}
-			}
+			this.animations[i].push();
 		}
-
 	}
 }
