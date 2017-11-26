@@ -1243,6 +1243,11 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         }
     
         else if(animationType == 'circular'){
+
+            var toRad = function(deg) {
+                return deg*(Math.PI/180.0);
+            }
+
             var animationCenterx = this.reader.getFloat(children[i], 'centerx');
             if (animationCenterx == null )
                 return "no center defined for animation";
@@ -1262,24 +1267,25 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             if (animationRotang == null )
                 return "no rotang defined for animation";
 
-            var animation = new CircularAnimation(this.scene, animationID, animationType, [animationCenterx, animationCentery, animationCenterz], animationRadius, animationStartang, animationRotang, animationSpeed);
+            var animation = new CircularAnimation(this.scene, animationID, animationType, [animationCenterx, animationCentery, animationCenterz], animationRadius, toRad(animationStartang), toRad(animationRotang), animationSpeed);
             this.animations.push(animation);
         }
         else{ //combo
-            var animationRefs = [];
+            var anims = [];
             for (var j = 0; j < animationSpecs.length; j++){
                 var ref = this.reader.getString(animationSpecs[j], 'id');
                 if (ref == null)
                     return "unable to parse reference for animation with ID = " + animationID;
 
-                for(var i = 0; i < this.animations.length; i++){
-                    if(this.animations[i].id == ref && this.animations[i].type == 'combo'){
+                for(var m = 0; m < this.animations.length; m++){
+                    if(this.animations[m].id == ref && this.animations[m].type == 'combo'){
                         return "combo animations cannot have combo animations inside";
                     }
                 }
-                animationRefs.push(ref);
+                anims.push(ref);
+
             }
-            var animation = new ComboAnimation(this.scene, animationID, animationType, animationRefs);
+            var animation = new ComboAnimation(this.scene, animationID, animationType, anims);
             this.animations.push(animation);
         }
     }
@@ -1545,7 +1551,23 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
                                 for(var m = 0; m < this.animations.length; m++){
                                     if(this.animations[m].id == curId){
-                                        var anim = this.animations[m];
+                                        var anim;
+                                        switch (this.animations[m].type){
+                                            case 'linear':
+                                                anim = new LinearAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].controlPoints, this.animations[m].velocity);
+                                                break;
+                                            case 'bezier':
+                                                anim = new BezierAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].controlPoints, this.animations[m].velocity);
+                                                break;
+                                            case 'circular':
+                                                anim = new CircularAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].center, this.animations[m].radius, this.animations[m].initAngle, this.animations[m].rotAngle, this.animations[m].velocity);
+                                                break;
+                                            case 'combo':
+                                                anim = new ComboAnimation(this.animations[m].scene, this.animations[m].id, this.animations[m].type, this.animations[m].animations);
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                         this.nodes[nodeID].animations.push(anim);
                                     }
                                 }
@@ -1705,10 +1727,13 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
         }
         
+        for(var i = 0; i < node.animations.length; i++){
+            node.animations[i].push();
+        }
+
         this.scene.pushMatrix();
         this.scene.multMatrix(node.transformMatrix);
 
-              
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
@@ -1723,8 +1748,12 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
 
         this.scene.popMatrix();
+
         if(this.scene.selectedNode == node.nodeID && node.children.length==0){
             this.scene.setActiveShader(this.scene.defaultShader);
+
+        for (var i = 0; i < node.animations.length; i++) {
+            node.animations[i].pop();
         }
         
     }

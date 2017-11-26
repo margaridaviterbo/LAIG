@@ -167,7 +167,7 @@
         <controlpoint xx="10" yy="10" zz="10"/>
     </ANIMATION>
 
-    <ANIMATION id="c1" speed="0.5" type="circular" centerx="0" centery="0" centerz="0" radius="10" startang="90" rotang="180"/>
+    <ANIMATION id="c1" speed="1" type="circular" centerx="10" centery="10" centerz="10" radius="0" startang="0" rotang="720"/>
 
     <ANIMATION id="b1" speed="0.5" type="bezier">
         <controlpoint xx="0" yy="0" zz="0" />
@@ -1079,6 +1079,10 @@
         <ROTATION axis="y" angle="180"/>
         <TRANSLATION x="4.5" y="7" z="0"/>
 
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="c1"/>
+        </ANIMATIONREFS>
+
         <DESCENDANTS>
 			<NODEREF id="barraBanco4"/>
         </DESCENDANTS>
@@ -1500,10 +1504,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="2.5" y="4" z="7.5" />
-
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+					<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1513,11 +1515,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="2.5" y="4" z="2.5" />
 		<ROTATION axis="y" angle="-90" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1527,11 +1528,11 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="7.5" y="4" z="7.5" />
-		<ROTATION axis="y" angle="90" />
+        <TRANSLATION x="4" y="0" z="0" />
+		<ROTATION axis="y" angle="-90" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+					<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1541,11 +1542,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="7.5" y="4" z="2.5" />
-        <ROTATION axis="y" angle="180" />
-
+        <ROTATION axis="x" angle="90" />
+        
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1555,12 +1555,11 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <ROTATION axis="x" angle="-90" />
-        <TRANSLATION x="2.5" y="-7.5" z="8" />
-        <SCALE sx="1" sy="1.25" sz="1" />
+        <TRANSLATION x="0" y="4" z="0" />
+        <ROTATION axis="x" angle="90" />
 
         <DESCENDANTS>
- 					<LEAF  type="rectangle" args="0 4 5 0" />
+ 			<LEAF  type="rectangle" args="0 4 4 0" />
        </DESCENDANTS>
 
     </NODE>
@@ -1570,12 +1569,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="2.5" y="4" z="2.5" />
-        <ROTATION axis="x" angle="90" />
-        <SCALE sx="1" sy="1.25" sz="1" />
+        <TRANSLATION x="0" y="0" z="4" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1588,9 +1585,9 @@
         <SCALE sx="0.5" sy="0.5" sz="0.5" />
         
         <ANIMATIONREFS>
-            <ANIMATIONREF id="l1"/>
             <ANIMATIONREF id="c1"/>
-            <ANIMATIONREF id="b1"/>
+            <ANIMATIONREF id="l1"/>
+            <ANIMATIONREF id="l1"/>
             <!--ANIMATIONREF id="mix1"/-->
         </ANIMATIONREFS>
         

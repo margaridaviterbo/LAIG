@@ -188,13 +188,12 @@ XMLscene.prototype.update = function(currTime) {
 
     for(nodeID in this.graph.nodes){
         const node = this.graph.nodes[nodeID];
-        if(node.animations.length > 0){
+        if(node.animations.length > 0) {
             if(node.animations[node.currAnimation].finished == false){
                 node.animations[node.currAnimation].update(currTime);
             }
             else if(node.currAnimation + 1 < node.animations.length){
                 node.currAnimation ++;
-                node.animations[node.currAnimation].update(currTime);
             }
         }
     }
