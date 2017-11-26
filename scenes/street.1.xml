@@ -1,0 +1,396 @@
+<SCENE>
+
+<INITIALS>
+    <frustum near="0.1" far="500"/>
+    <translation x="-1" y="1" z="0" />
+    <rotation axis="x" angle="0" />
+    <rotation axis="y" angle="0" />
+    <rotation axis="z" angle="0" />
+    <scale sx="0.25" sy="0.25" sz="0.25" />
+    <reference length="5" />
+</INITIALS>
+
+<ILLUMINATION>
+    <ambient r="0.2" g="0.2" b="0.2" a="1" />
+    <background r="0" g="0" b="0" a="1" />
+</ILLUMINATION>
+
+<LIGHTS>
+    <LIGHT id="light0">
+        <enable value ="1" />
+        <position  x="-11.5" y="8.5" z="-1" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light0.1">
+        <enable value ="1" />
+        <position  x="-9" y="8.5" z="-1" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light0.2">
+        <enable value ="1" />
+        <position  x="-6" y="8.5" z="-1" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+	<LIGHT id="light1">
+        <enable value ="1" />
+        <position x="30" y="10" z="0" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+	<LIGHT id="light2">
+        <enable value ="1" />
+        <position x="0" y="10" z="20" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light3">
+        <enable value ="1" />
+        <position x="30" y="10" z="20" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+        <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+    </LIGHT>
+</LIGHTS>
+
+<TEXTURES>
+<TEXTURE id="rocks">
+        <file path="images/floor.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+	<TEXTURE id="street">
+        <file path="images/garden.jpeg" />
+        <amplif_factor s="5" t="4" />
+    </TEXTURE>
+
+    <TEXTURE id="wood">
+        <file path="images/wood.jpg" />
+        <amplif_factor s="4" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="leg">
+        <file path="images/poste_candeeiro.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="paper">
+        <file path="images/paper.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="pavement">
+        <file path="images/pav2.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="brick">
+        <file path="images/brick.jpg" />
+        <amplif_factor s="1" t="3" />
+    </TEXTURE>
+
+    <TEXTURE id="gate">
+        <file path="images/gate2.jpg" />
+        <amplif_factor s="1" t="2" />
+    </TEXTURE>
+
+    <TEXTURE id="bush">
+        <file path="images/garden.jpeg" />
+        <amplif_factor s="4" t="4" />
+    </TEXTURE>
+   
+    <TEXTURE id="direction">
+        <file path="images/direction.jpg" />
+        <amplif_factor s="5" t="4" />
+    </TEXTURE>
+
+</TEXTURES>
+
+<MATERIALS>
+
+    <MATERIAL id="statueMaterial">
+        <shininess value="50" />
+        <specular r="1" g="1" b="1" a="1" />
+        <diffuse r="1" g="1" b="1" a="1" />
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <!-- Lamp post material -->
+    <MATERIAL id="lightPostMaterial">
+        <shininess value="50" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.447" g="0.416" b="0.416" a="1" />
+        <ambient r="0.0" g="0.0" b="0.0" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <!-- Light bulb material -->
+    <MATERIAL id="lightMaterial">
+        <shininess value="100" />
+        <specular r="0.5" g="0.5" b="0.5" a="0" />
+        <diffuse r="0.5" g="0.5" b="0.5" a="0" />
+        <ambient r="0.0" g="0.0" b="0.0" a="0" />
+        <emission r="0.0" g="0.0" b="0.0" a="0" />
+    </MATERIAL>
+
+    <!-- A default material -->
+    <MATERIAL id="defaultMaterial">
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+</MATERIALS>
+
+<ANIMATIONS>
+    <ANIMATION id="l1" speed="1" type="linear">
+        <controlpoint xx="0" yy="0" zz="0" />
+        <controlpoint xx="10" yy="0" zz="0" />
+        <controlpoint xx="10" yy="10" zz="0" />
+        <controlpoint xx="10" yy="0" zz="0"/>
+        <controlpoint xx="10" yy="0" zz="10"/>
+        <controlpoint xx="10" yy="10" zz="10"/>
+    </ANIMATION>
+
+    <ANIMATION id="c1" speed="1.5" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="0" rotang="90"/>
+
+    <ANIMATION id="b1" speed="0.5" type="bezier">
+        <controlpoint xx="0" yy="0" zz="0" />
+        <controlpoint xx="5" yy="5" zz="5" />
+        <controlpoint xx="10" yy="0" zz="-5" />
+        <controlpoint xx="20" yy="-5" zz="10"/>
+    </ANIMATION>
+
+    <ANIMATION id="mix1" type="combo">
+        <SPANREF id="l1"/>
+        <SPANREF id="c1"/>
+        <SPANREF id="b1"/>
+    </ANIMATION>
+
+</ANIMATIONS>
+
+<!-- The nodes -->
+<NODES>
+
+    <ROOT id="root" />
+
+    <!-- The root node -->
+    <NODE id="root">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="0" />
+
+        <DESCENDANTS>
+            <NODEREF id="barraBanco4" />
+            <NODEREF id="jornal" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="barraBanco4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="5" z="0"/>
+        
+        <ROTATION axis="z" angle="90" />
+        <ROTATION axis="y" angle="90" />
+        <SCALE sx="0.1" sy="0.8" sz="0.025"/>
+     
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="l1"/>
+            <ANIMATIONREF id="c1"/>
+            <ANIMATIONREF id="b1"/>
+            <ANIMATIONREF id="mix1"/>
+        </ANIMATIONREFS>
+
+       <DESCENDANTS>
+            <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />   
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- A cube face -->
+    <NODE id="faceCubo1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Another cube face -->
+     <NODE id="faceCubo2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+		<ROTATION axis="y" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Another cube face -->
+    <NODE id="faceCubo3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="4" y="0" z="0" />
+		<ROTATION axis="y" angle="-90" />
+
+        <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Another cube face -->
+    <NODE id="faceCubo4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="90" />
+        
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Another cube face -->
+    <NODE id="faceCubo5">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="4" z="0" />
+        <ROTATION axis="x" angle="90" />
+
+        <DESCENDANTS>
+ 			<LEAF  type="rectangle" args="0 4 4 0" />
+       </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Another cube face -->
+    <NODE id="faceCubo6">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="4" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="jornal">
+        <MATERIAL id="null" />
+        <TEXTURE id="paper" />
+
+        <TRANSLATION x="2" y="0" z="0"/>
+        <SCALE sx="0.5" sy="0.5" sz="0.5" />
+        
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="mix1"/>
+        </ANIMATIONREFS>
+        
+        <DESCENDANTS>
+            <NODEREF id="leftPage" />
+            <NODEREF id="rightPage" />
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="rightPage">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="patch" args="20 20" >
+                <CPLINE>
+                    <CPOINT xx="-2.0" yy="-1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="0.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="2.0" zz="-1" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
+                    <CPOINT xx="0" yy="-1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="0" yy="1.0" zz="1.5" ww="1" />
+                    <CPOINT xx="0" yy="2.0" zz="0" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="2.0" yy="-2.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="-1.0" zz="1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="2.0" zz="1.0" ww="1" />
+                </CPLINE>
+            </LEAF>
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="leftPage">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-3.7" y="0.2" z="0"/>
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="patch" args="20 20" >
+                <CPLINE>
+                    <CPOINT xx="-2.0" yy="-1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="0.0" zz="1" ww="1" />
+                    <CPOINT xx="-2.0" yy="1.0" zz="-1" ww="1" />
+                    <CPOINT xx="-2.0" yy="2.0" zz="1" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
+                    <CPOINT xx="0" yy="-1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="0" yy="1.0" zz="1.5" ww="1" />
+                    <CPOINT xx="0" yy="2.0" zz="0" ww="1" />
+                </CPLINE>
+
+                <CPLINE>
+                    <CPOINT xx="2.0" yy="-2.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="-1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="1.0" zz="-1.0" ww="1" />
+                    <CPOINT xx="2.0" yy="2.0" zz="-1.0" ww="1" />
+                </CPLINE>
+            </LEAF>
+       	</DESCENDANTS>
+    </NODE>
+
+
+
+</NODES>
+
+</SCENE>
