@@ -735,7 +735,7 @@
 		</DESCENDANTS>
     </NODE>
 
-    <NODE id="piramidesPortao">
+    <NODE id="piramidesPortao" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -770,7 +770,7 @@
     
 
     <!-- The lights -->
-     <NODE id="luzes">
+     <NODE id="luzes" >
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
 
@@ -811,7 +811,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera1">
+    <NODE id="luzEsfera1" >
        <MATERIAL id="null" />
        <TEXTURE id="null" />
        
@@ -820,7 +820,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera2">
+    <NODE id="luzEsfera2" >
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -831,7 +831,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="luzEsfera3">
+    <NODE id="luzEsfera3" >
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
@@ -1002,7 +1002,7 @@
     </NODE>
 
     <!-- Posto informaçoes -->
-     <NODE id="posteDirecoes">
+     <NODE id="posteDirecoes" >
         <MATERIAL id="null" />
         <TEXTURE id="clear" />
 
@@ -1114,7 +1114,7 @@
 
 
     <!-- Generic bench -->
-    <NODE id="banco">
+    <NODE id="banco" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -1130,7 +1130,7 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="assento">
+    <NODE id="assento" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="wood" />
 
@@ -1145,7 +1145,7 @@
         </DESCENDANTS>
     </NODE>
 
-     <NODE id="ripa2">
+     <NODE id="ripa2" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="wood"/>
 

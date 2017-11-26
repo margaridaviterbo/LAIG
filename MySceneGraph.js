@@ -1372,6 +1372,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
     
     // Traverses nodes.
     var children = nodesNode.children;
+    this.selectableList = [];
     
         for (var i = 0; i < children.length; i++) {
             var nodeName;
@@ -1396,8 +1397,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                     return "node ID must be unique (conflict: ID = " + nodeID + ")";
     
                 var nodeSelectable = this.reader.getString(children[i], 'selectable');  
-                if(nodeSelectable == null)
-                    nodeSelectable = 'false';
+                if(nodeSelectable == 'true'){
+                   this.selectableList.push(nodeID);
+                }
+                else if(nodeSelectable == null)
+                        nodeSelectable = 'false';
                 else if(nodeSelectable != 'true' && nodeSelectable != 'false'){
                     return "selectable property must be either 'true' or 'false'";
                 }
@@ -1719,6 +1723,10 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             material.apply();
         }
 
+        if(this.scene.selectedNode == node.nodeID){
+            this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
+        }
+        
         for(var i = 0; i < node.animations.length; i++){
             node.animations[i].push();
         }
@@ -1729,6 +1737,10 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         for(var i = 0; i < node.children.length; i++){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
+
+        if(this.scene.selectedNode == node.nodeID && node.children.length!=0){
+            this.scene.setActiveShader(this.scene.defaultShader);
+        }
             
         for(var i=0; i < node.leaves.length; i++){
             node.leaves[i].setTextCoords(s,t);
@@ -1736,6 +1748,9 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
 
         this.scene.popMatrix();
+
+        if(this.scene.selectedNode == node.nodeID && node.children.length==0){
+            this.scene.setActiveShader(this.scene.defaultShader);
 
         for (var i = 0; i < node.animations.length; i++) {
             node.animations[i].pop();
