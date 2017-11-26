@@ -4,8 +4,6 @@
  */
 class Animation{
 
-    //TODO testar as nimations em todas as formas e feitios e varios objetos etc
-    //TODO testar combo animation
     //TODO deixar o trabalho com as animaçoes dos criterios
 
     constructor(scene, id, type){

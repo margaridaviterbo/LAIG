@@ -76,7 +76,6 @@ class BezierAnimation extends Animation{
 		}
 		else{
 			this.finished = true;
-			console.log("finished bezier");
 		}
 	}
 
