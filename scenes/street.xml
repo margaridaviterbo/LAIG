@@ -167,7 +167,11 @@
         <controlpoint xx="10" yy="10" zz="10"/>
     </ANIMATION>
 
-    <ANIMATION id="c1" speed="1" type="circular" centerx="10" centery="10" centerz="10" radius="0" startang="0" rotang="720"/>
+    <ANIMATION id="c1" speed="1" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="0" rotang="1080"/>
+
+    <ANIMATION id="c2" speed="-1" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="0" rotang="1080"/>
+
+    <ANIMATION id="c3" speed="1.5" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="0" rotang="1080"/>
 
     <ANIMATION id="b1" speed="0.5" type="bezier">
         <controlpoint xx="0" yy="0" zz="0" />
@@ -252,8 +256,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="pavement" />
 
-        <TRANSLATION x="-2.5" y="-0.8" z="-0.45" />  
-        <SCALE sx="1" sy="0.6" sz="0.2"/>       
+        <TRANSLATION x="0" y="1.5" z="0.5" />  
+        <SCALE sx="1.25" sy="0.6" sz="0.2"/>       
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -292,8 +296,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="brick" />
 
-         <TRANSLATION x="-10" y="-11" z="-0.75"/>
-         <SCALE sx="4" sy="3" sz="0.4" />
+         <TRANSLATION x="0" y="0.3" z="0.3"/>
+         <SCALE sx="5" sy="3" sz="0.4" />
 
         <DESCENDANTS>
             <NODEREF id="muro1" />
@@ -319,7 +323,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="brick" />
 
-        <TRANSLATION x="10" y="0" z="0"/>
+        <TRANSLATION x="8" y="0" z="0"/>
                   
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -347,7 +351,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="13.8" y="10" z="1"/>
+        <TRANSLATION x="22" y="10" z="0.5"/>
        
         <DESCENDANTS>
             <NODEREF id="barraPortao1" />
@@ -375,7 +379,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <SCALE sx="3.25" sy="0.1" sz="0.1" />
+        <SCALE sx="4" sy="0.1" sz="0.1" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -392,7 +396,7 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="0" y="-8" z="0"/>
-        <SCALE sx="3.25" sy="0.1" sz="0.1" />
+        <SCALE sx="4" sy="0.1" sz="0.1" />
        
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -408,9 +412,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
                
-        <TRANSLATION x="8.5" y="4.5" z="0"/>
+        <TRANSLATION x="0.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -426,9 +430,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="9.5" y="4.5" z="0"/>
+        <TRANSLATION x="1.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -444,9 +448,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="10.5" y="4.5" z="0"/>
+        <TRANSLATION x="2.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -462,9 +466,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
                 
-        <TRANSLATION x="11.5" y="4.5" z="0"/>
+        <TRANSLATION x="3.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
        
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -480,9 +484,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="12.5" y="4.5" z="0"/>
+        <TRANSLATION x="4.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -498,9 +502,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="13.5" y="4.5" z="0"/>
+        <TRANSLATION x="5.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -516,9 +520,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="14.5" y="4.5" z="0"/>
+        <TRANSLATION x="6.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -534,9 +538,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="15.5" y="4.5" z="0"/>
+        <TRANSLATION x="7.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -552,9 +556,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="16.5" y="4.5" z="0"/>
+        <TRANSLATION x="8.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -570,9 +574,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="17.5" y="4.5" z="0"/>
+        <TRANSLATION x="9.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -588,9 +592,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="17.5" y="4.5" z="0"/>
+        <TRANSLATION x="10.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -606,9 +610,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="18.5" y="4.5" z="0"/>
+        <TRANSLATION x="11.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -624,9 +628,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="19.5" y="4.5" z="0"/>
+        <TRANSLATION x="12.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -642,9 +646,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="20.5" y="4.5" z="0"/>
+        <TRANSLATION x="13.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -660,9 +664,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="21.5" y="4.5" z="0"/>
+        <TRANSLATION x="14.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -678,9 +682,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
         
-        <TRANSLATION x="22.5" y="4.5" z="0"/>
+        <TRANSLATION x="15.5" y="0" z="0"/>
         <ROTATION axis="z" angle="-90" />
-        <SCALE sx="1.6" sy="0.1" sz="0.1" />
+        <SCALE sx="2" sy="0.1" sz="0.1" />
         
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -696,8 +700,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="19" y="-11" z="-0.5"/>
-        <SCALE sx="0.4" sy="2.8" sz="0.4" />
+        <TRANSLATION x="20" y="0.5" z="0.25"/>
+        <SCALE sx="0.5" sy="2.8" sz="0.4" />
 
         <DESCENDANTS>
             <NODEREF id="pilarPortao1" />
@@ -723,7 +727,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="45" y="0" z="0"/>
+        <TRANSLATION x="36" y="0" z="0"/>
                    
        <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -739,8 +743,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <TRANSLATION x="21" y="12.8" z="1.5"/>
-         <SCALE sx="0.15" sy="0.2" sz="0.15" />
+         <TRANSLATION x="21" y="12.6" z="1"/>
+         <SCALE sx="0.15" sy="0.15" sz="0.15" />
 
         <DESCENDANTS>
             <NODEREF id="piramidePortao1"/>
@@ -1064,7 +1068,9 @@
     <NODE id="placas">
         <MATERIAL id="null" />
         <TEXTURE id="direction" />
-   
+
+        <TRANSLATION x="0" y="7" z="0"/>
+
         <DESCENDANTS>
 			<NODEREF id="placa1" />
             <NODEREF id="placa2" />
@@ -1075,16 +1081,24 @@
     <NODE id="placa1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-       
-        <ROTATION axis="y" angle="180"/>
-        <TRANSLATION x="4.5" y="7" z="0"/>
+         
+        
+        <ROTATION axis="y" angle="90" />
+        <ROTATION axis="z" angle="90" />
+        <SCALE sx="0.15" sy="0.6" sz="0.025"/>
 
-        <ANIMATIONREFS>
+
+       <ANIMATIONREFS>
             <ANIMATIONREF id="c1"/>
         </ANIMATIONREFS>
 
         <DESCENDANTS>
-			<NODEREF id="barraBanco4"/>
+			<NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" /> 
         </DESCENDANTS>
     </NODE>
 
@@ -1092,11 +1106,23 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
-        <ROTATION axis="y" angle="60"/>
-        <TRANSLATION x="4.5" y="6.5" z="0"/>
+       
+        <TRANSLATION x="0" y="1" z="0"/>
+        <ROTATION axis="y" angle="180" />
+        <ROTATION axis="z" angle="90" />
+        <SCALE sx="0.15" sy="0.6" sz="0.025"/>
+
+         <ANIMATIONREFS>
+            <ANIMATIONREF id="c2"/>
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
-			<NODEREF id="barraBanco4"/>
+			<NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" /> 
         </DESCENDANTS>
     </NODE>
 
@@ -1104,11 +1130,22 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
        
-        <ROTATION axis="y" angle="-60"/>
-        <TRANSLATION x="4.5" y="6" z="0"/>
+        <TRANSLATION x="0" y="2" z="0"/>
+        <ROTATION axis="y" angle="360" />
+        <ROTATION axis="z" angle="90" />
+        <SCALE sx="0.15" sy="0.6" sz="0.025"/>
+
+         <ANIMATIONREFS>
+            <ANIMATIONREF id="c3"/>
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
-			<NODEREF id="barraBanco4"/>
+			<NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" /> 
         </DESCENDANTS>
     </NODE>
 
@@ -1118,7 +1155,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="4" y="-1.2" z="8.5"/>
+        <TRANSLATION x="9" y="-1.2" z="8.5"/>
         
         <DESCENDANTS>
            <NODEREF id="assento" />
@@ -1150,7 +1187,7 @@
         <TEXTURE id="wood"/>
 
         <TRANSLATION x="0" y="6" z="0"/>
-        <SCALE sx="2" sy="0.1" sz="0.1" />
+        <SCALE sx="2.5" sy="0.1" sz="0.1" />
 
          <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1167,7 +1204,7 @@
         <TEXTURE id="wood"/>
 
         <TRANSLATION x="0" y="5" z="0"/>
-        <SCALE sx="2" sy="0.1" sz="0.1" />
+        <SCALE sx="2.5" sy="0.1" sz="0.1" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1184,7 +1221,7 @@
         <TEXTURE id="wood"/>
 
         <TRANSLATION x="0" y="4" z="0"/>
-        <SCALE sx="2" sy="0.1" sz="0.1" />
+        <SCALE sx="2.5" sy="0.1" sz="0.1" />
 
          <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1201,7 +1238,7 @@
         <TEXTURE id="wood"/>
 
         <TRANSLATION x="0" y="3" z="0"/>
-        <SCALE sx="2" sy="0.1" sz="0.1" />
+        <SCALE sx="2.5" sy="0.1" sz="0.1" />
 
          <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1228,8 +1265,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="wood"/>
 
-        <TRANSLATION x="0" y="4" z="0"/>
-        <SCALE sx="2" sy="0.1" sz="0.1" />
+        <TRANSLATION x="0" y="5" z="0"/>
+        <SCALE sx="2.5" sy="0.1" sz="0.1" />
 
          <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1245,8 +1282,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="wood"/>
 
-        <TRANSLATION x="0" y="5" z="0"/>
-        <SCALE sx="2" sy="0.1" sz="0.1" />
+        <TRANSLATION x="0" y="6" z="0"/>
+        <SCALE sx="2.5" sy="0.1" sz="0.1" />
 
          <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1262,8 +1299,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="wood"/>
 
-        <TRANSLATION x="0" y="6" z="0"/>
-        <SCALE sx="2" sy="0.1" sz="0.1" />
+        <TRANSLATION x="0" y="7" z="0"/>
+        <SCALE sx="2.5" sy="0.1" sz="0.1" />
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1275,12 +1312,11 @@
         </DESCENDANTS>
     </NODE>
 
-
     <NODE id="barrasBanco">
         <MATERIAL id="null" />
         <TEXTURE id="leg" />
 
-        <TRANSLATION x="9.5" y="2" z="0.15"/>
+        <TRANSLATION x="4.5" y="4.5" z="0"/>
         
 
         <DESCENDANTS>
@@ -1296,7 +1332,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <SCALE sx="0.1" sy="0.6" sz="0.025"/>
+        <SCALE sx="0.15" sy="0.6" sz="0.025"/>
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1312,9 +1348,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-4.6" y="0" z="0.9"/>
+        <TRANSLATION x="-4.6" y="0.5" z="0.5"/>
         <ROTATION axis="y" angle="90" />
-        <SCALE sx="0.1" sy="0.6" sz="0.025"/> 
+        <SCALE sx="0.15" sy="0.6" sz="0.025"/> 
 
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1330,9 +1366,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-       <TRANSLATION x="5.4" y="0" z="0.9"/>
+       <TRANSLATION x="5.4" y="0.5" z="0.5"/>
        <ROTATION axis="y" angle="90"/>
-       <SCALE sx="0.1" sy="0.6" sz="0.025"/>
+       <SCALE sx="0.15" sy="0.6" sz="0.025"/>
        
        <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1348,10 +1384,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-       <TRANSLATION x="-4.6" y="2" z="-3"/>
+       <TRANSLATION x="-4.6" y="0" z="0"/>
        <ROTATION axis="z" angle="90" />
        <ROTATION axis="x" angle="90" />
-       <SCALE sx="0.1" sy="0.8" sz="0.025"/>
+       <SCALE sx="0.15" sy="0.8" sz="0.025"/>
      
        <DESCENDANTS>
             <NODEREF id="faceCubo1" />
@@ -1367,10 +1403,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="5.4" y="2" z="-3"/>
+        <TRANSLATION x="5.4" y="0" z="0"/>
        <ROTATION axis="z" angle="90" />
        <ROTATION axis="x" angle="90" />
-       <SCALE sx="0.1" sy="0.8" sz="0.025"/>
+       <SCALE sx="0.15" sy="0.8" sz="0.025"/>
        
 
         <DESCENDANTS>
@@ -1388,7 +1424,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="leg" />
 
-        <TRANSLATION x="5" y="2.2" z="0.5"/>
+        <TRANSLATION x="0" y="2.5" z="0"/>
         <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
@@ -1445,7 +1481,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="leg" />
 
-        <TRANSLATION x="5" y="2.2" z="0.5"/>   
+        <TRANSLATION x="0" y="2" z="0.15"/>   
         <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
