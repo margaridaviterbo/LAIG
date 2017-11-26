@@ -1751,7 +1751,8 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
 
         if(this.scene.selectedNode == node.nodeID && node.children.length==0){
             this.scene.setActiveShader(this.scene.defaultShader);
-
+        }
+        
         for (var i = 0; i < node.animations.length; i++) {
             node.animations[i].pop();
         }
