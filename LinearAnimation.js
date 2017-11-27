@@ -125,7 +125,6 @@ class LinearAnimation extends Animation{
         this.scene.pushMatrix();
         this.scene.translate(this.positionX, this.positionY, this.positionZ);
         this.scene.rotate(this.angle, 0, 1, 0);
-        console.log(this.angle);
     }
 	
 }
