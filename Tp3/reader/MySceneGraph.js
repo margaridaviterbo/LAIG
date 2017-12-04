@@ -1399,9 +1399,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 var nodeSelectable = this.reader.getString(children[i], 'selectable');  
                 if(nodeSelectable == 'true'){
                    this.selectableList.push(nodeID);
+                   nodeSelectable = true;
                 }
                 else if(nodeSelectable == null)
-                        nodeSelectable = 'false';
+                        nodeSelectable = false;
                 else if(nodeSelectable != 'true' && nodeSelectable != 'false'){
                     return "selectable property must be either 'true' or 'false'";
                 }
@@ -1723,7 +1724,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             material.apply();
         }
 
-        if(this.scene.selectedNode == node.nodeID){
+        if(node.selectable == true){
             this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
         }
         
@@ -1738,7 +1739,7 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
 
-        if(this.scene.selectedNode == node.nodeID && node.children.length!=0){
+        if(node.selectable == true && node.children.length!=0){
             this.scene.setActiveShader(this.scene.defaultShader);
         }
             
@@ -1748,10 +1749,6 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
 
         this.scene.popMatrix();
-
-        if(this.scene.selectedNode == node.nodeID && node.children.length==0){
-            this.scene.setActiveShader(this.scene.defaultShader);
-        }
         
         for (var i = 0; i < node.animations.length; i++) {
             node.animations[i].pop();

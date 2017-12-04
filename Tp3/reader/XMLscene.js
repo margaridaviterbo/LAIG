@@ -37,6 +37,8 @@ XMLscene.prototype.init = function(application) {
         new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag")
     ];
 
+    this.shaders[0].setUniformsValues({ d: 24.0 });
+
     this.selected = [];
       
     this.axis = new CGFaxis(this);
@@ -173,17 +175,6 @@ XMLscene.prototype.display = function() {
     // ---- END Background, camera and axis setup   
 }
 
-XMLscene.prototype.updateScaleFactor=function(currTime)
-{
-    var amp=40;
-    var c = [1.0,0.0,0.0,1.0];
-    var t = 0;
-    var wave = amp * Math.sin(2*Math.PI*(1/10000)*currTime);
-
-    this.shaders[0].setUniformsValues({normScale: wave, selectedColour:c, uSampler:t});
-    
-}
-
 XMLscene.prototype.update = function(currTime) {
 
     for(nodeID in this.graph.nodes){
@@ -195,12 +186,6 @@ XMLscene.prototype.update = function(currTime) {
             else if(node.currAnimation + 1 < node.animations.length){
                 node.currAnimation ++;
             }
-        }
-    }
-
-    for(nodeID in this.graph.nodes){
-        if(nodeID == this.selectedNode){
-            this.updateScaleFactor(currTime);
         }
     }
 }
