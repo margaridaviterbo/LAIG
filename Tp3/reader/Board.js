@@ -14,7 +14,7 @@ Board.prototype.initialTilesPosition = function(){
 
     for(var i=0; i < sizeX; i++){ 
        for(var j=0; j < sizeY; j++){
-           this.tiles.push(new Tile(this.scene,this, i,j));
+           this.tiles[i * sizeY + j] = new Tile(this.scene,this, i,j);
        }
     
     }

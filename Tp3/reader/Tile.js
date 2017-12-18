@@ -10,4 +10,5 @@ function Tile(scene, board, x, y){
 }
 
 Tile.prototype.display = function(){
+    this.tile.display();
 }
