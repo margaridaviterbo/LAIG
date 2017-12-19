@@ -4,14 +4,42 @@ function Prolog(game){
     this.game = game;
     this.board = game.board;
     this.currPosition = [];
-    this.gameOver = game.gameOver;
     this.currPlayer = game.currPlayer;
 }
 Prolog.prototype.constructor = Prolog;
 
+//ivory player always starts the game, therefore its player1
+Prolog.prototype.getCurrPlayer = function(currPlayer){
+	if (currPlayer == 1){
+        return "ivory";
+    } 
+	else if (currPlayer == 2){
+        return "cigar";
+    }
+	else return "The Player is Not Valid";
+}
 
+//bot play
+Prolog.prototype.bot = function(difficulty){
+    // convert board to prolog board
 
-//in case of ad request
+    var player = this.getCurrPlayer(this.currPlayer);
+     // get queen stack sizes
+     // create and make request for the play based on given difficulty - getPrologRequest
+     var request = new Request(player,-1,-1,-1,-1, /*queen1Size, queen2Size, board*/true,difficulty);
+     this.getPrologRequest(request);
+}
+
+//human play
+Prolog.prototype.human = function(){
+     // convert board to prolog board
+    var player = this.getCurrPlayer(this.currPlayer);
+    // get queen stack sizes
+    //var request = new Request(player, x, y, targetx, targety, queen1Size, queen2Size, board, false, 0);
+    this.getPrologRequest(request);
+}
+
+//in case of ad reques
 Prolog.prototype.handleReply = function(data){
     if (data.target.response == "Bad Request") {
         return;
@@ -130,8 +158,7 @@ Request.prototype.constructor = Request;
 //human play
 Request.prototype.humanPlay = function(){
     
-    var play = "makePlay((" + this.player + "," + this.x + "," + this.y + "," + this.targetX + "," + this.targetY + "),(" +
-                            this.ivoryIn + "," + this.cigarIn + "," + this.board + "))";
+    var play = "makePlay((" + this.player + "," + this.x + "," + this.y + "," + this.targetX + "," + this.targetY + "),(" + this.ivoryIn + "," + this.cigarIn + "," + this.board + "))";
 
     return play;
 }

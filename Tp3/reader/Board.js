@@ -7,6 +7,13 @@ function Board(scene, type){
     this.tiles = [];
     this.color;
 
+
+Board.prototype.initBoard = function(){
+
+    //iniciar tiles
+    //posição inicial das peças
+    //ivory - (6,11); cigar - (5,0)
+}
     if(this.type == 'game'){
         this.sizeX = 12;
         this.sizeZ = 12;
@@ -45,6 +52,8 @@ function Board(scene, type){
 
 Board.prototype = Object.create(CGFobject.prototype);
 Board.prototype.constructor=Board;
+Board.prototype.convertToPrologBoard = function() {
+}
 
 
 Board.prototype.display = function(){

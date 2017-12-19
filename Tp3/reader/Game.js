@@ -5,5 +5,5 @@ function Game(scene){
     this.prolog = new Prolog(this);
     this.gameOver = false;
     this.currPlayer = 1;
-       
 }
+Game.prototype.constructor = Game;
