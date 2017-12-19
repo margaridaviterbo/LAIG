@@ -1399,9 +1399,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 var nodeSelectable = this.reader.getString(children[i], 'selectable');  
                 if(nodeSelectable == 'true'){
                    this.selectableList.push(nodeID);
+                   nodeSelectable = true;
                 }
                 else if(nodeSelectable == null)
-                        nodeSelectable = 'false';
+                        nodeSelectable = false;
                 else if(nodeSelectable != 'true' && nodeSelectable != 'false'){
                     return "selectable property must be either 'true' or 'false'";
                 }
@@ -1688,8 +1689,43 @@ MySceneGraph.generateRandomString = function(length) {
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
     // remove log below to avoid performance issues
+
+    var blue = new CGFappearance(this.scene);
+	blue.setAmbient(0.3, 0.3, 0.3, 1);
+	blue.setDiffuse(0, 0.4, 0.796, 1);
+	blue.setSpecular(0.9, 0.9, 0.9, 1);
+	blue.setShininess(50);
+	//blue.loadTexture('../scenes/images/floor.png');
+
+    var red = new CGFappearance(this.scene);
+	red.setAmbient(0.3, 0.3, 0.3, 1);
+	red.setDiffuse(0.796, 0, 0, 1);
+	red.setSpecular(0.5, 0.5, 0.5, 1);
+	red.setShininess(50);
+	//this.black.loadTexture('../resources/images/ocean3.jpg');
+
+    var board = new Board(this.scene, 'game');
+    var auxBoard1 = new Board(this.scene, 'aux');
+    var auxBoard2 = new Board(this.scene, 'aux');
+    this.scene.pushMatrix();
+        this.scene.translate(6, 0, 0);
+        board.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+        blue.apply();
+        auxBoard1.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+        this.scene.translate(32, 0, 0);
+        red.apply();
+        auxBoard2.display();
+    this.scene.popMatrix();
+
+
     var rootNode = this.nodes[this.idRoot]
-    this.processGraph(rootNode, null, null);
+    //this.processGraph(rootNode, null, null);
 
 
 	
@@ -1723,8 +1759,8 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
             material.apply();
         }
 
-        if(this.scene.selectedNode == node.nodeID){
-            this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
+        if(node.selectable == true){
+           // this.scene.setActiveShader(this.scene.shaders[this.scene.selectedShader]);
         }
         
         this.scene.pushMatrix();
@@ -1738,8 +1774,8 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
            this.processGraph(this.nodes[node.children[i]],material,texture);
         }
 
-        if(this.scene.selectedNode == node.nodeID && node.children.length!=0){
-            this.scene.setActiveShader(this.scene.defaultShader);
+        if(node.selectable == true && node.children.length!=0){
+           // this.scene.setActiveShader(this.scene.defaultShader);
         }
             
         for(var i=0; i < node.leaves.length; i++){
@@ -1748,10 +1784,6 @@ MySceneGraph.prototype.processGraph = function(node,nodeMaterial, nodeTexture){
         }
 
         this.scene.popMatrix();
-
-        if(this.scene.selectedNode == node.nodeID && node.children.length==0){
-            this.scene.setActiveShader(this.scene.defaultShader);
-        }
         
         for (var i = 0; i < node.animations.length; i++) {
             node.animations[i].pop();
