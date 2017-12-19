@@ -102,30 +102,30 @@ print_header_line(_).
 %human player
 %success
 parse_input(makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success)) :-
-	makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn),(IvoryStackOut, CigarStackOut, _), GameOver),
+	makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn),(IvoryStackOut, CigarStackOut,BoardOut), GameOver),
 	Success = true.
 %fail
-parse_input(makePlay((_,_,_,_,_),(IvoryStack,CigarStack,_)), (IvoryStackOut, CigarStackOut, GameOver, Success)) :-
+parse_input(makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success)) :-
 	IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
 
 %bot player
 %success
 parse_input(insistOnCorrectBotRandomPlay(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
-	insistOnCorrectBotRandomPlay(Player, Play, (IvoryStackIn, CigarStackIn, BoardIn),(IvoryStackOut, CigarStackOut, _), GameOver),
+	insistOnCorrectBotRandomPlay(Player, Play, (IvoryStackIn, CigarStackIn, BoardIn),(IvoryStackOut, CigarStackOut, BoardOut), GameOver),
 	Success = true.
 %fail
-parse_input(insistOnCorrectBotRandomPlay(_,(_,_,_)), (_, _, GameOver, Success, _)) :-
-	 GameOver = false, Success = false.
+parse_input(insistOnCorrectBotRandomPlay(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
+	 IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
 
 %smart bot player
 %success
 parse_input(playBestBot(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
-	playBestBot(Player, Play, (IvoryStackIn, CigarStackIn, BoardIn),(IvoryStackOut, CigarStackOut, _), GameOver),
+	playBestBot(Player, Play, (IvoryStackIn, CigarStackIn, BoardIn),(IvoryStackOut, CigarStackOut, BoardOut), GameOver),
 	Success = true.
 
 %fail
-parse_input(playBestBot(_,(_,_,_)), (_, _, GameOver, Success, _)) :-
-	 GameOver = false, Success = false.
+parse_input(playBestBot(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
+		IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
 
 %quit server
 parse_input(quit, goodbye).
