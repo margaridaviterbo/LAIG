@@ -147,14 +147,13 @@
 
     <ROOT id="root" />
 
-    <!-- The root node -->
     <NODE id="root">
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
 
         <DESCENDANTS>
             <!--NODEREF id="board" /-->
-            <LEAF type="rectangle" args="0 0 0 0">
+            <LEAF type="rectangle" args="0 0 0 0"/>
         </DESCENDANTS>
     </NODE>
 
