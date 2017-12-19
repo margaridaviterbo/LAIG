@@ -4,13 +4,12 @@ function Prolog(game){
     this.game = game;
     this.board = game.board;
     this.currPosition = [];
-   // this.gameOver = game.gameOver;
     this.currPlayer = game.currPlayer;
 }
 Prolog.prototype.constructor = Prolog;
 
 //ivory player always starts the game, therefore its player1
-PrologInput.prototype.getCurrPlayer = function(currPlayer){
+Prolog.prototype.getCurrPlayer = function(currPlayer){
 	if (currPlayer == 1){
         return "ivory";
     } 
@@ -20,9 +19,15 @@ PrologInput.prototype.getCurrPlayer = function(currPlayer){
 	else return "The Player is Not Valid";
 }
 
+Prolog.prototype.bot = function(difficulty){
+    // convert board to prolog board
 
+    var player = this.getCurrPlayer(this.currPlayer);
+     // get queen stack sizes
+     // create and make request for the play based on given difficulty - getPrologRequest
+}
 
-//in case of ad request
+//in case of ad reques
 Prolog.prototype.handleReply = function(data){
     if (data.target.response == "Bad Request") {
         return;
