@@ -19,12 +19,24 @@ Prolog.prototype.getCurrPlayer = function(currPlayer){
 	else return "The Player is Not Valid";
 }
 
+//bot play
 Prolog.prototype.bot = function(difficulty){
     // convert board to prolog board
 
     var player = this.getCurrPlayer(this.currPlayer);
      // get queen stack sizes
      // create and make request for the play based on given difficulty - getPrologRequest
+     var request = new Request(player,-1,-1,-1,-1, /*queen1Size, queen2Size, board*/true,difficulty);
+     this.getPrologRequest(request);
+}
+
+//human play
+Prolog.prototype.human = function(){
+     // convert board to prolog board
+    var player = this.getCurrPlayer(this.currPlayer);
+    // get queen stack sizes
+    //var request = new Request(player, x, y, targetx, targety, queen1Size, queen2Size, board, false, 0);
+    this.getPrologRequest(request);
 }
 
 //in case of ad reques
