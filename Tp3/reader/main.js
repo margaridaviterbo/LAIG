@@ -16,7 +16,8 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
              'Cylinder.js', 'Sphere.js', 'Triangle.js', 'Rectangle.js',
              'CylinderBase.js', 'CompleteCylinder.js', 'Patch.js', 
              'Animation.js', 'LinearAnimation.js', 'CircularAnimation.js',
-             'BezierAnimation.js', 'ComboAnimation.js',
+             'BezierAnimation.js', 'ComboAnimation.js', 'Prolog.js', 'Game.js',
+             'Board.js', 'Tile.js' , 'Player.js',
 
 main=function()
 {
@@ -32,7 +33,7 @@ main=function()
 
     myInterface.setActiveCamera(myScene.camera);
 
-	var filename=getUrlVars()['file'] || "street.xml";
+	var filename=getUrlVars()['file'] || "game.xml";
 
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors
