@@ -4,10 +4,21 @@ function Prolog(game){
     this.game = game;
     this.board = game.board;
     this.currPosition = [];
-    this.gameOver = game.gameOver;
+   // this.gameOver = game.gameOver;
     this.currPlayer = game.currPlayer;
 }
 Prolog.prototype.constructor = Prolog;
+
+//ivory player always starts the game, therefore its player1
+PrologInput.prototype.getCurrPlayer = function(currPlayer){
+	if (currPlayer == 1){
+        return "ivory";
+    } 
+	else if (currPlayer == 2){
+        return "cigar";
+    }
+	else return "The Player is Not Valid";
+}
 
 
 
@@ -130,8 +141,7 @@ Request.prototype.constructor = Request;
 //human play
 Request.prototype.humanPlay = function(){
     
-    var play = "makePlay((" + this.player + "," + this.x + "," + this.y + "," + this.targetX + "," + this.targetY + "),(" +
-                            this.ivoryIn + "," + this.cigarIn + "," + this.board + "))";
+    var play = "makePlay((" + this.player + "," + this.x + "," + this.y + "," + this.targetX + "," + this.targetY + "),(" + this.ivoryIn + "," + this.cigarIn + "," + this.board + "))";
 
     return play;
 }
