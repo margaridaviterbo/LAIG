@@ -152,10 +152,9 @@
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="0" y="0" z="0" />
-
         <DESCENDANTS>
-            <NODEREF id="board" />
+            <!--NODEREF id="board" /-->
+            <LEAF type="rectangle" args="0 0 0 0">
         </DESCENDANTS>
     </NODE>
 

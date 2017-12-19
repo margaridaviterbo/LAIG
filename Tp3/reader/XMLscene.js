@@ -10,7 +10,7 @@ function XMLscene(interface) {
     this.interface = interface;
 
     this.lightValues = {};
-    this.selectedShader = 0;
+    //this.selectedShader = 0;
     this.selectedColour = 0;
     this.selectedNode = 0;
 }
@@ -34,10 +34,10 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.shaders=[
-        new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag")
+        //new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag")
     ];
 
-    this.shaders[0].setUniformsValues({ d: 24.0 });
+   // this.shaders[0].setUniformsValues({ d: 24.0 });
 
     this.selected = [];
       
