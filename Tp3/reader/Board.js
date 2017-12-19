@@ -10,17 +10,5 @@ function Board(scene,game){
     
 }
 
-Board.prototype.initialTilesPosition = function(){
 
-    for(var i=0; i < sizeX; i++){ 
-       for(var j=0; j < sizeY; j++){
-           this.tiles[i * sizeY + j] = new Tile(this.scene,this, i,j);
-       }
-    
-    }
-}
-
-Board.prototype.display = function(){
-
-}
 
