@@ -2,18 +2,12 @@ function Board(scene, type){
 
     this.scene = scene;
     this.type = type;
+    this.prologBoard;
   //  this.game = game;
 
     this.tiles = [];
-    this.color;
 
 
-Board.prototype.initBoard = function(){
-
-    //iniciar tiles
-    //posição inicial das peças
-    //ivory - (6,11); cigar - (5,0)
-}
     if(this.type == 'game'){
         this.sizeX = 12;
         this.sizeZ = 12;
@@ -52,8 +46,6 @@ Board.prototype.initBoard = function(){
 
 Board.prototype = Object.create(CGFobject.prototype);
 Board.prototype.constructor=Board;
-Board.prototype.convertToPrologBoard = function() {
-}
 
 Board.prototype.display = function(){
 
@@ -95,6 +87,50 @@ Board.prototype.setTextCoords = function(s,t){
         }
     }
 
+};
+
+
+Board.prototype.convertToPrologBoard = function() {
+
+    console.log(this.tiles);
+    console.log(this.tiles[0])
+
+    this.prologBoard = '[';
+    for (var i = 0; i < this.sizeZ; i++){
+        this.prologBoard = this.prologBoard + '[';
+        for (var j  = 0; j < this.sizeX; j++){
+            if(this.tiles[i][j].piece == null){
+                this.prologBoard = this.prologBoard + 'empty';
+            }
+            else if(this.tiles[i][j].piece.stacks.length == 1){
+                if(this.tiles[i][j].piece.type == 'ivory'){
+                    this.prologBoard = this.prologBoard + 'ivoryBaby';                    
+                }
+                else{
+                    this.prologBoard = this.prologBoard + 'cigarBaby';                    
+                }
+            }
+            else{
+                if(this.tiles[i][j].piece.type == 'ivory'){
+                    this.prologBoard = this.prologBoard + 'ivoryQueen';                    
+                }
+                else{
+                    this.prologBoard = this.prologBoard + 'cigarQueen';                    
+                }
+            }
+
+            if(j != this.sizeX - 1){
+                this.prologBoard = this.prologBoard + ','
+            }
+        }
+        if(i == this.sizeZ - 1){
+            this.prologBoard = this.prologBoard + ']';
+        }
+        else{
+            this.prologBoard = this.prologBoard + '],';            
+        }
+    }
+    this.prologBoard = this.prologBoard + ']';
 };
 
 

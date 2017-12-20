@@ -3,6 +3,7 @@ function Tile(scene){
     this.scene = scene;
     // this.game = game;
     this.faces = [];
+    this.piece = null;
     
     for(var i = 0; i < 6; i++){
         this.faces.push(new Rectangle(scene, [0,2,2,0]));
@@ -59,6 +60,14 @@ Tile.prototype.display = function(){
         this.scene.popMatrix();
 
     this.scene.popMatrix();
+
+    if(this.piece != null){
+        this.scene.pushMatrix();
+            this.scene.translate(1, 0.2, 1);
+            this.piece.color.apply();
+            this.piece.display();
+        this.scene.popMatrix();
+    }
 };
 
 Tile.prototype.setTextCoords = function(s,t){
