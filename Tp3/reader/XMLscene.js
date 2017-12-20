@@ -117,7 +117,6 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.addNodesGroup(this.selected);
 }
 
-//funcção ainda está igual a dos profs
 XMLscene.prototype.logPicking = function ()
 {
     if (this.pickMode == false) {
@@ -146,6 +145,8 @@ XMLscene.prototype.display = function() {
     // ---- BEGIN Background, camera and axis setup
     
     this.logPicking();
+    this.clearPickRegistration();
+
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
