@@ -38,6 +38,7 @@ function MySceneGraph(filename, scene) {
     
     this.nodes = [];
     this.board = new Board(this.scene, 'game');
+
     //posição inicial das peças
     //ivory - (6,11); cigar - (5,0)
     this.board.tiles[11][6].piece = new Piece(this.scene, this.blue, 'cigar');
@@ -1716,7 +1717,6 @@ MySceneGraph.generateRandomString = function(length) {
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
     // remove log below to avoid performance issues
-
     
     var auxBoard1 = new Board(this.scene, 'aux');
     var auxBoard2 = new Board(this.scene, 'aux');

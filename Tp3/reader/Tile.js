@@ -4,7 +4,12 @@ function Tile(scene){
     // this.game = game;
     this.faces = [];
     this.piece = null;
-    
+
+    this.id;
+    this.coordX;
+    this.coordZ;
+    this.isSelected;
+
     for(var i = 0; i < 6; i++){
         this.faces.push(new Rectangle(scene, [0,2,2,0]));
     }
