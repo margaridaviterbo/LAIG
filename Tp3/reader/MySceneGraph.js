@@ -40,10 +40,11 @@ function MySceneGraph(filename, scene) {
     this.board = new Board(this.scene, 'game');
     //posição inicial das peças
     //ivory - (6,11); cigar - (5,0)
-    this.board.tiles[6][11].piece = new Piece(this.scene, this.blue, 'ivory');
-    this.board.tiles[5][0].piece = new Piece(this.scene, this.red, 'cigar');    
+    this.board.tiles[11][6].piece = new Piece(this.scene, this.blue, 'cigar');
+    this.board.tiles[0][5].piece = new Piece(this.scene, this.red, 'ivory');    
 
     this.board.convertToPrologBoard();
+    console.log(this.board.prologBoard);
 
    // this.player1.move();
    // this.player1.moveGotEaten();
