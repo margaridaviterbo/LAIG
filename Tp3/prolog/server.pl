@@ -99,33 +99,29 @@ print_header_line(_).
 
 %gamelogic
 
-%human player
-%success
+% Human play successful
 parse_input(makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success)) :-
-	makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn),(IvoryStackOut, CigarStackOut,BoardOut), GameOver),
+	makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn),(IvoryStackOut, CigarStackOut, BoardOut), GameOver),
 	Success = true.
-%fail
+% Human play unsuccessful
 parse_input(makePlay((Player,X,Y,TargetX,TargetY),(IvoryStack,CigarStack,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success)) :-
 	IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
 
-%bot player
-%success
+% Random bot play successful
 parse_input(insistOnCorrectBotRandomPlay(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
 	insistOnCorrectBotRandomPlay(Player, Play, (IvoryStackIn, CigarStackIn, BoardIn),(IvoryStackOut, CigarStackOut, BoardOut), GameOver),
 	Success = true.
-%fail
+%Random bot play unsuccessful
 parse_input(insistOnCorrectBotRandomPlay(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
-	 IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
+	IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
 
-%smart bot player
-%success
+% Smart bot play successful
 parse_input(playBestBot(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
 	playBestBot(Player, Play, (IvoryStackIn, CigarStackIn, BoardIn),(IvoryStackOut, CigarStackOut, BoardOut), GameOver),
 	Success = true.
-
-%fail
+% Smart bot play unsuccessful
 parse_input(playBestBot(Player,(IvoryStackIn,CigarStackIn,BoardIn)), (IvoryStackOut, CigarStackOut, GameOver, Success, Play)) :-
-		IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
+	IvoryStackOut = IvoryStack, CigarStackOut = CigarStack, GameOver = false, Success = false.
 
 %quit server
 parse_input(quit, goodbye).
