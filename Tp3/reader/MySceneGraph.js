@@ -21,7 +21,11 @@ function MySceneGraph(filename, scene) {
     scene.graph = this;
     
     this.nodes = [];
-    
+    this.player1 = new Piece(this.scene);
+    this.player2 = new Piece(this.scene);
+    this.player1.move();
+    this.player1.moveGotEaten();
+
     this.idRoot = null;                    // The id of the root element.
 
     this.axisCoords = [];
@@ -1707,6 +1711,7 @@ MySceneGraph.prototype.displayScene = function() {
     var board = new Board(this.scene, 'game');
     var auxBoard1 = new Board(this.scene, 'aux');
     var auxBoard2 = new Board(this.scene, 'aux');
+
     this.scene.pushMatrix();
         this.scene.translate(6, 0, 0);
         board.display();
@@ -1723,9 +1728,26 @@ MySceneGraph.prototype.displayScene = function() {
         auxBoard2.display();
     this.scene.popMatrix();
 
+    this.scene.pushMatrix();
+        this.scene.translate(7, 0.2, 1);
+        this.player1.animations[0].push();
+        this.player1.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+        this.scene.translate(7, 0.2, 1);
+        this.player1.animations[1].push();
+        this.player1.lost[0].display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+        this.scene.translate(11, 0.2, 1);
+        blue.apply();
+        this.player2.display();
+    this.scene.popMatrix();
 
     var rootNode = this.nodes[this.idRoot]
-    //this.processGraph(rootNode, null, null);
+    this.processGraph(rootNode, null, null);
 
 
 	
