@@ -188,4 +188,8 @@ XMLscene.prototype.update = function(currTime) {
             }
         }
     }
+
+    for(var i = 0; i < this.graph.player1.animations.length; i++){     
+        this.graph.player1.animations[i].update(currTime);
+    }
 }
