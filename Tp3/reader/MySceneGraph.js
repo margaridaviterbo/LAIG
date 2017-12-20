@@ -21,7 +21,7 @@ function MySceneGraph(filename, scene) {
     scene.graph = this;
     
     this.nodes = [];
-    
+    this.board = new Board(this.scene, 'game');
     this.idRoot = null;                    // The id of the root element.
 
     this.axisCoords = [];
@@ -1704,12 +1704,12 @@ MySceneGraph.prototype.displayScene = function() {
 	red.setShininess(50);
 	//this.black.loadTexture('../resources/images/ocean3.jpg');
 
-    var board = new Board(this.scene, 'game');
+    
     var auxBoard1 = new Board(this.scene, 'aux');
     var auxBoard2 = new Board(this.scene, 'aux');
     this.scene.pushMatrix();
         this.scene.translate(6, 0, 0);
-        board.display();
+        this.board.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();

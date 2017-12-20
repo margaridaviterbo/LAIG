@@ -124,7 +124,8 @@ XMLscene.prototype.logPicking = function ()
         if (this.pickResults != null && this.pickResults.length > 0) {
             console.log("passou pick results");
 			for (var i=0; i< this.pickResults.length; i++) {
-                console.log("entrou no for");
+                console.log("entrou no for" + this.pickResults[i]);
+
                 var obj = this.pickResults[i][0];
                 console.log(obj);
 				if (obj)
@@ -183,7 +184,6 @@ XMLscene.prototype.display = function() {
         }
 
         // Displays the scene.
-        
         this.graph.displayScene();
 
     }

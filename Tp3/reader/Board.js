@@ -55,6 +55,26 @@ Board.prototype.constructor=Board;
 Board.prototype.convertToPrologBoard = function() {
 }
 
+/*Board.prototype.logPicking = function ()
+{
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+            console.log("passou pick results");
+			for (var i=0; i< this.pickResults.length; i++) {
+                console.log("entrou no for" + this.pickResults[i]);
+
+                var obj = this.pickResults[i][0];
+                console.log(obj);
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];				
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}		
+	}
+}*/
 
 Board.prototype.display = function(){
 
@@ -80,6 +100,7 @@ Board.prototype.display = function(){
                 if(this.type == 'game'){
                     this.color.apply();
                 }
+                this.logPicking();
                 this.tiles[i][j].display();
             this.scene.popMatrix();
         }
