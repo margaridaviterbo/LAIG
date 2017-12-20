@@ -34,10 +34,10 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.shaders=[
-        //new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag")
+        new CGFshader(this.gl, "shaders/selectTile.vert", "shaders/selectTile.frag")
     ];
 
-   // this.shaders[0].setUniformsValues({ d: 24.0 });
+    this.shaders[0].setUniformsValues({normScale: 1});
 
     this.selected = [];
 
@@ -121,14 +121,15 @@ XMLscene.prototype.logPicking = function ()
 {
     if (this.pickMode == false) {
         if (this.pickResults != null && this.pickResults.length > 0) {
-           for (var i=0; i< this.pickResults.length; i++) {
+           for (var i=0; i < this.pickResults.length; i++) {
                 var obj = this.pickResults[i][0];
-                console.log(obj);
                 if (obj)
 				{
                     var customId = this.pickResults[i][1];
-                    this.graph.board.getSelectedTileID(customId);		
-				}
+                    this.graph.board.getSelectedTileID(customId);
+                    console.log(obj);	
+                }
+               
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}		
