@@ -143,7 +143,7 @@ XMLscene.prototype.display = function() {
     // ---- BEGIN Background, camera and axis setup
     
     this.logPicking();
-    this.clearPickRegistration();
+   // this.clearPickRegistration();
 
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);

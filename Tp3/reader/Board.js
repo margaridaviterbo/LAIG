@@ -85,7 +85,6 @@ Board.prototype.display = function(){
             this.tiles[i][j].id = id;
             this.tiles[i][j].coordZ=i;
             this.tiles[i][j].coordX=j;
-            //this.unselectTile(id);
             this.scene.registerForPick(id, this.tiles[i][j]);
             id++;
 
@@ -109,7 +108,7 @@ Board.prototype.getSelectedTileID = function(id){
     for(var i=0; i < this.sizeZ; i++){
         for(var j=0; j < this.sizeX; j++){
             if(this.tiles[i][j].id == id){
-                this.tiles[i][j].isSelected = true;
+                this.tiles[i][j].isSelected = !this.tiles[i][j].isSelected;
             }
         }
     }
@@ -121,7 +120,8 @@ Board.prototype.unselectTile = function(id){
         for(var j=0; j < this.sizeX; j++){
             if(this.tiles[i][j].id == id){
                if(this.tiles[i][j].isSelected){
-                this.scene.clearPickRegistration();
+                  // this.tiles[i][j].isSelected = false;
+               
                }
             }
         }   
