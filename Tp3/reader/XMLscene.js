@@ -40,7 +40,8 @@ XMLscene.prototype.init = function(application) {
    // this.shaders[0].setUniformsValues({ d: 24.0 });
 
     this.selected = [];
-      
+
+    this.setPickEnabled(true);
     this.axis = new CGFaxis(this);
 }
 
@@ -116,12 +117,36 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.addNodesGroup(this.selected);
 }
 
+XMLscene.prototype.logPicking = function ()
+{
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+            console.log("passou pick results");
+			for (var i=0; i< this.pickResults.length; i++) {
+                console.log("entrou no for" + this.pickResults[i]);
+
+                var obj = this.pickResults[i][0];
+                console.log(obj);
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];				
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}		
+	}
+}
+
 /**
  * Displays the scene.
  */
 XMLscene.prototype.display = function() {
     // ---- BEGIN Background, camera and axis setup
     
+    this.logPicking();
+    this.clearPickRegistration();
+
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);

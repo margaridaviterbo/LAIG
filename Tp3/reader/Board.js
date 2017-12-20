@@ -55,7 +55,6 @@ Board.prototype.constructor=Board;
 Board.prototype.convertToPrologBoard = function() {
 }
 
-
 Board.prototype.display = function(){
 
     for(var i = 0; i < this.sizeZ; i++){
@@ -80,6 +79,7 @@ Board.prototype.display = function(){
                 if(this.type == 'game'){
                     this.color.apply();
                 }
+                this.scene.registerForPick(i+j, this.tiles[i][j]);
                 this.tiles[i][j].display();
             this.scene.popMatrix();
         }
