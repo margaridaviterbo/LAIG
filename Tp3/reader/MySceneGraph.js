@@ -16,16 +16,39 @@ var NODES_INDEX = 6;
 function MySceneGraph(filename, scene) {
     this.loadedOk = null ;
     
-    // Establish bidirectional references between scene and graph.
+
     this.scene = scene;
     scene.graph = this;
+
+    // Establish bidirectional references between scene and graph.
+
+    this.blue = new CGFappearance(this.scene);
+	this.blue.setAmbient(0.3, 0.3, 0.3, 1);
+	this.blue.setDiffuse(0, 0.4, 0.796, 1);
+	this.blue.setSpecular(0.9, 0.9, 0.9, 1);
+	this.blue.setShininess(50);
+	//blue.loadTexture('../scenes/images/floor.png');
+
+    this.red = new CGFappearance(this.scene);
+	this.red.setAmbient(0.3, 0.3, 0.3, 1);
+	this.red.setDiffuse(0.796, 0, 0, 1);
+	this.red.setSpecular(0.5, 0.5, 0.5, 1);
+	this.red.setShininess(50);
+	//this.black.loadTexture('../resources/images/ocean3.jpg');
     
     this.nodes = [];
     this.board = new Board(this.scene, 'game');
-    this.player1 = new Piece(this.scene);
-    this.player2 = new Piece(this.scene);
-    this.player1.move();
-    this.player1.moveGotEaten();
+
+    //posição inicial das peças
+    //ivory - (6,11); cigar - (5,0)
+    this.board.tiles[11][6].piece = new Piece(this.scene, this.blue, 'cigar');
+    this.board.tiles[0][5].piece = new Piece(this.scene, this.red, 'ivory');    
+
+    this.board.convertToPrologBoard();
+    console.log(this.board.prologBoard);
+
+   // this.player1.move();
+   // this.player1.moveGotEaten();
 
     this.idRoot = null;                    // The id of the root element.
 
@@ -1694,21 +1717,6 @@ MySceneGraph.generateRandomString = function(length) {
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
     // remove log below to avoid performance issues
-
-    var blue = new CGFappearance(this.scene);
-	blue.setAmbient(0.3, 0.3, 0.3, 1);
-	blue.setDiffuse(0, 0.4, 0.796, 1);
-	blue.setSpecular(0.9, 0.9, 0.9, 1);
-	blue.setShininess(50);
-	//blue.loadTexture('../scenes/images/floor.png');
-
-    var red = new CGFappearance(this.scene);
-	red.setAmbient(0.3, 0.3, 0.3, 1);
-	red.setDiffuse(0.796, 0, 0, 1);
-	red.setSpecular(0.5, 0.5, 0.5, 1);
-	red.setShininess(50);
-	//this.black.loadTexture('../resources/images/ocean3.jpg');
-
     
     var auxBoard1 = new Board(this.scene, 'aux');
     var auxBoard2 = new Board(this.scene, 'aux');
@@ -1719,17 +1727,17 @@ MySceneGraph.prototype.displayScene = function() {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-        blue.apply();
+        this.blue.apply();
         auxBoard1.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
         this.scene.translate(32, 0, 0);
-        red.apply();
+        this.red.apply();
         auxBoard2.display();
     this.scene.popMatrix();
 
-    this.scene.pushMatrix();
+   /* this.scene.pushMatrix();
         this.scene.translate(7, 0.2, 1);
         this.player1.animations[0].push();
         this.player1.display();
@@ -1743,9 +1751,9 @@ MySceneGraph.prototype.displayScene = function() {
 
     this.scene.pushMatrix();
         this.scene.translate(11, 0.2, 1);
-        blue.apply();
+        this.blue.apply();
         this.player2.display();
-    this.scene.popMatrix();
+    this.scene.popMatrix();*/
 
     var rootNode = this.nodes[this.idRoot]
     this.processGraph(rootNode, null, null);

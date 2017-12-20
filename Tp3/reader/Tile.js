@@ -3,6 +3,8 @@ function Tile(scene){
     this.scene = scene;
     // this.game = game;
     this.faces = [];
+    this.piece = null;
+
     this.id;
     this.coordX;
     this.coordZ;
@@ -63,6 +65,14 @@ Tile.prototype.display = function(){
         this.scene.popMatrix();
 
     this.scene.popMatrix();
+
+    if(this.piece != null){
+        this.scene.pushMatrix();
+            this.scene.translate(1, 0.2, 1);
+            this.piece.color.apply();
+            this.piece.display();
+        this.scene.popMatrix();
+    }
 };
 
 Tile.prototype.setTextCoords = function(s,t){

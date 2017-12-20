@@ -1,7 +1,9 @@
-function Piece(scene){
+function Piece(scene, color, type){
     CGFobject.call(this,scene);
  
     this.scene = scene;
+    this.color = color;
+    this.type = type;
     this.stacks = [];
     this.counter = 0;
     this.animations = [];
