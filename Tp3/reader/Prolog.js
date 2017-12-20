@@ -84,9 +84,10 @@ parseInt(splitReply[8]),gameOver);
 }
 
 //make a request
-Prolog.prototype.getPrologRequest = function(requestObject, success, error, port){
+Prolog.prototype.getPrologRequest = function(requestObject, onSuccess, onError, port){
     
     var requestString;
+    this.answer;
     var requestPort = port || 8081
     var request = new XMLHttpRequest();
     var input = this;
@@ -104,37 +105,43 @@ Prolog.prototype.getPrologRequest = function(requestObject, success, error, port
         }
     }
     else{
+        console.log("humano");
         requestString = requestObject.humanPlay();
     }
 
+    console.log(requestString);
     request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, true);
 
     request.onload = onSuccess || function (data) {
 
         var response = data.target.response;
 
-        if(requestObject.botPlay){
+        console.log(response);
 
-            var play = play(response);
-            // Animate piece and make play
+        if(requestObject.botPlay){
+            this.answer = play(response);
+            
         }
         else{
             if (success(response) == true) {
-                var gameOver = gameOver(response);
-                // Animate piece and make play
+                console.log("not bot");
+                this.answer = gameOver(response);
+                console.log(this.answer);
             }
         }
 
     };
 
-    request.onerror = error || function () {
+    request.onerror = onError || function () {
         console.log("Error waiting for response");
     };
 
+    console.log(this.answer);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
 
-    return request;
+    
+    return this.answer;
 }
     
 

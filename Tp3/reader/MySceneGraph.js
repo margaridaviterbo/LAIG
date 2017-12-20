@@ -37,12 +37,15 @@ function MySceneGraph(filename, scene) {
 	//this.black.loadTexture('../resources/images/ocean3.jpg');
     
     this.nodes = [];
+    
     this.board = new Board(this.scene, 'game');
 
     //posição inicial das peças
     //ivory - (6,11); cigar - (5,0)
     this.board.tiles[11][6].piece = new Piece(this.scene, this.blue, 'cigar');
     this.board.tiles[0][5].piece = new Piece(this.scene, this.red, 'ivory');    
+
+    this.game = new Game(this.scene);
 
     this.board.convertToPrologBoard();
     console.log(this.board.prologBoard);
