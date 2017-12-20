@@ -6,6 +6,7 @@ function Board(scene, type){
 
     this.tiles = [];
     this.color;
+    this.selectedTileID;
 
 
 Board.prototype.initBoard = function(){
@@ -46,13 +47,15 @@ Board.prototype.initBoard = function(){
         }
         this.tiles.push(tilesRow);
     }
-
-    
 };
 
 Board.prototype = Object.create(CGFobject.prototype);
 Board.prototype.constructor=Board;
 Board.prototype.convertToPrologBoard = function() {
+}
+
+Board.prototype.getSelectedTileID= function(id){
+    this.selectedTileID = id;
 }
 
 Board.prototype.display = function(){
@@ -80,11 +83,13 @@ Board.prototype.display = function(){
                     this.color.apply();
                 }
                 this.scene.registerForPick(i+j, this.tiles[i][j]);
+                this.tiles[i][j].id = i+j;
+                this.tiles[i][j].coordX=i;
+                this.tiles[i][j].coordY=j;
                 this.tiles[i][j].display();
             this.scene.popMatrix();
-        }
+           }
     }
-
 };
 
 Board.prototype.setTextCoords = function(s,t){

@@ -121,16 +121,13 @@ XMLscene.prototype.logPicking = function ()
 {
     if (this.pickMode == false) {
         if (this.pickResults != null && this.pickResults.length > 0) {
-            console.log("passou pick results");
-			for (var i=0; i< this.pickResults.length; i++) {
-                console.log("entrou no for" + this.pickResults[i]);
-
+           for (var i=0; i< this.pickResults.length; i++) {
                 var obj = this.pickResults[i][0];
                 console.log(obj);
-				if (obj)
+                if (obj)
 				{
-					var customId = this.pickResults[i][1];				
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+                    var customId = this.pickResults[i][1];
+                    this.graph.board.getSelectedTileID(customId);		
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
