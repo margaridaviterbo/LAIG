@@ -50,9 +50,18 @@ Game.prototype.update = function(){
             }
             break;
         case 1:
-
-
-            //fazer movimento da peça
+            var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
+            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            var coordXToMove = tileToMove.coordX;
+            var coordZToMove = tileToMove.coordZ;
+            pieceToMove.moveWithCapture([[0, 0, 0], [coordZToMove, 0, coordXToMove]]);
+            this.state = 2;
+            break;
+        case 2:
+            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            if(pieceToMove.animations[pieceToMove.animations.length - 1].finished == true){
+                this.state = 3;
+            }
             break;
     }
     //por array de id de peças selecionadas a null no fim da joagada
