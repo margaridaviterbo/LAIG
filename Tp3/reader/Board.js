@@ -7,7 +7,7 @@ function Board(scene, type){
 
     this.tiles = [];
 
-    this.selectedTileID;
+    this.selectedTileID = [null, null];
 
 
 
@@ -95,9 +95,8 @@ Board.prototype.display = function(){
     }
 };
 
-Board.prototype.getSelectedTileID = function(id){
-    this.selectedTileID = id;
-
+Board.prototype.getClickedTile= function(id){
+    
     for(var i=0; i < this.sizeZ; i++){
         for(var j=0; j < this.sizeX; j++){
             if(this.tiles[i][j].id == id){
@@ -107,19 +106,6 @@ Board.prototype.getSelectedTileID = function(id){
     }
 }
 
-Board.prototype.unselectTile = function(id){
-
-    for(var i=0; i < this.sizeZ; i++){
-        for(var j=0; j < this.sizeX; j++){
-            if(this.tiles[i][j].id == id){
-               if(this.tiles[i][j].isSelected){
-                  // this.tiles[i][j].isSelected = false;
-               
-               }
-            }
-        }   
-    }
-}
 
 Board.prototype.setTextCoords = function(s,t){
    
@@ -131,11 +117,28 @@ Board.prototype.setTextCoords = function(s,t){
 
 };
 
+Board.prototype.getSelectedTile = function(id){
+    for(var i = 0; i < this.sizeZ; i++){
+        for(var j = 0; j < this.sizeX; j++){
+            if(this.tiles[i][j].id == id){
+                return this.tiles[i][j];
+            }
+        }
+    }
+}
+
+Board.prototype.getQueen = function(type){
+    for(var i = 0; i < this.sizeZ; i++){
+        for(var j = 0; j < this.sizeX; j++){
+            if(this.tiles[i][j].piece != null && this.tiles[i][j].piece.type == type && this.tiles[i][j].piece.stacks.length > 2){
+                
+                return this.tiles[i][j].piece;
+            }
+        }
+    }
+}
 
 Board.prototype.convertToPrologBoard = function() {
-
-    console.log(this.tiles);
-    console.log(this.tiles[0])
 
     this.prologBoard = '[';
     for (var i = 0; i < this.sizeZ; i++){
@@ -173,6 +176,8 @@ Board.prototype.convertToPrologBoard = function() {
         }
     }
     this.prologBoard = this.prologBoard + ']';
+
+    return this.prologBoard;
 };
 
 

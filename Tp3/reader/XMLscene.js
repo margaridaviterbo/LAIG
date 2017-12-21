@@ -13,6 +13,8 @@ function XMLscene(interface) {
     //this.selectedShader = 0;
     this.selectedColour = 0;
     this.selectedNode = 0;
+
+    this.customId = 1000;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -119,21 +121,43 @@ XMLscene.prototype.onGraphLoaded = function()
 
 XMLscene.prototype.logPicking = function ()
 {
-    if (this.pickMode == false) {
-        if (this.pickResults != null && this.pickResults.length > 0) {
-           for (var i=0; i < this.pickResults.length; i++) {
-                var obj = this.pickResults[i][0];
-                if (obj)
-				{
-                    var customId = this.pickResults[i][1];
-                    this.graph.board.getSelectedTileID(customId);
-                    console.log(obj);	
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+            for (var i=0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj)
+                    {
+                        this.customId = this.pickResults[i][1];
+
+                        if(this.graph.board.selectedTileID[0] == null || this.graph.board.selectedTileID[1] == null || 
+                            this.customId == this.graph.board.selectedTileID[0] || this.customId == this.graph.board.selectedTileID[1]){
+
+                            if(this.graph.board.selectedTileID[0] == null){
+                                this.graph.board.getClickedTile(this.customId);
+                                this.graph.board.selectedTileID[0] = this.customId;
+                            }
+                            else if(this.customId == this.graph.board.selectedTileID[0]){
+                                this.graph.board.getClickedTile(this.customId);
+                                this.graph.board.selectedTileID[0] = null;
+                                
+                            }
+                            else if(this.graph.board.selectedTileID[1] == null){
+                                this.graph.board.getClickedTile(this.customId);
+                                this.graph.board.selectedTileID[1] = this.customId;
+                            }
+                            else if(this.customId == this.graph.board.selectedTileID[1]){
+                                this.graph.board.getClickedTile(this.customId);
+                                this.graph.board.selectedTileID[1] = null;
+                            }
+                        }
+                        //console.log(obj);	
+                    }
+                
                 }
-               
-			}
-			this.pickResults.splice(0,this.pickResults.length);
-		}		
-	}
+                this.pickResults.splice(0,this.pickResults.length);
+            }		
+        }
+    
 }
 
 /**
@@ -211,6 +235,8 @@ XMLscene.prototype.update = function(currTime) {
             }
         }
     }
+
+    this.graph.game.update();
 
   /*  for(var i = 0; i < this.graph.player1.animations.length; i++){     
         this.graph.player1.animations[i].update(currTime);
