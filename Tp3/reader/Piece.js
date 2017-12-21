@@ -49,9 +49,9 @@ Piece.prototype.move = function(){
     this.moveWithCapture();
 };
 
-Piece.prototype.moveWithCapture = function(){
+Piece.prototype.moveWithCapture = function(controlPoints){
     var id = 'piece' + this.counter;
-    var move = new LinearAnimation(this.scene, id, 'linear', [[0, 0, 0], [4, 0, 6]], 2);
+    var move = new LinearAnimation(this.scene, id, 'linear', controlPoints, 2);
     this.animations.push(move);
     this.counter++;
 };

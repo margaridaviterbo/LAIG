@@ -238,7 +238,15 @@ XMLscene.prototype.update = function(currTime) {
 
     this.graph.game.update();
 
-  /*  for(var i = 0; i < this.graph.player1.animations.length; i++){     
-        this.graph.player1.animations[i].update(currTime);
-    }*/
+    var ivory = this.graph.board.getQueen('ivory');
+    for(var i = 0; i < ivory.animations.length; i++){
+        if(ivory.animations[i].finished == false){
+            ivory.animations[i].update(currTime);
+        }    
+        
+    }
+    var cigar = this.graph.board.getQueen('cigar');
+    for(var i = 0; i < cigar.animations.length; i++){     
+        cigar.animations[i].update(currTime);
+    }
 }
