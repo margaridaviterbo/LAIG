@@ -12,7 +12,7 @@
 
 <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />
-    <background r="0" g="0" b="0" a="1" />
+    <background r="0" g="0" b="0.3" a="1" />
 </ILLUMINATION>
 
 <LIGHTS>
@@ -48,62 +48,17 @@
         <specular r="0.6" g="0.6" b="0.6" a="1.0" />
     </LIGHT>
 </LIGHTS>
+
 <TEXTURES>
-<TEXTURE id="rocks">
-        <file path="images/floor.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-	<TEXTURE id="street">
-        <file path="images/garden.jpeg" />
-        <amplif_factor s="5" t="4" />
-    </TEXTURE>
-
-    <TEXTURE id="wood">
-        <file path="images/wood.jpg" />
-        <amplif_factor s="4" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="leg">
-        <file path="images/poste_candeeiro.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <TEXTURE id="paper">
-        <file path="images/paper.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <TEXTURE id="pavement">
-        <file path="images/pav2.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <TEXTURE id="brick">
-        <file path="images/brick.jpg" />
-        <amplif_factor s="1" t="3" />
-    </TEXTURE>
-
-    <TEXTURE id="gate">
-        <file path="images/gate2.jpg" />
-        <amplif_factor s="1" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="bush">
-        <file path="images/garden.jpeg" />
+     <TEXTURE id="star">
+        <file path="images/star.png" />
         <amplif_factor s="4" t="4" />
     </TEXTURE>
-   
-    <TEXTURE id="direction">
-        <file path="images/direction.jpg" />
-        <amplif_factor s="5" t="4" />
-    </TEXTURE>
-
 </TEXTURES>
 
 <MATERIALS>
 
-    <MATERIAL id="statueMaterial">
+ <!--   <MATERIAL id="statueMaterial">
         <shininess value="50" />
         <specular r="1" g="1" b="1" a="1" />
         <diffuse r="1" g="1" b="1" a="1" />
@@ -111,7 +66,6 @@
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- Lamp post material -->
     <MATERIAL id="lightPostMaterial">
         <shininess value="50" />
         <specular r="0.0" g="0.0" b="0.0" a="1" />
@@ -120,22 +74,28 @@
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- Light bulb material -->
+   
     <MATERIAL id="lightMaterial">
         <shininess value="100" />
         <specular r="0.5" g="0.5" b="0.5" a="0" />
         <diffuse r="0.5" g="0.5" b="0.5" a="0" />
         <ambient r="0.0" g="0.0" b="0.0" a="0" />
         <emission r="0.0" g="0.0" b="0.0" a="0" />
-    </MATERIAL>
+    </MATERIAL>-->
 
-    <!-- A default material -->
     <MATERIAL id="defaultMaterial">
         <shininess value="1" />
         <specular r="0.0" g="0.0" b="0.0" a="1" />
         <diffuse r="0.4" g="0.4" b="0.4" a="1" />
         <ambient r="0.4" g="0.4" b="0.4" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+     <MATERIAL id="starMaterial">
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.3" a="0" />
+        <diffuse r="0.0" g="0.0" b="0.3" a="0" />
+        <ambient r="0.0" g="0.0" b="0.3" a="0" />
+        <emission r="0.0" g="0.0" b="0.3" a="0" />
     </MATERIAL>
 
 </MATERIALS>
@@ -144,112 +104,87 @@
 </ANIMATIONS>
 
 <NODES>
-
     <ROOT id="root" />
-
     <NODE id="root">
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
-
         <DESCENDANTS>
-            <!--NODEREF id="board" /-->
-            <LEAF type="rectangle" args="0 0 0 0"/>
+            <NODEREF id="cube" />
+             
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="board" selectable="true">
+    <NODE id="cube">
         <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
+        <TEXTURE id="star" />
         <TRANSLATION x="0" y="5" z="0"/>
-        
         <ROTATION axis="z" angle="90" />
         <ROTATION axis="y" angle="90" />
-        <SCALE sx="1" sy="1" sz="1"/>
-     
+        <SCALE sx="0.5" sy="0.5" sz="0.5"/>
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
             <NODEREF id="faceCubo2" />
             <NODEREF id="faceCubo3" />
             <NODEREF id="faceCubo4" />
             <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" />   
+            <NODEREF id="faceCubo6" /> 
         </DESCENDANTS>
     </NODE>
 
     <NODE id="faceCubo1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 12 12 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
-
     </NODE>
 
     <NODE id="faceCubo2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
 		<ROTATION axis="y" angle="-90" />
-
         <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 12 12 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
-
     </NODE>
 
     <NODE id="faceCubo3">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
-        <TRANSLATION x="12" y="0" z="0" />
+        <TRANSLATION x="4" y="0" z="0" />
 		<ROTATION axis="y" angle="-90" />
-
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 12 12 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
-
     </NODE>
 
     <NODE id="faceCubo4">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
         <ROTATION axis="x" angle="90" />
-        
         <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 12 12 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
-
     </NODE>
 
     <NODE id="faceCubo5">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
-        <TRANSLATION x="0" y="12" z="0" />
+        <TRANSLATION x="0" y="4" z="0" />
         <ROTATION axis="x" angle="90" />
-
         <DESCENDANTS>
- 			<LEAF  type="rectangle" args="0 12 12 0" />
+ 			<LEAF  type="rectangle" args="0 4 4 0" />
        </DESCENDANTS>
-
     </NODE>
 
-    <NODE id="faceCubo6" selectable="true">
+    <NODE id="faceCubo6">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
-        <TRANSLATION x="0" y="0" z="12" />
-
+        <TRANSLATION x="0" y="0" z="4" />
         <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 12 12 0" />
+			<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
-
     </NODE>
-
-   
-   </NODES>
+</NODES>
 
 </SCENE>

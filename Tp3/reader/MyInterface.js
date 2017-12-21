@@ -21,8 +21,6 @@ MyInterface.prototype.init = function(application) {
     
     this.gui = new dat.GUI();
 
-    
-
     return true;
 };
 
@@ -71,4 +69,5 @@ MyInterface.prototype.addNodesGroup = function(nodes){
     var group = this.gui.addFolder("Shaders");
     this.gui.add(this.scene,'selectedNode',nodes).name('Select Node');
 }
+
 
