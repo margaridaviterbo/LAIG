@@ -50,9 +50,9 @@
 </LIGHTS>
 
 <TEXTURES>
-     <TEXTURE id="star">
-        <file path="images/star.png" />
-        <amplif_factor s="4" t="4" />
+     <TEXTURE id="mirror">
+        <file path="images/mirror.jpg" />
+        <amplif_factor s="1" t="1" />
     </TEXTURE>
 </TEXTURES>
 
@@ -109,82 +109,26 @@
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
         <DESCENDANTS>
-            <NODEREF id="cube" />
-             
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="cube">
-        <MATERIAL id="null" />
-        <TEXTURE id="star" />
-        <TRANSLATION x="0" y="5" z="0"/>
-        <ROTATION axis="z" angle="90" />
-        <ROTATION axis="y" angle="90" />
-        <SCALE sx="0.5" sy="0.5" sz="0.5"/>
-        <DESCENDANTS>
-            <NODEREF id="faceCubo1" />
-            <NODEREF id="faceCubo2" />
-            <NODEREF id="faceCubo3" />
-            <NODEREF id="faceCubo4" />
-            <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" /> 
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="faceCubo1">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-        <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="faceCubo2">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-		<ROTATION axis="y" angle="-90" />
-        <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="faceCubo3">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-        <TRANSLATION x="4" y="0" z="0" />
-		<ROTATION axis="y" angle="-90" />
-        <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="faceCubo4">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-        <ROTATION axis="x" angle="90" />
-        <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="faceCubo5">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-        <TRANSLATION x="0" y="4" z="0" />
-        <ROTATION axis="x" angle="90" />
-        <DESCENDANTS>
- 			<LEAF  type="rectangle" args="0 4 4 0" />
+           <NODEREF id="balls"/>
        </DESCENDANTS>
     </NODE>
 
-    <NODE id="faceCubo6">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-        <TRANSLATION x="0" y="0" z="4" />
+   <NODE id="balls">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
         <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 4 0" />
+            <NODEREF id="ball1"/>
         </DESCENDANTS>
-    </NODE>
+   </NODE>
+
+   <NODE id="ball1">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+         <TRANSLATION x="-5" y="5" z="5"/>
+        <DESCENDANTS>
+            <LEAF id="sphere" type="sphere" args="1 20 20" />
+        </DESCENDANTS>    
+   </NODE>
 </NODES>
 
 </SCENE>
