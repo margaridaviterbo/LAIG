@@ -85,66 +85,17 @@ parseInt(splitReply[8]),gameOver);
 }
 
 //make a request
-Prolog.prototype.getPrologRequest = function(requestObject, onSuccess, onError, port){
-    
-    var requestString;
-    var requestPort = port || 8081
-    var request = new XMLHttpRequest();
-    var input = this;
-
-    if(requestObject == "quit"){
-        requestString = "quit" ;
-    } 
-    else if (requestObject.botPlay){
-       
-        if(requestObject.botDifficulty == 0){
-            requestString = requestObject.randomPlay();
-        }
-        else{
-            requestString = requestObject.smartPlay();
-        }
-    }
-    else{
-        console.log("humano");
-        requestString = requestObject.humanPlay();
-    }
-
-    console.log(requestString);
-    request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, true);
-
-    request.onload = onSuccess || function (data) {
-
-        console.log("Request successful. Reply: " + data.target.response);
-        //var response = data.target.response;
-
-        /*console.log(response);
-
-        if(requestObject.botPlay){
-            this.answer = play(response);
-            
-        }
-        else{
-            if (success(response) == true) {
-                console.log("not bot");
-                this.answer = gameOver(response);
-                
-                console.log(this.answer);
-            }
-        }*/
-        //this.answer=data;
-    };
-
-    request.onerror = onError || function () {
-        console.log("Error waiting for response");
-    };
-
-    //console.log(this.answer);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    request.send();
-
-    
-    //return request;
-}
+Prolog.prototype.getPrologRequest= function(requestString, onSuccess, onError, port){
+	var requestPort = port || 8081;
+	var request = new XMLHttpRequest();
+	request.open('GET', 'http://localhost:'+ requestPort + '/' + requestString, true);
+ 
+	request.onload = onSuccess || function(data){console.log("Request successful. Reply: " + data.target.response);};
+	request.onerror = onError || function(){console.log("Error waiting for response");};
+ 
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	request.send();
+};
     
 
 //request constructor
