@@ -9,6 +9,7 @@ function Game(scene){
     this.board = this.scene.graph.board;
     this.bot = false;//implementar depois
     this.difficulty = null;//implementar
+    
 }
 
 Game.prototype = Object.create(CGFobject.prototype);
@@ -26,9 +27,10 @@ Game.prototype.update = function(){
                                 this.board.getSelectedTile(this.board.selectedTileID[1]).coordZ, this.board.getQueen(this.currPlayer).stacks.length,
                                 this.board.getQueen(this.notCurrPlayer).stacks.length, this.board.convertToPrologBoard(), this.bot, this.difficulty);
 
-                    var reply = this.prolog.getPrologRequest(request);
+                    var r = this.prolog.getPrologRequest(request);
                     
-                    console.log(reply);
+                    
+                    console.log(r);
                 }
             }
             

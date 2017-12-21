@@ -5,6 +5,7 @@ function Prolog(game){
     this.board = game.board;
     this.currPosition = [];
     this.currPlayer = game.currPlayer;
+    this.answer;
 }
 Prolog.prototype.constructor = Prolog;
 
@@ -87,7 +88,6 @@ parseInt(splitReply[8]),gameOver);
 Prolog.prototype.getPrologRequest = function(requestObject, onSuccess, onError, port){
     
     var requestString;
-    this.answer;
     var requestPort = port || 8081
     var request = new XMLHttpRequest();
     var input = this;
@@ -114,9 +114,10 @@ Prolog.prototype.getPrologRequest = function(requestObject, onSuccess, onError, 
 
     request.onload = onSuccess || function (data) {
 
-        var response = data.target.response;
+        console.log("Request successful. Reply: " + data.target.response);
+        //var response = data.target.response;
 
-        console.log(response);
+        /*console.log(response);
 
         if(requestObject.botPlay){
             this.answer = play(response);
@@ -126,22 +127,23 @@ Prolog.prototype.getPrologRequest = function(requestObject, onSuccess, onError, 
             if (success(response) == true) {
                 console.log("not bot");
                 this.answer = gameOver(response);
+                
                 console.log(this.answer);
             }
-        }
-
+        }*/
+        //this.answer=data;
     };
 
     request.onerror = onError || function () {
         console.log("Error waiting for response");
     };
 
-    console.log(this.answer);
+    //console.log(this.answer);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
 
     
-    return this.answer;
+    //return request;
 }
     
 
