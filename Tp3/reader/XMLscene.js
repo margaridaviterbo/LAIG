@@ -45,12 +45,12 @@ XMLscene.prototype.init = function(application) {
     this.selected = [];
    	
     this.setPickEnabled(true);
-    this.initAmbient();
+    this.initScene();
     this.axis = new CGFaxis(this);
 
 }
 
-XMLscene.prototype.initAmbient = function(){
+XMLscene.prototype.initScene = function(){
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 	this.ambients = [];
@@ -59,7 +59,7 @@ XMLscene.prototype.initAmbient = function(){
 	this.ambients[1] = getUrlVars()['file'] || "street.xml";
 }
 
-XMLscene.prototype.switchAmbient = function(){
+XMLscene.prototype.switchScene = function(){
     
     if(this.gameStart == false ){
         this.selectedAmbient++;
