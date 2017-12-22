@@ -24,10 +24,16 @@ Game.prototype.update = function(currTime){
 
             if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
                 //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
-                if(this.board.selectedTileID[0] != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
-                    if(/*this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type == this.currPlayer &&*/ this.board.selectedTileID[1] != null){
+                if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
+                    if(this.board.selectedTileID[1] != null){
                         this.scene.gameStart='true'; 
-                        var selectedPlayer = this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type;
+                        var selectedPlayer;
+                        if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
+                            selectedPlayer = this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type;
+                        }
+                        else{
+                            selectedPlayer = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece.type;
+                        }
                         this.state = 1;
                         this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
                             + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordZ + "," + this.board.getSelectedTile(this.board.selectedTileID[1]).coordX
@@ -64,6 +70,8 @@ Game.prototype.update = function(currTime){
             }
             else{
                 //TODO por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
+                //TODO implementar quem ganhou
+                console.log("GAME OVER SOMEONE WON");
             }
 
             
@@ -78,37 +86,63 @@ Game.prototype.update = function(currTime){
             var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
             var currCoordX = currTile.coordX;
             var currCoordZ = currTile.coordZ;
-            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            var pieceToMove;
+            if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            }
+            else{
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
+            }
             var distToMoveX = (coordXToMove - currCoordX) * 2;
             var distToMoveZ = (coordZToMove - currCoordZ) * 2;
             pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
             console.log("Adding move animation to piece ", pieceToMove.type, " at currTime=", currTime);
 
-            if(tileToMove.piece == null && tileToMove.lonePiece == null){
+            if(pieceToMove.size > 1 && tileToMove.piece == null && tileToMove.lonePiece == null){
                 currTile.lonePiece = new Piece(this.scene, pieceToMove.color, pieceToMove.type, 1);
                 pieceToMove.stacks.pop();
             }
-            else if(tileToMove.piece.type == this.notCurrPlayer){
+            else if(tileToMove.lonePiece != null && tileToMove.lonePiece.type == this.notCurrPlayer){
                 //TODO move got eaten
             }
 
-            
             break;
         case 3:
-            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            var pieceToMove;
+            if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            }
+            else{
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
+            }
+            var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
+            console.log(pieceToMove.animations);
             if(pieceToMove.animations[pieceToMove.animations.length - 1].finished == true){
                 this.state = 4;
+            }
+            if(tileToMove.piece != null){
+                this.state = 5;
             }
             break;
         case 4:
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
             var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
-            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            var pieceToMove;
+            if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            }
+            else{
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
+            }
             pieceToMove.animations = [];
-            tileToMove.piece = pieceToMove;
-            currTile.piece = null;
-
-            //TODO às vezes a peça nao para no sitio certo? ultrapassa tipo dar animation a peça no sitio novo mas eu apago animatio antes...
+            if(pieceToMove.size > 1){
+                tileToMove.piece = pieceToMove;
+                currTile.piece = null;
+            }
+            else{
+                tileToMove.lonePiece = pieceToMove;
+                currTile.lonePiece = null;
+            }
 
             this.board.getClickedTile(this.board.selectedTileID[0]);
             this.board.getClickedTile(this.board.selectedTileID[1]);
@@ -125,7 +159,14 @@ Game.prototype.update = function(currTime){
 
             this.state = 0;           
             
-            break;           
+            break;   
+        case 5:
+            var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
+            tileToMove.piece = null;
+            this.board.getClickedTile(this.board.selectedTileID[0]);
+            this.board.getClickedTile(this.board.selectedTileID[1]);
+            this.state = 0;
+            break;
     }
 
 };
