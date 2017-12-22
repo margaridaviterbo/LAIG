@@ -74,4 +74,5 @@ MyInterface.prototype.addSettings = function(){
     var group = this.gui.addFolder("Settings");
     group.open();
     group.add(this.scene, 'switchScene');
+    group.add(this.scene, 'switchCamView');
 }
