@@ -21,8 +21,6 @@ MyInterface.prototype.init = function(application) {
     
     this.gui = new dat.GUI();
 
-    
-
     return true;
 };
 
@@ -63,7 +61,7 @@ MyInterface.prototype.addTexturesGroup = function(textures) {
                 group.add(this.scene.textureValues, key);
             }
         }
-    }
+}
 
 
 MyInterface.prototype.addNodesGroup = function(nodes){
@@ -72,3 +70,8 @@ MyInterface.prototype.addNodesGroup = function(nodes){
     this.gui.add(this.scene,'selectedNode',nodes).name('Select Node');
 }
 
+MyInterface.prototype.addSettings = function(){
+    var group = this.gui.addFolder("Settings");
+    group.open();
+    group.add(this.scene, 'switchScene');
+}

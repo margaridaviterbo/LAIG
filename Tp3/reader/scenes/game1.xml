@@ -50,13 +50,13 @@
 </LIGHTS>
 
 <TEXTURES>
-     <TEXTURE id="sky">
-        <file path="images/sky.jpg" />
+    <TEXTURE id="sea">
+        <file path="images/sea.jpg" />
         <amplif_factor s="90" t="90" />
     </TEXTURE>
-     <TEXTURE id="moon">
-        <file path="images/moon.jpg" />
-        <amplif_factor s="5" t="5" />
+     <TEXTURE id="vapor">
+        <file path="images/vapor.jpg" />
+        <amplif_factor s="10" t="10" />
     </TEXTURE>
 </TEXTURES>
 
@@ -90,13 +90,13 @@
          
         <DESCENDANTS>
           <NODEREF id ="cube"/>
-          <NODEREF id = "sphere"/>
+          <NODEREF id = "piramide"/>
        </DESCENDANTS>
     </NODE>
 
    <NODE id="cube">
         <MATERIAL id="null"/>
-        <TEXTURE id="sky"/>
+        <TEXTURE id="sea"/>
 
         <TRANSLATION x="-500" y="-5" z="-500"/>
         <DESCENDANTS>
@@ -176,16 +176,74 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="sphere">
-        <MATERIAL id="null"/>
-        <TEXTURE id ="moon"/>
+    <NODE id="piramide">
 
-        <TRANSLATION x="-10" y="7" z="0" />
+        <MATERIAL id="null" />
+        <TEXTURE id="vapor"/>
+
+        <TRANSLATION x ="-10" y="18" z="10"/>
 
         <DESCENDANTS>
-            <LEAF id="sphere1" type="sphere"  args= "3 20 20"/>
+       		<NODEREF id="meiaPiramide1" />
+            <NODEREF id="meiaPiramide2" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="meiaPiramide1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="meiaPiramide" />
         </DESCENDANTS>
     </NODE>
+
+    <NODE id="meiaPiramide2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+		<ROTATION axis="y" angle="180" />
+
+        <DESCENDANTS>
+            <NODEREF id="meiaPiramide" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="meiaPiramide">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="facePiramide1" />
+            <NODEREF id="facePiramide2" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="facePiramide1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+		<ROTATION axis="x" angle="44.42" />
+       	<ROTATION axis="y" angle="-45" />
+
+        <DESCENDANTS>
+					<LEAF id="triangle1" type="triangle" args="2 0 12 12 0 2 0 0 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="facePiramide2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+       	<ROTATION axis="z" angle="-44.42" />
+       	<ROTATION axis="y" angle="45" />
+
+        <DESCENDANTS>
+					<LEAF id="triangle1" type="triangle" args="2 0 12 12 0 2 0 0 0" />
+        </DESCENDANTS>
+    </NODE>
+
    
 </NODES>
 
