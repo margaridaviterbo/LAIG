@@ -3,12 +3,12 @@ function Game(scene){
     this.scene = scene;
     this.prolog = new Prolog(this);
     this.gameOver = false;
-    this.currPlayer = 'ivory';  //no fim da joagada mudar para cigar
+    this.currPlayer = 'ivory';  //TODO no fim da joagada mudar para cigar
     this.notCurrPlayer = 'cigar';
     this.state = 0;
     this.board = this.scene.graph.board;
-    this.bot = false;//implementar depois
-    this.difficulty = null;//implementar
+    this.bot = false;//TODO implementar depois
+    this.difficulty = null;//TODO implementar depois
     this.reply = [];
     
 }
@@ -51,10 +51,16 @@ Game.prototype.update = function(){
             break;
         case 1:
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
-            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
             var coordXToMove = tileToMove.coordX;
             var coordZToMove = tileToMove.coordZ;
-            pieceToMove.moveWithCapture([[0, 0, 0], [coordZToMove, 0, coordXToMove]]);
+            var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
+            var currCoordX = currTile.coordX;
+            var currCoordZ = currTile.coordZ;
+            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            var distToMoveX = (coordXToMove - currCoordX) * 2;
+            var distToMoveZ = (coordZToMove - currCoordZ) * 2;
+            pieceToMove.moveWithCapture([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
+
             this.state = 2;
             break;
         case 2:
@@ -63,7 +69,19 @@ Game.prototype.update = function(){
                 this.state = 3;
             }
             break;
+        case 3:
+            var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
+            var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
+            var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            tileToMove.piece = pieceToMove;
+            currTile.piece = null;
+
+            //TODO corrigir salto
+
+            //TODO corrigir erro do update na xml scene
+            break;
+            
     }
-    //por array de id de peças selecionadas a null no fim da joagada
+    //TODO por array de id de peças selecionadas a null no fim da joagada
 
 };
