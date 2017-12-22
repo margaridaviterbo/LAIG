@@ -98,7 +98,7 @@
         <MATERIAL id="null"/>
         <TEXTURE id="sky"/>
 
-        <TRANSLATION x="-500" y="-5" z="-500"/>
+        <TRANSLATION x="-500" y="-50" z="-500"/>
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
             <NODEREF id="faceCubo2" />

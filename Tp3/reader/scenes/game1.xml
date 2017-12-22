@@ -56,7 +56,7 @@
     </TEXTURE>
      <TEXTURE id="vapor">
         <file path="images/vapor.jpg" />
-        <amplif_factor s="10" t="10" />
+        <amplif_factor s="12" t="10" />
     </TEXTURE>
 </TEXTURES>
 
@@ -98,7 +98,7 @@
         <MATERIAL id="null"/>
         <TEXTURE id="sea"/>
 
-        <TRANSLATION x="-500" y="-5" z="-500"/>
+        <TRANSLATION x="-500" y="-50" z="-500"/>
         <DESCENDANTS>
             <NODEREF id="faceCubo1" />
             <NODEREF id="faceCubo2" />
@@ -181,7 +181,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="vapor"/>
 
-        <TRANSLATION x ="-10" y="18" z="10"/>
+        <TRANSLATION x ="-15" y="15" z="10"/>
 
         <DESCENDANTS>
        		<NODEREF id="meiaPiramide1" />

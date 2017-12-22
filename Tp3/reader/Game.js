@@ -103,7 +103,7 @@ Game.prototype.update = function(currTime){
                 pieceToMove.stacks.pop();
             }
             else if(tileToMove.lonePiece != null && tileToMove.lonePiece.type == this.notCurrPlayer){
-                //TODO move got eaten
+                tileToMove.lonePiece.moveGotEaten();
             }
 
             break;
