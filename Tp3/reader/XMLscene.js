@@ -14,7 +14,7 @@ function XMLscene(interface) {
     this.selectedColour = 0;
     this.selectedNode = 0;
     this.customId = 1000;
-    this.gameStart = false;
+    this.gameStart = 'false';
     
 }
 
@@ -61,7 +61,7 @@ XMLscene.prototype.initScene = function(){
 
 XMLscene.prototype.switchScene = function(){
     
-    if(this.gameStart == false ){
+    if(this.gameStart == 'false'){
         this.selectedAmbient++;
         if(this.selectedAmbient > (this.ambients.length-1)){
             this.selectedAmbient = 0;
@@ -69,6 +69,10 @@ XMLscene.prototype.switchScene = function(){
             
         var myGraph = new MySceneGraph(this.ambients[this.selectedAmbient], this);  
     }   
+
+}
+
+XMLscene.prototype.switchCamView = function(){
 
 }
 /**
