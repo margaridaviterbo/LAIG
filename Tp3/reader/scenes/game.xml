@@ -54,6 +54,10 @@
         <file path="images/sky.jpg" />
         <amplif_factor s="90" t="90" />
     </TEXTURE>
+     <TEXTURE id="moon">
+        <file path="images/moon.jpg" />
+        <amplif_factor s="5" t="5" />
+    </TEXTURE>
 </TEXTURES>
 
 <MATERIALS>
@@ -86,6 +90,7 @@
          
         <DESCENDANTS>
           <NODEREF id ="cube"/>
+          <NODEREF id = "sphere"/>
        </DESCENDANTS>
     </NODE>
 
@@ -104,7 +109,6 @@
         </DESCENDANTS>
    </NODE>
 
-    <!--Tras-->
     <NODE id="faceCubo1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -169,6 +173,17 @@
 
         <DESCENDANTS>
 			<LEAF  type="rectangle"  args="0 1000 1000 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="sphere">
+        <MATERIAL id="null"/>
+        <TEXTURE id ="moon"/>
+
+        <TRANSLATION x="-10" y="7" z="0" />
+
+        <DESCENDANTS>
+            <LEAF id="sphere1" type="sphere"  args= "3 20 20"/>
         </DESCENDANTS>
     </NODE>
    
