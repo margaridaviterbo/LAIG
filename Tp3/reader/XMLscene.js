@@ -266,6 +266,7 @@ XMLscene.prototype.update = function(currTime) {
     this.graph.game.update();
 
     var ivory = this.graph.board.getQueen('ivory');
+    //console.log(ivory);// TODO porque raio ele deixa de atualizar a ivory (getqueen) quando mudo a peça de sitio??? JA NAO ACONTECE!
     for(var i = 0; i < ivory.animations.length; i++){
         if(ivory.animations[i].finished == false){
             ivory.animations[i].update(currTime);

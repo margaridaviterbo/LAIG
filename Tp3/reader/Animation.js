@@ -4,8 +4,6 @@
  */
 class Animation{
 
-    //TODO deixar o trabalho com as animaçoes dos criterios
-
     constructor(scene, id, type){
         this.scene = scene;
         this.id = id;

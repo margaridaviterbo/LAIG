@@ -118,16 +118,16 @@ class LinearAnimation extends Animation{
         }
         else{
             this.finished = true;
-            console.log("AQUI");
+            //console.log("AQUI");
         }
     }
 
     push(){
         this.scene.pushMatrix();
-        if(this.finished == false){           
+        //if(this.finished == false){           
             this.scene.translate(this.positionX, this.positionY, this.positionZ);
             this.scene.rotate(this.angle, 0, 1, 0);
-        }
+        //}
         
     }
 	
