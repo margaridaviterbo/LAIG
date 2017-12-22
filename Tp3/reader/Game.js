@@ -52,7 +52,8 @@ Game.prototype.update = function(currTime){
                                 this.board.getClickedTile(this.board.selectedTileID[0]);
                                 this.board.getClickedTile(this.board.selectedTileID[1]);
                                 this.board.selectedTileID = [null, null];
-                                //console.log(this.board.selectedTileID);                        
+                                //console.log(this.board.selectedTileID);
+                                this.state = 0;                        
                             }
                             else{
                                 this.state = 2;
