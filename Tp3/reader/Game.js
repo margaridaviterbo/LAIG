@@ -3,7 +3,7 @@ function Game(scene){
     this.scene = scene;
     this.prolog = new Prolog(this);
     this.gameOver = false;
-    this.currPlayer = 'ivory';  //TODO no fim da joagada mudar para cigar
+    this.currPlayer = 'ivory';
     this.notCurrPlayer = 'cigar';
     this.state = 0;
     this.board = this.scene.graph.board;
@@ -18,36 +18,44 @@ Game.prototype.constructor = Game;
 
 Game.prototype.update = function(){
 
-    //ivorySize,cigarSize,endGame,Success
-
     switch(this.state){
         case 0:
-            //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
-            if(this.board.selectedTileID[0] != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
-                if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type == this.currPlayer && this.board.selectedTileID[1] != null){
 
-                    this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
-                + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordZ + "," + this.board.getSelectedTile(this.board.selectedTileID[1]).coordX
-                + ","+ this.board.getSelectedTile(this.board.selectedTileID[1]).coordZ+"),("+ this.board.getQueen(this.currPlayer).stacks.length + "," + this.board.getQueen(this.notCurrPlayer).stacks.length + "," +
-                this.board.convertToPrologBoard()+"))", (data) => {
-                    var r = data.target.response;
-                    this.reply = r.split(',');
-                    console.log(this.reply);
+            if(this.gameOver == false){     //TODO quando conseguir implementar o jogo todo verificar se quando chega ao fim para
+                //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
+                if(this.board.selectedTileID[0] != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
+                    if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type == this.currPlayer && this.board.selectedTileID[1] != null){
 
-                    console.log(this.board.selectedTileID);
-                    console.log(this.reply);
-                    if(this.reply[3] == 'false'){
-                        this.board.getClickedTile(this.board.selectedTileID[0]);
-                        this.board.getClickedTile(this.board.selectedTileID[1]);
-                        this.board.selectedTileID = [null, null];
-                        console.log(this.board.selectedTileID);                        
+                        this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
+                    + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordZ + "," + this.board.getSelectedTile(this.board.selectedTileID[1]).coordX
+                    + ","+ this.board.getSelectedTile(this.board.selectedTileID[1]).coordZ+"),("+ this.board.getQueen(this.currPlayer).stacks.length + "," + this.board.getQueen(this.notCurrPlayer).stacks.length + "," +
+                    this.board.convertToPrologBoard()+"))", (data) => {
+                        var r = data.target.response;
+                        //ivorySize,cigarSize,endGame,Success
+                        this.reply = r.split(',');
+                        //console.log(this.reply);
+                        //console.log(this.board.selectedTileID);
+                        //console.log(this.reply);
+                        this.gameOver = this.reply[2];
+
+                        if(this.reply[3] == 'false'){
+                            this.board.getClickedTile(this.board.selectedTileID[0]);
+                            this.board.getClickedTile(this.board.selectedTileID[1]);
+                            this.board.selectedTileID = [null, null];
+                            console.log(this.board.selectedTileID);                        
+                        }
+                        else{
+                            this.state = 1;
+                        }
+                    });
                     }
-                    else{
-                        this.state = 1;
-                    }
-                });
                 }
             }
+            else{
+                //por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
+            }
+
+            
             break;
         case 1:
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
@@ -73,15 +81,26 @@ Game.prototype.update = function(){
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
             var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
             var pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+            pieceToMove.animations.pop();
             tileToMove.piece = pieceToMove;
             currTile.piece = null;
 
-            //TODO corrigir salto
+            //TODO às vezes a peça nao para no sitio certo? ultrapassa tipo dar animation a peça no sitio novo mas eu apago animatio antes...
 
-            //TODO corrigir erro do update na xml scene
+            this.board.getClickedTile(this.board.selectedTileID[0]);
+            this.board.getClickedTile(this.board.selectedTileID[1]);
+            this.board.selectedTileID = [null, null];
+            if(this.currPlayer == 'ivory'){
+                this.currPlayer = 'cigar';
+            }
+            else{
+                this.currPlayer = 'ivory';
+            }
+
+            this.state = 0;     //TODO  volta a deixar jogar mas nao acontece nada
             break;
             
     }
-    //TODO por array de id de peças selecionadas a null no fim da joagada
+    
 
 };
