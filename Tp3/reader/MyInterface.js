@@ -76,7 +76,7 @@ MyInterface.prototype.addNodesGroup = function(nodes){
 
 MyInterface.prototype.addSettings = function(){
     
-    var set = ['switchScene', 'switchCamView'];
+    var set = ['switchScene', 'switchCamera'];
 
 	if(this.groupSettings != null){
 		for(var i = 0; i < this.settings.length;i++){
