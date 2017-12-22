@@ -10,6 +10,7 @@ function Game(scene){
     this.bot = false;//TODO implementar depois
     this.difficulty = null;//TODO implementar depois
     this.reply = [];
+    this.scene.gameStart;
     
 }
 
@@ -22,11 +23,12 @@ Game.prototype.update = function(){
         case 0:
         console.log("AHOY1");
         console.log(this.state);
-            if(this.gameOver == 'false'){     //TODO quando conseguir implementar o jogo todo verificar se quando chega ao fim pára
+            if(this.gameOver == 'false'){  
+                  //TODO quando conseguir implementar o jogo todo verificar se quando chega ao fim pára
                 console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
                 if(this.board.selectedTileID[0] != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
                     if(/*this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type == this.currPlayer &&*/ this.board.selectedTileID[1] != null){
-
+                        this.scene.gameStart='true'; 
                         var selectedPlayer = this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type;
 
                         this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
