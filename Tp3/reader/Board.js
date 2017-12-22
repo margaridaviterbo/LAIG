@@ -131,7 +131,7 @@ Board.prototype.getQueen = function(type){
     for(var i = 0; i < this.sizeZ; i++){
         for(var j = 0; j < this.sizeX; j++){
             if(this.tiles[i][j].piece != null && this.tiles[i][j].piece.type == type && this.tiles[i][j].piece.stacks.length > 2){
-                
+                //console.log("atualizei");
                 return this.tiles[i][j].piece;
             }
         }
