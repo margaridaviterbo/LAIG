@@ -69,8 +69,14 @@ Tile.prototype.display = function(){
     if(this.piece != null){
         this.scene.pushMatrix();
             this.scene.translate(1, 0.2, 1);
+            for (var i = 0; i < this.piece.animations.length; i++) {
+                this.piece.animations[i].push();
+            }
             this.piece.color.apply();
             this.piece.display();
+            for (var i = 0; i < this.piece.animations.length; i++) {
+                this.piece.animations[i].pop();
+            }
         this.scene.popMatrix();
     }
 };
