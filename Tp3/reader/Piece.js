@@ -1,16 +1,17 @@
-function Piece(scene, color, type){
+function Piece(scene, color, type, size){
     CGFobject.call(this,scene);
  
     this.scene = scene;
     this.color = color;
     this.type = type;
+    this.size = size;
     this.stacks = [];
     this.counter = 0;
     this.animations = [];
     this.lost = [];
 
-    for(var i = 0; i < 20; i++){
-        this.stacks.push(new CompleteCylinder(scene, [0.5, 1, 0.8, 20, 20, 1, 1]));
+    for(var i = 0; i < this.size; i++){
+        this.stacks.push(new CompleteCylinder(this.scene, [0.5, 1, 0.8, 20, 20, 1, 1]));
     }
     
  };
@@ -29,11 +30,11 @@ Piece.prototype.display = function(){
         this.scene.popMatrix();
     }
 
-    for(var j = 0; j < this.lost.length; j++){
+    /*for(var j = 0; j < this.lost.length; j++){
         this.scene.pushMatrix();
-            //this.lost[j].display();
+            this.lost[j].display();
         this.scene.popMatrix();
-    }
+    }*/
 
 };
 
@@ -43,13 +44,13 @@ for (var i = 0; i < 20; i++){
 }
 };
 
-Piece.prototype.move = function(){
+/*Piece.prototype.move = function(controlPoints){
     this.lost.push(new CompleteCylinder(this.scene, [0.5, 1, 0.8, 20, 20, 1, 1]));
     this.stacks.pop();
-    this.moveWithCapture();
-};
+    this.moveWithCapture(controlPoints);
+};*/
 
-Piece.prototype.moveWithCapture = function(controlPoints){
+Piece.prototype.move = function(controlPoints){
     var id = 'piece' + this.counter;
     var move = new LinearAnimation(this.scene, id, 'linear', controlPoints, 2);
     this.animations.push(move);
