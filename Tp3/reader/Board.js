@@ -136,6 +136,23 @@ Board.prototype.getQueen = function(type){
             }
         }
     }
+    return null;
+}
+
+Board.prototype.getPieces = function(){
+    var pieces = [];
+    for(var i = 0; i < this.sizeZ; i++){
+        for(var j = 0; j < this.sizeX; j++){
+            if(this.tiles[i][j].piece != null){
+                //console.log("atualizei");
+                pieces.push(this.tiles[i][j].piece);
+            }
+            else if(this.tiles[i][j].lonePiece != null){
+                pieces.push(this.tiles[i][j].lonePiece);
+            }
+        }
+    }
+    return pieces;
 }
 
 Board.prototype.convertToPrologBoard = function() {
@@ -144,23 +161,24 @@ Board.prototype.convertToPrologBoard = function() {
     for (var i = 0; i < this.sizeZ; i++){
         this.prologBoard = this.prologBoard + '[';
         for (var j  = 0; j < this.sizeX; j++){
-            if(this.tiles[i][j].piece == null){
+            if(this.tiles[i][j].piece == null && this.tiles[i][j].lonePiece == null){
                 this.prologBoard = this.prologBoard + 'empty';
             }
-            else if(this.tiles[i][j].piece.stacks.length == 1){
-                if(this.tiles[i][j].piece.type == 'ivory'){
-                    this.prologBoard = this.prologBoard + 'ivoryBaby';                    
-                }
-                else{
-                    this.prologBoard = this.prologBoard + 'cigarBaby';                    
-                }
-            }
-            else{
+            else if(this.tiles[i][j].piece != null){
                 if(this.tiles[i][j].piece.type == 'ivory'){
                     this.prologBoard = this.prologBoard + 'ivoryQueen';                    
                 }
                 else{
                     this.prologBoard = this.prologBoard + 'cigarQueen';                    
+                }
+            }
+            else if(this.tiles[i][j].lonePiece != null){
+                console.log('aqui');
+                if(this.tiles[i][j].lonePiece.type == 'ivory'){
+                    this.prologBoard = this.prologBoard + 'ivoryBaby';                    
+                }
+                else{
+                    this.prologBoard = this.prologBoard + 'cigarBaby';                    
                 }
             }
 
@@ -176,7 +194,7 @@ Board.prototype.convertToPrologBoard = function() {
         }
     }
     this.prologBoard = this.prologBoard + ']';
-
+    console.log(this.prologBoard);
     return this.prologBoard;
 };
 
