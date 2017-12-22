@@ -119,7 +119,8 @@ XMLscene.prototype.initCameras = function() {
     this.cameras = [];
     this.selectedCamera = 0
     this.cameras[0] = [0.4,0.1,500,[15, 15, 15],[0, 0, 0]];
-    this.cameras[1] = [0.87,0.1,100,[4.5,5,11],[4.5,0,4]];
+    this.cameras[1] = [0.38,0.1,100,[4.5,30,4.5],[4.5,0,4]];
+    this.cameras[2] = [0.87,0.1,100,[4.5,5,11],[4.5,0,4]];
     this.camera = new CGFcamera(this.cameras[0][0],this.cameras[0][1], this.cameras[0][2],this.cameras[0][3],this.cameras[0][4]);
 }
 
@@ -129,8 +130,7 @@ XMLscene.prototype.switchCamera = function(){
     if(this.selectedCamera > (this.cameras.length-1)){
         this.selectedCamera = 0;
     }
-    console.log(this.cameras);
-    console.log(this.cameras[this.selectedCamera]);
+   
     this.camera = new CGFcamera(this.cameras[this.selectedCamera][0],this.cameras[this.selectedCamera][1], 
         this.cameras[this.selectedCamera][2],this.cameras[this.selectedCamera][3],this.cameras[this.selectedCamera][4]);
     this.interface.setActiveCamera(this.camera); 
