@@ -42,16 +42,10 @@ function MySceneGraph(filename, scene) {
 
     //posição inicial das peças
     //ivory - (6,11); cigar - (5,0)
-    this.board.tiles[11][6].piece = new Piece(this.scene, this.blue, 'cigar');
-    this.board.tiles[0][5].piece = new Piece(this.scene, this.red, 'ivory');    
+    this.board.tiles[11][6].piece = new Piece(this.scene, this.blue, 'cigar', 20);
+    this.board.tiles[0][5].piece = new Piece(this.scene, this.red, 'ivory', 20);    
 
     this.game = new Game(this.scene);
-
-    this.board.convertToPrologBoard();
-    console.log(this.board.prologBoard);
-
-   // this.player1.move();
-   // this.player1.moveGotEaten();
 
     this.idRoot = null;                    // The id of the root element.
 
