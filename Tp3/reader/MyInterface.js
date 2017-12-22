@@ -20,7 +20,7 @@ MyInterface.prototype.init = function(application) {
     CGFinterface.prototype.init.call(this, application);
     
     this.gui = new dat.GUI();
-
+    
     return true;
 };
 
@@ -29,20 +29,24 @@ MyInterface.prototype.init = function(application) {
  */
 MyInterface.prototype.addLightsGroup = function(lights) {
 
-    var group = this.gui.addFolder("Lights");
-    group.open();
 
-    // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-    // e.g. this.option1=true; this.option2=false;
-
+    if(this.groupLights != null){
+		for(var key in lights){
+			this.groupLights.remove(this.lights[key]);
+    }
+    }else{
+        this.groupLights = this.gui.addFolder("Lights");
+    }
+    this.groupLights.open();
+    this.lights = [];
     for (var key in lights) {
         if (lights.hasOwnProperty(key)) {
             this.scene.lightValues[key] = lights[key][0];
-            group.add(this.scene.lightValues, key);
+            this.lights[key]=this.groupLights.add(this.scene.lightValues, key);
         }
-    }
-}
 
+}
+}
 
 /**
  * Adds a folder containing the IDs of the textures passed as parameter.
@@ -71,7 +75,19 @@ MyInterface.prototype.addNodesGroup = function(nodes){
 }
 
 MyInterface.prototype.addSettings = function(){
-    var group = this.gui.addFolder("Settings");
-    group.open();
-    group.add(this.scene, 'switchScene');
+    
+    var set = ['switchScene', 'switchCamera'];
+
+	if(this.groupSettings != null){
+		for(var i = 0; i < this.settings.length;i++){
+			this.groupSettings.remove(this.settings[i]);
+		}
+	}else{
+		this.groupSettings = this.gui.addFolder("Settings");
+	}
+	this.groupSettings.open();
+	this.settings = [];
+	for (var i = 0; i < 2; i++){
+		this.settings[i] = this.groupSettings.add(this.scene, set[i]);
+	}
 }
