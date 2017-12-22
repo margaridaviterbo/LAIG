@@ -13,8 +13,9 @@ function XMLscene(interface) {
     //this.selectedShader = 0;
     this.selectedColour = 0;
     this.selectedNode = 0;
-
     this.customId = 1000;
+    this.gameStart = 'false';
+    
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -42,11 +43,38 @@ XMLscene.prototype.init = function(application) {
     this.shaders[0].setUniformsValues({normScale: 1});
 
     this.selected = [];
-
+   	
     this.setPickEnabled(true);
+    this.initScene();
     this.axis = new CGFaxis(this);
+
 }
 
+XMLscene.prototype.initScene = function(){
+	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
+	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
+	this.ambients = [];
+	this.selectedAmbient = 0;
+	this.ambients[0] = getUrlVars()['file'] || "game.xml";
+	this.ambients[1] = getUrlVars()['file'] || "game1.xml";
+}
+
+XMLscene.prototype.switchScene = function(){
+    
+    if(this.gameStart == 'false'){
+        this.selectedAmbient++;
+        if(this.selectedAmbient > (this.ambients.length-1)){
+            this.selectedAmbient = 0;
+        }
+            
+        var myGraph = new MySceneGraph(this.ambients[this.selectedAmbient], this);  
+    }   
+
+}
+
+XMLscene.prototype.switchCamView = function(){
+
+}
 /**
  * Initializes the scene lights with the values read from the LSX file.
  */
@@ -111,52 +139,56 @@ XMLscene.prototype.onGraphLoaded = function()
     
     this.initLights();
     this.selectedList();
-   
+       
     this.setUpdatePeriod(50);    
 
     // Adds lights group.
+
     this.interface.addLightsGroup(this.graph.lights);
-    this.interface.addNodesGroup(this.selected);
+    this.interface.addSettings();
+    
+    //this.interface.addNodesGroup(this.selected);
+   
 }
 
 XMLscene.prototype.logPicking = function ()
 {
-        if (this.pickMode == false) {
-            if (this.pickResults != null && this.pickResults.length > 0) {
-            for (var i=0; i < this.pickResults.length; i++) {
-                    var obj = this.pickResults[i][0];
-                    if (obj)
-                    {
-                        this.customId = this.pickResults[i][1];
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+        for (var i=0; i < this.pickResults.length; i++) {
+                var obj = this.pickResults[i][0];
+                if (obj)
+                {
+                    this.customId = this.pickResults[i][1];
 
-                        if(this.graph.board.selectedTileID[0] == null || this.graph.board.selectedTileID[1] == null || 
-                            this.customId == this.graph.board.selectedTileID[0] || this.customId == this.graph.board.selectedTileID[1]){
+                    if(this.graph.board.selectedTileID[0] == null || this.graph.board.selectedTileID[1] == null || 
+                        this.customId == this.graph.board.selectedTileID[0] || this.customId == this.graph.board.selectedTileID[1]){
 
-                            if(this.graph.board.selectedTileID[0] == null){
-                                this.graph.board.getClickedTile(this.customId);
-                                this.graph.board.selectedTileID[0] = this.customId;
-                            }
-                            else if(this.customId == this.graph.board.selectedTileID[0]){
-                                this.graph.board.getClickedTile(this.customId);
-                                this.graph.board.selectedTileID[0] = null;
-                                
-                            }
-                            else if(this.graph.board.selectedTileID[1] == null){
-                                this.graph.board.getClickedTile(this.customId);
-                                this.graph.board.selectedTileID[1] = this.customId;
-                            }
-                            else if(this.customId == this.graph.board.selectedTileID[1]){
-                                this.graph.board.getClickedTile(this.customId);
-                                this.graph.board.selectedTileID[1] = null;
-                            }
+                        if(this.graph.board.selectedTileID[0] == null){
+                            this.graph.board.getClickedTile(this.customId);
+                            this.graph.board.selectedTileID[0] = this.customId;
                         }
-                        //console.log(obj);	
+                        else if(this.customId == this.graph.board.selectedTileID[0]){
+                            this.graph.board.getClickedTile(this.customId);
+                            this.graph.board.selectedTileID[0] = null;
+                            
+                        }
+                        else if(this.graph.board.selectedTileID[1] == null){
+                            this.graph.board.getClickedTile(this.customId);
+                            this.graph.board.selectedTileID[1] = this.customId;
+                        }
+                        else if(this.customId == this.graph.board.selectedTileID[1]){
+                            this.graph.board.getClickedTile(this.customId);
+                            this.graph.board.selectedTileID[1] = null;
+                        }
                     }
-                
+                    //console.log(obj);	
                 }
-                this.pickResults.splice(0,this.pickResults.length);
-            }		
-        }
+            
+            }
+            this.pickResults.splice(0,this.pickResults.length);
+        }		
+    }
     
 }
 
@@ -167,8 +199,7 @@ XMLscene.prototype.display = function() {
     // ---- BEGIN Background, camera and axis setup
     
     this.logPicking();
-   // this.clearPickRegistration();
-
+   
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
