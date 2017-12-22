@@ -118,7 +118,7 @@ class LinearAnimation extends Animation{
         }
         else{
             this.finished = true;
-            console.log("AQUI");
+            //console.log("AQUI");
         }
     }
 

@@ -2,7 +2,7 @@ function Game(scene){
 
     this.scene = scene;
     this.prolog = new Prolog(this);
-    this.gameOver = false;
+    this.gameOver = 'false';
     this.currPlayer = 'ivory';
     this.notCurrPlayer = 'cigar';
     this.state = 0;
@@ -17,14 +17,17 @@ Game.prototype = Object.create(CGFobject.prototype);
 Game.prototype.constructor = Game;
 
 Game.prototype.update = function(){
-
+    
     switch(this.state){
         case 0:
-
-            if(this.gameOver == false){     //TODO quando conseguir implementar o jogo todo verificar se quando chega ao fim para
-                //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
+        console.log("AHOY1");
+        console.log(this.state);
+            if(this.gameOver == 'false'){     //TODO quando conseguir implementar o jogo todo verificar se quando chega ao fim pára
+                console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
                 if(this.board.selectedTileID[0] != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
-                    if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type == this.currPlayer && this.board.selectedTileID[1] != null){
+                    if(/*this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type == this.currPlayer &&*/ this.board.selectedTileID[1] != null){
+
+                        var selectedPlayer = this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type;
 
                         this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
                     + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordZ + "," + this.board.getSelectedTile(this.board.selectedTileID[1]).coordX
@@ -33,16 +36,23 @@ Game.prototype.update = function(){
                         var r = data.target.response;
                         //ivorySize,cigarSize,endGame,Success
                         this.reply = r.split(',');
-                        //console.log(this.reply);
+                       // console.log(this.reply);
                         //console.log(this.board.selectedTileID);
-                        //console.log(this.reply);
                         this.gameOver = this.reply[2];
 
                         if(this.reply[3] == 'false'){
+                            if(this.currPlayer != selectedPlayer){
+                                //TODO eventualmente por um pop up no ecra a dizer o que está no console.log
+                                console.log('Cannot play with selected piece, it is ' + this.currPlayer + ' time to play!');
+                            }
+                            else{
+                                //TODO eventualmente por um pop up no ecra a dizer o que está no console.log
+                                console.log('Invalid move!');
+                            }
                             this.board.getClickedTile(this.board.selectedTileID[0]);
                             this.board.getClickedTile(this.board.selectedTileID[1]);
                             this.board.selectedTileID = [null, null];
-                            console.log(this.board.selectedTileID);                        
+                            //console.log(this.board.selectedTileID);                        
                         }
                         else{
                             this.state = 1;
@@ -52,7 +62,7 @@ Game.prototype.update = function(){
                 }
             }
             else{
-                //por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
+                //TODO por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
             }
 
             
@@ -90,17 +100,23 @@ Game.prototype.update = function(){
             this.board.getClickedTile(this.board.selectedTileID[0]);
             this.board.getClickedTile(this.board.selectedTileID[1]);
             this.board.selectedTileID = [null, null];
+
             if(this.currPlayer == 'ivory'){
                 this.currPlayer = 'cigar';
+                this.notCurrPlayer = 'ivory';
             }
             else{
                 this.currPlayer = 'ivory';
+                this.notCurrPlayer = 'cigar';
             }
 
-            this.state = 0;     //TODO  volta a deixar jogar mas nao acontece nada
-            break;
+            this.state = 0;
+            console.log(this.state);            
             
+            break;
+        default:
+            console.log("enpanquei aqui?");            
     }
-    
+    console.log("AHOY2");
 
 };
