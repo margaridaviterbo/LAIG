@@ -56,7 +56,7 @@ XMLscene.prototype.initScene = function(){
 	this.ambients = [];
 	this.selectedAmbient = 0;
 	this.ambients[0] = getUrlVars()['file'] || "game.xml";
-	this.ambients[1] = getUrlVars()['file'] || "street.xml";
+	this.ambients[1] = getUrlVars()['file'] || "game1.xml";
 }
 
 XMLscene.prototype.switchScene = function(){
@@ -139,8 +139,10 @@ XMLscene.prototype.onGraphLoaded = function()
     this.setUpdatePeriod(50);    
 
     // Adds lights group.
+
     this.interface.addLightsGroup(this.graph.lights);
     this.interface.addSettings();
+    
     //this.interface.addNodesGroup(this.selected);
    
 }

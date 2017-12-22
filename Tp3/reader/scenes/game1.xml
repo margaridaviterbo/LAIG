@@ -50,13 +50,38 @@
 </LIGHTS>
 
 <TEXTURES>
-     <TEXTURE id="sky">
-        <file path="images/sky.jpg" />
+     <TEXTURE id="sea">
+        <file path="images/sea.jpg" />
         <amplif_factor s="90" t="90" />
     </TEXTURE>
 </TEXTURES>
 
 <MATERIALS>
+
+ <!--   <MATERIAL id="statueMaterial">
+        <shininess value="50" />
+        <specular r="1" g="1" b="1" a="1" />
+        <diffuse r="1" g="1" b="1" a="1" />
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <MATERIAL id="lightPostMaterial">
+        <shininess value="50" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.447" g="0.416" b="0.416" a="1" />
+        <ambient r="0.0" g="0.0" b="0.0" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+   
+    <MATERIAL id="lightMaterial">
+        <shininess value="100" />
+        <specular r="0.5" g="0.5" b="0.5" a="0" />
+        <diffuse r="0.5" g="0.5" b="0.5" a="0" />
+        <ambient r="0.0" g="0.0" b="0.0" a="0" />
+        <emission r="0.0" g="0.0" b="0.0" a="0" />
+    </MATERIAL>-->
 
     <MATERIAL id="defaultMaterial">
         <shininess value="1" />
@@ -91,7 +116,7 @@
 
    <NODE id="cube">
         <MATERIAL id="null"/>
-        <TEXTURE id="sky"/>
+        <TEXTURE id="sea"/>
 
         <TRANSLATION x="-500" y="-5" z="-500"/>
         <DESCENDANTS>
