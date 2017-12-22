@@ -4,6 +4,7 @@ function Tile(scene){
     // this.game = game;
     this.faces = [];
     this.piece = null;
+    this.lonePiece = null;
 
     this.id;
     this.coordX;
@@ -76,6 +77,20 @@ Tile.prototype.display = function(){
             this.piece.display();
             for (var i = 0; i < this.piece.animations.length; i++) {
                 this.piece.animations[i].pop();
+            }
+        this.scene.popMatrix();
+    }
+
+    if(this.lonePiece != null){
+        this.scene.pushMatrix();
+            this.scene.translate(1, 0.2, 1);
+            for (var i = 0; i < this.lonePiece.animations.length; i++) {
+                this.lonePiece.animations[i].push();
+            }
+            this.lonePiece.color.apply();
+            this.lonePiece.display();
+            for (var i = 0; i < this.lonePiece.animations.length; i++) {
+                this.lonePiece.animations[i].pop();
             }
         this.scene.popMatrix();
     }
