@@ -180,7 +180,7 @@
         <MATERIAL id="null"/>
         <TEXTURE id ="moon"/>
 
-        <TRANSLATION x="-10" y="7" z="0" />
+        <TRANSLATION x="-10" y="7" z="10" />
 
         <DESCENDANTS>
             <LEAF id="sphere1" type="sphere"  args= "3 20 20"/>

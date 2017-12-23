@@ -1719,7 +1719,7 @@ MySceneGraph.prototype.displayScene = function() {
     var auxBoard2 = new Board(this.scene, 'aux');
 
     this.scene.pushMatrix();
-        this.scene.translate(-6, 0, 0);
+       this.scene.translate(-3, 0, -3);
 
         this.scene.pushMatrix();
             this.scene.translate(6, 0, 0);

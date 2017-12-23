@@ -6,9 +6,7 @@ function CameraAnimation(scene,camera,finalPos){
     this.isDone = false;
     this.initTarget = null;
     this.vecMovement = vec3.create();
-    this.vecTarget = vec3.create();
-
-    console.log(camera[3]);
+     
     this.initPos = vec3.fromValues(camera[3][0],camera[3][1],camera[3][2]);
     this.initTarget = vec3.fromValues(camera[4][0],camera[4][1],camera[4][2]);
     vec3.sub(this.vecMovement,finalPos,this.initPos);

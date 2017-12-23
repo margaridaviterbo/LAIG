@@ -32,7 +32,7 @@ XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
     
     this.initCameras();
-    this.initCameraAnimations();
+    //this.initCameraAnimations();
 
     this.enableTextures(true);
     
@@ -134,44 +134,54 @@ XMLscene.prototype.selectedList = function() {
 XMLscene.prototype.initCameras = function() {
     this.cameras = [];
     this.selectedCamera = 0
-    this.cameras[0] = [0.4,0.1,500,[15, 15, 15],[4.5, 0, 4]];
-    this.cameras[1] = [0.38,0.1,100,[4.5,30,4.5],[4.5,0,4]];
-    this.cameras[2] = [0.87,0.1,100,[4.5,5,11],[4.5,0,4]];
-    this.camera = new CGFcamera(this.cameras[0][0],this.cameras[0][1], this.cameras[0][2],this.cameras[0][3],this.cameras[0][4]);
+    /*this.cameras[0] = [0.5,0.1,500,[15, 15, 15],[0, 0, 0]]; 
+    this.cameras[1] = [0.87,0.1,500,[4.5,25,11],[4.5,0,4]]; 
+    this.cameras[2] = [0.6,0.1,500,[4.5,10,11],[4.5,0,4]]; */
+    this.cameras[0] = new CGFcamera(0.4,0.1,500,vec3.fromValues(15,15,15),vec3.fromValues(0,0,0));
+    this.cameras[1] = new CGFcamera(1.04,0.1,500,vec3.fromValues(15,5,15),vec3.fromValues(4.5,0,4));
+    this.cameras[2] = new CGFcamera(0.38,0.1,500,vec3.fromValues(4.5,30,7),vec3.fromValues(4.5,0,4));
+
+    this.camera = this.cameras[0];
+       
 }
 
 XMLscene.prototype.switchCamera = function(){
 
-    if (!this.camAnim){
+  /*  if (!this.camAnim){
         this.camAnim = true; 
-    }
+    }*/
 
-    if(this.camChange){
+ //   if(this.camChange){
         this.selectedCamera++;
         if(this.selectedCamera > (this.cameras.length-1)){
             this.selectedCamera = 0;
+            
         }
 
-        this.cameraAnimations[this.selectedCamera].reset();
+        this.camera = this.cameras[this.selectedCamera];
+      
+      /*  this.cameraAnimations[this.selectedCamera].reset();
     
         this.camera = new CGFcamera(this.cameras[this.selectedCamera][0],this.cameras[this.selectedCamera][1], 
             this.cameras[this.selectedCamera][2],this.cameras[this.selectedCamera][3],this.cameras[this.selectedCamera][4]);
-    }
+    }*/
 }
 
-XMLscene.prototype.initCameraAnimations = function(){
+/*XMLscene.prototype.initCameraAnimations = function(){
     this.cameraAnimations = [];
-    var finalPos0 = this.cameras[1][3];
-    var finalPos1 = this.cameras[2][3];
-    var finalPos2 = this.cameras[0][3];
-
+   
+    var finalPos0 = this.cameras[1][3]; 
+    var finalPos1 = this.cameras[2][3]; 
+    var finalPos2 = this.cameras[0][3]; 
     
-    this.cameraAnimations[0] = new CameraAnimation(this,this.cameras[0],finalPos0);
-    this.cameraAnimations[1] = new CameraAnimation(this,this.cameras[1],finalPos1);
-    this.cameraAnimations[2] = new CameraAnimation(this,this.cameras[2],finalPos2);
-}
+    this.cameraAnimations[0] = new CameraAnimation(this,this.cameras[0],finalPos0); 
+    this.cameraAnimations[1] = new CameraAnimation(this,this.cameras[1],finalPos1); 
+    this.cameraAnimations[2] = new CameraAnimation(this,this.cameras[2],finalPos2); 
+   
+   
+}*/
 
-XMLscene.prototype.updateCameraAnimations = function(currTime){
+/*XMLscene.prototype.updateCameraAnimations = function(currTime){
     
         this.cameraAnimations[this.selectedCamera].update(currTime);
         
@@ -186,7 +196,7 @@ XMLscene.prototype.updateCameraAnimations = function(currTime){
             this.camChange = false;
         }
     
-}
+}*/
     
 
 /* Handler called when the graph is finally loaded. 
@@ -320,11 +330,11 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.update = function(currTime) {
 
-    this.getTime(currTime);
+    //this.getTime(currTime);
     
-    if (this.camAnim){
+   /* if (this.camAnim){
         this.updateCameraAnimations(this.diff);
-    }
+    }*/
        
    
     for(nodeID in this.graph.nodes){
