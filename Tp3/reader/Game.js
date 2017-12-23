@@ -11,7 +11,8 @@ function Game(scene){
     this.difficulty = null;//TODO implementar depois
     this.reply = [];
     this.scene.gameStart;
-    
+    this.undo = false;
+    this.plays = [];
 }
 
 Game.prototype = Object.create(CGFobject.prototype);
@@ -21,7 +22,19 @@ Game.prototype.update = function(currTime){
     
     switch(this.state){
         case 0:
+            if(this.undo == true){
+                //TODO eventualmente implmentar movimentos backwards
 
+
+                //TODO [estou aqui] nao está a funcionar jogo bloqueia ao fazer isto para voltar para traz, analisar o problema
+
+                console.log(this.plays);
+                this.currPlayer = this.plays[this.plays.length - 1].currPlayer;
+                this.notCurrPlayer = this.plays[this.plays.length - 1].notCurrPlayer;
+                this.board = this.plays[this.plays.length - 1].board;
+                this.plays.pop();
+                this.undo = false;
+            }
             if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
                 //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
                 if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
@@ -35,6 +48,10 @@ Game.prototype.update = function(currTime){
                             selectedPlayer = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece.type;
                         }
                         this.state = 1;
+
+                        this.plays.push(new Play(this.scene, this.currPlayer, this.notCurrPlayer, this.board));
+                        console.log(this.plays);
+
                         this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
                             + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordZ + "," + this.board.getSelectedTile(this.board.selectedTileID[1]).coordX
                             + ","+ this.board.getSelectedTile(this.board.selectedTileID[1]).coordZ+"),("+ this.board.getQueen(this.currPlayer).stacks.length + "," + this.board.getQueen(this.notCurrPlayer).stacks.length + "," +
@@ -96,14 +113,13 @@ Game.prototype.update = function(currTime){
             var distToMoveX = (coordXToMove - currCoordX) * 2;
             var distToMoveZ = (coordZToMove - currCoordZ) * 2;
             pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
-            console.log("Adding move animation to piece ", pieceToMove.type, " at currTime=", currTime);
+            //console.log("Adding move animation to piece ", pieceToMove.type, " at currTime=", currTime);
 
             if(pieceToMove.size > 1 && tileToMove.piece == null && tileToMove.lonePiece == null){
                 currTile.lonePiece = new Piece(this.scene, pieceToMove.color, pieceToMove.type, 1);
                 pieceToMove.stacks.pop();
             }
             else if(tileToMove.lonePiece != null && tileToMove.lonePiece.type == this.notCurrPlayer){
-                //this.state = 4;
                 var freeTile;
                 var coordX;
                 var coordY;
