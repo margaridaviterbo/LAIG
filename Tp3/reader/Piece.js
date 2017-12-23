@@ -30,12 +30,6 @@ Piece.prototype.display = function(){
         this.scene.popMatrix();
     }
 
-    /*for(var j = 0; j < this.lost.length; j++){
-        this.scene.pushMatrix();
-            this.lost[j].display();
-        this.scene.popMatrix();
-    }*/
-
 };
 
 Piece.prototype.setTextCoords = function(s,t){
@@ -44,11 +38,6 @@ for (var i = 0; i < 20; i++){
 }
 };
 
-/*Piece.prototype.move = function(controlPoints){
-    this.lost.push(new CompleteCylinder(this.scene, [0.5, 1, 0.8, 20, 20, 1, 1]));
-    this.stacks.pop();
-    this.moveWithCapture(controlPoints);
-};*/
 
 Piece.prototype.move = function(controlPoints){
     var id = 'piece' + this.counter;
@@ -58,8 +47,8 @@ Piece.prototype.move = function(controlPoints){
 };
 
 
-Piece.prototype.moveGotEaten = function(){
+Piece.prototype.moveGotEaten = function(controlPoints){
     var id = 'p' + this.counter;
-    this.animations.push(new BezierAnimation(this.scene, id, 'bezier', [[0, 0, 0], [1, 1, 1], [2, 2, 2], [-10, -3, -4]], 1));
+    this.animations.push(new BezierAnimation(this.scene, id, 'bezier', controlPoints, 1));
     this.counter++;
 };
