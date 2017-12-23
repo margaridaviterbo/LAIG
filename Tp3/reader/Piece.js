@@ -18,7 +18,7 @@ function Piece(scene, color, type, size){
  
  
 Piece.prototype = Object.create(CGFobject.prototype);
-Piece.prototype.constructor=CompleteCylinder;
+Piece.prototype.constructor = CompleteCylinder;
 
 
 Piece.prototype.display = function(){

@@ -345,7 +345,6 @@ XMLscene.prototype.update = function(currTime) {
     var pieces = this.graph.board.getPieces();
     for(var i = 0; i < pieces.length; i++){
         for(var j = 0; j < pieces[i].animations.length; j++){
-            console.log(pieces[i].animations[j]);
             pieces[i].animations[j].update(currTime);
         }    
     }
