@@ -34,6 +34,20 @@ function Board(scene, type){
 	this.white.setShininess(50);
     //this.black.loadTexture('../resources/images/ocean3.jpg');
 
+    this.blue = new CGFappearance(this.scene);
+	this.blue.setAmbient(0.3, 0.3, 0.3, 1);
+	this.blue.setDiffuse(0, 0.4, 0.796, 1);
+	this.blue.setSpecular(0.9, 0.9, 0.9, 1);
+	this.blue.setShininess(50);
+	//blue.loadTexture('../scenes/images/floor.png');
+
+    this.red = new CGFappearance(this.scene);
+	this.red.setAmbient(0.3, 0.3, 0.3, 1);
+	this.red.setDiffuse(0.796, 0, 0, 1);
+	this.red.setSpecular(0.9, 0.9, 0.9, 1);
+	this.red.setShininess(50);
+	//this.black.loadTexture('../resources/images/ocean3.jpg');
+
     for(var i = 0; i < this.sizeZ; i++){
         
         var tilesRow = [];
@@ -73,6 +87,12 @@ Board.prototype.display = function(){
             this.scene.translate(j*2, 0, i*2);
             if(this.type == 'game'){
                 this.color.apply();
+            }
+            if(this.type == 'ivory'){
+                this.red.apply();
+            }
+            if(this.type == 'cigar'){
+                this.blue.apply();
             }
            
             this.tiles[i][j].id = id;
@@ -147,13 +167,25 @@ Board.prototype.getPieces = function(){
                 //console.log("atualizei");
                 pieces.push(this.tiles[i][j].piece);
             }
-            else if(this.tiles[i][j].lonePiece != null){
+            if(this.tiles[i][j].lonePiece != null){
                 pieces.push(this.tiles[i][j].lonePiece);
             }
         }
     }
     return pieces;
 }
+
+
+Board.prototype.getFirstTileFree = function(){
+    for(var i = 0; i < this.sizeZ; i++){
+        for(var j = 0; j < this.sizeX; j++){
+            if(this.tiles[i][j].lonePiece == null){
+                return this.tiles[i][j];
+            }
+        }
+    }
+}
+
 
 Board.prototype.convertToPrologBoard = function() {
 
@@ -173,7 +205,6 @@ Board.prototype.convertToPrologBoard = function() {
                 }
             }
             else if(this.tiles[i][j].lonePiece != null){
-                console.log('aqui');
                 if(this.tiles[i][j].lonePiece.type == 'ivory'){
                     this.prologBoard = this.prologBoard + 'ivoryBaby';                    
                 }
@@ -194,7 +225,7 @@ Board.prototype.convertToPrologBoard = function() {
         }
     }
     this.prologBoard = this.prologBoard + ']';
-    console.log(this.prologBoard);
+
     return this.prologBoard;
 };
 

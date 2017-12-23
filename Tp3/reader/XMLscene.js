@@ -169,6 +169,7 @@ XMLscene.prototype.initCameraAnimations = function(){
     this.cameraAnimations[0] = new CameraAnimation(this,this.cameras[0],finalPos0);
     this.cameraAnimations[1] = new CameraAnimation(this,this.cameras[1],finalPos1);
     this.cameraAnimations[2] = new CameraAnimation(this,this.cameras[2],finalPos2);
+
 }
 
 XMLscene.prototype.updateCameraAnimations = function(currTime){
@@ -341,23 +342,10 @@ XMLscene.prototype.update = function(currTime) {
 
     this.graph.game.update(currTime);
 
-    /*var ivory = this.graph.board.getQueen('ivory');
-    if(ivory != null){
-        for(var i = 0; i < ivory.animations.length; i++){
-            ivory.animations[i].update(currTime);
-        }
-    }
-    
-    var cigar = this.graph.board.getQueen('cigar');
-    if(cigar != null){
-        for(var i = 0; i < cigar.animations.length; i++){     
-            cigar.animations[i].update(currTime);
-        }
-    }*/
-
     var pieces = this.graph.board.getPieces();
     for(var i = 0; i < pieces.length; i++){
         for(var j = 0; j < pieces[i].animations.length; j++){
+            console.log(pieces[i].animations[j]);
             pieces[i].animations[j].update(currTime);
         }    
     }
