@@ -21,6 +21,12 @@ function MySceneGraph(filename, scene) {
     scene.graph = this;
 
     // Establish bidirectional references between scene and graph.
+    
+    this.nodes = [];
+    
+    this.board = new Board(this.scene, 'game');
+    this.auxBoard1 = new Board(this.scene, 'cigar');
+    this.auxBoard2 = new Board(this.scene, 'ivory');
 
     this.blue = new CGFappearance(this.scene);
 	this.blue.setAmbient(0.3, 0.3, 0.3, 1);
@@ -35,10 +41,6 @@ function MySceneGraph(filename, scene) {
 	this.red.setSpecular(0.5, 0.5, 0.5, 1);
 	this.red.setShininess(50);
 	//this.black.loadTexture('../resources/images/ocean3.jpg');
-    
-    this.nodes = [];
-    
-    this.board = new Board(this.scene, 'game');
 
     //posição inicial das peças
     //ivory - (6,11); cigar - (5,0)
@@ -1714,9 +1716,6 @@ MySceneGraph.generateRandomString = function(length) {
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
     // remove log below to avoid performance issues
-    
-    var auxBoard1 = new Board(this.scene, 'aux');
-    var auxBoard2 = new Board(this.scene, 'aux');
 
     this.scene.pushMatrix();
         this.scene.translate(-6, 0, 0);
@@ -1727,14 +1726,12 @@ MySceneGraph.prototype.displayScene = function() {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.blue.apply();
-            auxBoard1.display();
+            this.auxBoard1.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
             this.scene.translate(32, 0, 0);
-            this.red.apply();
-            auxBoard2.display();
+            this.auxBoard2.display();
         this.scene.popMatrix();
     this.scene.popMatrix();
 

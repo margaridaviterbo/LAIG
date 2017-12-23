@@ -129,8 +129,7 @@ XMLscene.prototype.switchCamera = function(){
     if(this.selectedCamera > (this.cameras.length-1)){
         this.selectedCamera = 0;
     }
-    console.log(this.cameras);
-    console.log(this.cameras[this.selectedCamera]);
+    
     this.camera = new CGFcamera(this.cameras[this.selectedCamera][0],this.cameras[this.selectedCamera][1], 
         this.cameras[this.selectedCamera][2],this.cameras[this.selectedCamera][3],this.cameras[this.selectedCamera][4]);
     this.interface.setActiveCamera(this.camera); 
@@ -282,23 +281,10 @@ XMLscene.prototype.update = function(currTime) {
 
     this.graph.game.update(currTime);
 
-    /*var ivory = this.graph.board.getQueen('ivory');
-    if(ivory != null){
-        for(var i = 0; i < ivory.animations.length; i++){
-            ivory.animations[i].update(currTime);
-        }
-    }
-    
-    var cigar = this.graph.board.getQueen('cigar');
-    if(cigar != null){
-        for(var i = 0; i < cigar.animations.length; i++){     
-            cigar.animations[i].update(currTime);
-        }
-    }*/
-
     var pieces = this.graph.board.getPieces();
     for(var i = 0; i < pieces.length; i++){
         for(var j = 0; j < pieces[i].animations.length; j++){
+            console.log(pieces[i].animations[j]);
             pieces[i].animations[j].update(currTime);
         }    
     }

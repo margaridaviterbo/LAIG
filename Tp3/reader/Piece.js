@@ -58,8 +58,8 @@ Piece.prototype.move = function(controlPoints){
 };
 
 
-Piece.prototype.moveGotEaten = function(){
+Piece.prototype.moveGotEaten = function(controlPoints){
     var id = 'p' + this.counter;
-    this.animations.push(new BezierAnimation(this.scene, id, 'bezier', [[0, 0, 0], [1, 1, 1], [2, 2, 2], [-10, -3, -4]], 1));
+    this.animations.push(new BezierAnimation(this.scene, id, 'bezier', controlPoints, 1));
     this.counter++;
 };
