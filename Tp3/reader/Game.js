@@ -178,16 +178,6 @@ Game.prototype.update = function(currTime){
             else{
                 pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
             }
-            
-            pieceToMove.animations = [];
-            if(pieceToMove.size > 1){
-                tileToMove.piece = pieceToMove;
-                currTile.piece = null;
-            }
-            else{
-                tileToMove.lonePiece = pieceToMove;
-                currTile.lonePiece = null;
-            }
 
             if(tileToMove.lonePiece != null){
                 tileToMove.lonePiece.animations = [];
@@ -201,6 +191,16 @@ Game.prototype.update = function(currTime){
 
                 freeTile.lonePiece = tileToMove.lonePiece;
                 tileToMove.lonePiece = null;
+            }
+
+            pieceToMove.animations = [];
+            if(pieceToMove.size > 1){
+                tileToMove.piece = pieceToMove;
+                currTile.piece = null;
+            }
+            else{
+                tileToMove.lonePiece = pieceToMove;
+                currTile.lonePiece = null;
             }
 
             this.board.getClickedTile(this.board.selectedTileID[0]);

@@ -44,7 +44,7 @@ function Board(scene, type){
     this.red = new CGFappearance(this.scene);
 	this.red.setAmbient(0.3, 0.3, 0.3, 1);
 	this.red.setDiffuse(0.796, 0, 0, 1);
-	this.red.setSpecular(0.5, 0.5, 0.5, 1);
+	this.red.setSpecular(0.9, 0.9, 0.9, 1);
 	this.red.setShininess(50);
 	//this.black.loadTexture('../resources/images/ocean3.jpg');
 
