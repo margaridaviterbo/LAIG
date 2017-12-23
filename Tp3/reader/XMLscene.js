@@ -341,15 +341,25 @@ XMLscene.prototype.update = function(currTime) {
 
     this.graph.game.update(currTime);
 
-    var ivory = this.graph.board.getQueen('ivory');
-    for(var i = 0; i < ivory.animations.length; i++){
-        if(ivory.animations[i].finished == false){
+    /*var ivory = this.graph.board.getQueen('ivory');
+    if(ivory != null){
+        for(var i = 0; i < ivory.animations.length; i++){
             ivory.animations[i].update(currTime);
-        }    
-        
+        }
     }
+    
     var cigar = this.graph.board.getQueen('cigar');
-    for(var i = 0; i < cigar.animations.length; i++){     
-        cigar.animations[i].update(currTime);
+    if(cigar != null){
+        for(var i = 0; i < cigar.animations.length; i++){     
+            cigar.animations[i].update(currTime);
+        }
+    }*/
+
+    var pieces = this.graph.board.getPieces();
+    for(var i = 0; i < pieces.length; i++){
+        for(var j = 0; j < pieces[i].animations.length; j++){
+            pieces[i].animations[j].update(currTime);
+        }    
     }
+    
 }

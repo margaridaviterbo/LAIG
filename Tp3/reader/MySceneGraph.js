@@ -1719,38 +1719,24 @@ MySceneGraph.prototype.displayScene = function() {
     var auxBoard2 = new Board(this.scene, 'aux');
 
     this.scene.pushMatrix();
-        this.scene.translate(6, 0, 0);
-        this.board.display();
-    this.scene.popMatrix();
+        this.scene.translate(-6, 0, 0);
 
-    this.scene.pushMatrix();
-        this.blue.apply();
-        auxBoard1.display();
-    this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.scene.translate(6, 0, 0);
+            this.board.display();
+        this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-        this.scene.translate(32, 0, 0);
-        this.red.apply();
-        auxBoard2.display();
-    this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.blue.apply();
+            auxBoard1.display();
+        this.scene.popMatrix();
 
-   /* this.scene.pushMatrix();
-        this.scene.translate(7, 0.2, 1);
-        this.player1.animations[0].push();
-        this.player1.display();
+        this.scene.pushMatrix();
+            this.scene.translate(32, 0, 0);
+            this.red.apply();
+            auxBoard2.display();
+        this.scene.popMatrix();
     this.scene.popMatrix();
-
-    this.scene.pushMatrix();
-        this.scene.translate(7, 0.2, 1);
-        this.player1.animations[1].push();
-        this.player1.lost[0].display();
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
-        this.scene.translate(11, 0.2, 1);
-        this.blue.apply();
-        this.player2.display();
-    this.scene.popMatrix();*/
 
     var rootNode = this.nodes[this.idRoot]
     this.processGraph(rootNode, null, null);
