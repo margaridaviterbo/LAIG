@@ -15,7 +15,6 @@ function Game(scene){
     this.plays = [];
 }
 
-Game.prototype = Object.create(CGFobject.prototype);
 Game.prototype.constructor = Game;
 
 Game.prototype.update = function(currTime){
@@ -25,30 +24,21 @@ Game.prototype.update = function(currTime){
         console.log(this.board);
             if(this.undo == true){
                 //TODO eventualmente implmentar movimentos backwards
-
-
-                //TODO [estou aqui] nao está a funcionar jogo bloqueia ao fazer isto para voltar para traz, analisar o problema
-
-                console.log(this.plays);
-                /*this.currPlayer = this.plays[this.plays.length - 1].currPlayer;
-                this.notCurrPlayer = this.plays[this.plays.length - 1].notCurrPlayer;
-                this.board = new Board(this.scene, 'game');
-                this.board.prologBoard = this.plays[this.plays.length - 1].board.prologBoard;
-                this.board.tiles = this.plays[this.plays.length - 1].board.tiles;*/
-                /*this.selectedTileID = board.selectedTileID;
-                this.board = this.plays[this.plays.length - 1].board;*/
-                this.board.selectedTileID[0] = this.plays[this.plays.length - 1].to;
-                this.board.selectedTileID[1] = this.plays[this.plays.length - 1].from;
-                //this.plays.pop();//TODO dar pop no fim
-                this.state = 4;
-                //this.undo = false;//TODO por undo a false só no fim da jogada undo
-                /*this.board.getClickedTile(this.board.selectedTileID[0]);
-                this.board.getClickedTile(this.board.selectedTileID[1]);*/
-                //this.board.selectedTileID = [null, null];
+                if(this.plays.length == 0){
+                    //TODO aparecer pop-up a dizer o que esta no console.log
+                    console.log("No more plays to undo, please make a play!");
+                    this.undo = false;
+                }
+                else{
+                    this.board.selectedTileID[0] = this.plays[this.plays.length - 1].to;
+                    this.board.selectedTileID[1] = this.plays[this.plays.length - 1].from;
+                    this.state = 4;
+                }
             }
             else if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
                 //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
                 console.log(this.board);
+                console.log(this.board.convertToPrologBoard());
                 if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
                     //console.log("aqui");
                     if(this.board.selectedTileID[1] != null){
@@ -201,15 +191,23 @@ Game.prototype.update = function(currTime){
                 lonePieceTile.lonePiece = null;
             }
             else{
-                this.board.getSelectedTile(this.board.selectedTileID[1]).lonePiece = null;
-                this.board.getSelectedTile(this.board.selectedTileID[0]).piece.addStack();
+                if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
+                    this.board.getSelectedTile(this.board.selectedTileID[1]).lonePiece = null;
+                    this.board.getSelectedTile(this.board.selectedTileID[0]).piece.addStack();
+                }
             }
-            this.board.getSelectedTile(this.board.selectedTileID[1]).piece = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
-            this.board.getSelectedTile(this.board.selectedTileID[0]).piece = null;
+            if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
+                this.board.getSelectedTile(this.board.selectedTileID[1]).piece = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+                this.board.getSelectedTile(this.board.selectedTileID[0]).piece = null;
+            }
+            else{
+                this.board.getSelectedTile(this.board.selectedTileID[1]).lonePiece = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
+                this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece = null;
+            }
             this.plays.pop();
             this.undo = false;
-            this.board.getClickedTile(this.board.selectedTileID[0]);
-            this.board.getClickedTile(this.board.selectedTileID[1]);
+            /*this.board.getClickedTile(this.board.selectedTileID[0]);
+            this.board.getClickedTile(this.board.selectedTileID[1]);*/
             this.board.selectedTileID = [null, null];
 
             if(this.currPlayer == 'ivory'){
