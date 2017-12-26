@@ -17,7 +17,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
              'CylinderBase.js', 'CompleteCylinder.js', 'Patch.js', 
              'Animation.js', 'LinearAnimation.js', 'CircularAnimation.js',
              'BezierAnimation.js', 'ComboAnimation.js', 'Prolog.js', 'Game.js',
-             'Board.js', 'Tile.js' , 'Piece.js', 'CameraAnimation.js',
+             'Board.js', 'Tile.js' , 'Piece.js', 'CameraAnimation.js', 'Play.js',
 
 main=function()
 {

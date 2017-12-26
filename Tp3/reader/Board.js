@@ -3,7 +3,6 @@ function Board(scene, type){
     this.scene = scene;
     this.type = type;
     this.prologBoard;
-  //  this.game = game;
 
     this.tiles = [];
 

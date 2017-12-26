@@ -91,3 +91,16 @@ MyInterface.prototype.addSettings = function(){
 		this.settings[i] = this.groupSettings.add(this.scene, set[i]);
 	}
 }
+
+MyInterface.prototype.processKeyboard = function(event) {
+    // call CGFinterface default code (omit if you want to override)
+    // CGFinterface.prototype.processKeyboard.call(this,event);
+
+    switch (event.keyCode){
+        //d or D
+        case (68):
+        case (100):
+            this.scene.graph.game.undo = true;
+        break;
+    }
+};
