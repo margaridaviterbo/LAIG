@@ -45,7 +45,6 @@ Game.prototype.update = function(currTime){
                 this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
                 this.board.getClickedTile(this.board.selectedTileID[0]);
                 this.board.getClickedTile(this.board.selectedTileID[1]);                
-                console.log(this.board.selectedTileID);
             });
 
             this.state = 0;
@@ -66,7 +65,7 @@ Game.prototype.update = function(currTime){
                 }
             }
             else if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
-                //console.log(this.board.selectedTileID);
+                console.log(this.requestMade);
                 if(this.chosen_mode == 2 && this.requestMade == false ){
                     console.log('ENTREI AQUI');
                     this.state = 10;
@@ -254,6 +253,7 @@ Game.prototype.update = function(currTime){
             this.state = 0;
             break;
         case 5:
+       
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
             var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
             var pieceToMove;
@@ -291,7 +291,7 @@ Game.prototype.update = function(currTime){
             this.board.getClickedTile(this.board.selectedTileID[0]);
             this.board.getClickedTile(this.board.selectedTileID[1]);
             this.board.selectedTileID = [null, null];
-            this.board.requestMade = false;
+            this.requestMade = false;
 
             if(this.currPlayer == 'ivory'){
                 this.currPlayer = 'cigar';
