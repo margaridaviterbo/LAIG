@@ -1733,6 +1733,17 @@ MySceneGraph.prototype.displayScene = function() {
             this.scene.translate(32, 0, 0);
             this.auxBoard2.display();
         this.scene.popMatrix();
+
+        if(this.game.cameraAnim){
+            console.log(this.game.ang);
+            console.log(this.game.finalAng);
+            if(Math.abs(this.game.ang) > Math.abs(this.game.finalAng)){
+                this.game.cameraAnim = false;
+            }
+
+            this.scene.camera.orbit(this.scene.axis,this.game.ang);
+            this.game.ang += this.game.inc;
+        }
     this.scene.popMatrix();
 
     var rootNode = this.nodes[this.idRoot]

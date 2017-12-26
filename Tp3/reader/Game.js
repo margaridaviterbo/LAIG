@@ -13,11 +13,31 @@ function Game(scene){
     this.scene.gameStart;
     this.undo = false;
     this.plays = [];
+    this.cameraAnim = false;
+    this.inc = 0;
+    this.ang = 0;
+    this.finalAng = 0;
 }
 
 Game.prototype = Object.create(CGFobject.prototype);
 Game.prototype.constructor = Game;
 
+Game.prototype.cameraAnimation = function(){
+
+    this.cameraAnim = true;
+    this.ang = 0;
+
+    if(this.currPlayer == 'ivory'){   
+        this.scene.camera.setPosition(vec3.fromValues(-8,10,40));
+        this.inc = 0.005;
+        this.finalAng = 0.04;
+    }
+    else{
+        this.scene.camera.setPosition(vec3.fromValues(0,10,-40));
+        this.inc = -0.005;
+        this.finalAng = -0.02;
+    }
+}
 Game.prototype.update = function(currTime){
     
     switch(this.state){
@@ -224,10 +244,12 @@ Game.prototype.update = function(currTime){
             this.board.selectedTileID = [null, null];
 
             if(this.currPlayer == 'ivory'){
+                this.cameraAnimation();
                 this.currPlayer = 'cigar';
                 this.notCurrPlayer = 'ivory';
             }
             else{
+                this.cameraAnimation();
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
             }
