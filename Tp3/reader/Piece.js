@@ -52,3 +52,7 @@ Piece.prototype.moveGotEaten = function(controlPoints){
     this.animations.push(new BezierAnimation(this.scene, id, 'bezier', controlPoints, 1));
     this.counter++;
 };
+
+Piece.prototype.addStack = function(){
+    this.stacks.push(new CompleteCylinder(this.scene, [0.5, 1, 0.8, 20, 20, 1, 1]));
+};
