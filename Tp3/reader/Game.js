@@ -28,12 +28,12 @@ Game.prototype.cameraAnimation = function(){
     this.ang = 0;
 
     if(this.currPlayer == 'ivory'){   
-        this.scene.camera.setPosition(vec3.fromValues(-8,10,40));
+        this.scene.camera.setPosition(vec3.fromValues(-5,15,20));
         this.inc = 0.005;
         this.finalAng = 0.04;
     }
     else{
-        this.scene.camera.setPosition(vec3.fromValues(0,10,-40));
+        this.scene.camera.setPosition(vec3.fromValues(0,15,-20));
         this.inc = -0.005;
         this.finalAng = -0.02;
     }
