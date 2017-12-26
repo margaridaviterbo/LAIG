@@ -26,13 +26,17 @@ Game.prototype.cameraAnimation = function(){
     this.cameraAnim = true;
     this.ang = 0;
 
-    if(this.currPlayer == 'ivory'){   
+    if(this.currPlayer == 'ivory'){  
         this.scene.camera.setPosition(vec3.fromValues(-5,15,20));
+        this.scene.camera.setTarget(vec3.fromValues(0,0,0));
+        this.scene.camera.zoom(0);
         this.inc = 0.005;
         this.finalAng = 0.04;
     }
     else{
-        this.scene.camera.setPosition(vec3.fromValues(0,15,-20));
+        this.scene.camera.setPosition(vec3.fromValues(-5,30,-35));
+        this.scene.camera.setTarget(vec3.fromValues(0,0,10));
+        this.scene.camera.zoom(15);
         this.inc = -0.005;
         this.finalAng = -0.02;
     }
