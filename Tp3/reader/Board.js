@@ -158,6 +158,16 @@ Board.prototype.getQueen = function(type){
     return null;
 }
 
+Board.prototype.findTile = function(Z, X){
+    for(var i = 0; i < this.sizeZ; i++){
+        for(var j = 0; j < this.sizeX; j++){
+            if(i == Z && j == X){
+                return this.tiles[i][j].id;
+            }
+        }
+    }
+}
+
 Board.prototype.getPieces = function(){
     var pieces = [];
     for(var i = 0; i < this.sizeZ; i++){
