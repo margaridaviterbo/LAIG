@@ -17,6 +17,7 @@ function Game(scene){
     this.inc = 0;
     this.ang = 0;
     this.finalAng = 0;
+    this.score = [];
 }
 
 Game.prototype.constructor = Game;
@@ -41,11 +42,19 @@ Game.prototype.cameraAnimation = function(){
         this.finalAng = -0.02;
     }
 }
+
+Game.prototype.marker = function(){
+    this.score==null;
+    this.score[0] = [this.currPlayer + " " + this.board.getQueen(this.currPlayer).stacks.length];
+    this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];
+}
+
 Game.prototype.update = function(currTime){
     
+   this.marker();
     switch(this.state){
         case 0:
-        console.log(this.board);
+       // console.log(this.board);
             if(this.undo == true){
                 //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
@@ -61,8 +70,8 @@ Game.prototype.update = function(currTime){
             }
             else if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
                 //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
-                console.log(this.board);
-                console.log(this.board.convertToPrologBoard());
+               // console.log(this.board);
+              //  console.log(this.board.convertToPrologBoard());
                 if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
                     //console.log("aqui");
                     if(this.board.selectedTileID[1] != null){
@@ -106,7 +115,7 @@ Game.prototype.update = function(currTime){
                                 this.state = 0;                        
                             }
                             else{
-                                this.state = 2;
+                              this.state = 2;
                             }
                         });
                     }
@@ -182,6 +191,7 @@ Game.prototype.update = function(currTime){
                     distToMoveZ = (freeTile.coordZ - tileToMove.coordZ) * 2;
                 }
                 tileToMove.lonePiece.moveGotEaten([[0, 0, 0], [-3, 10, 0], [-6, 10, 0], [distToMoveX, coordY, distToMoveZ]]);
+                
             }
 
             break;
