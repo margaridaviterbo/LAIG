@@ -42,7 +42,6 @@ Game.prototype.cameraAnimation = function(){
         this.scene.camera.zoom(0);
         this.inc = 0.005;
         this.finalAng = 0.04;
-        
     }
 }
 
@@ -66,6 +65,16 @@ Game.prototype.turn = function(currTime, state){
         this.timeout = true;
         this.startTime = 0;
         this.time = 0;
+        if(this.currPlayer == 'ivory'){
+            this.currPlayer = 'cigar';
+            this.notCurrPlayer = 'ivory';
+            
+        }
+        else{
+            this.currPlayer = 'ivory';
+            this.notCurrPlayer = 'cigar';
+            
+        }
     }
    
    console.log(this.timeout +" " +this.time);
@@ -79,7 +88,8 @@ Game.prototype.update = function(currTime){
     switch(this.state){
         case 0:
        // console.log(this.board);
-            this.timeout = false;
+       this.timeout = false;
+           this.turn(currTime);
             if(this.undo == true){
                 //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
@@ -97,6 +107,7 @@ Game.prototype.update = function(currTime){
                 //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
                // console.log(this.board);
               //  console.log(this.board.convertToPrologBoard());
+               
                 if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
                     //console.log("aqui");
                     if(this.board.selectedTileID[1] != null){
@@ -158,6 +169,7 @@ Game.prototype.update = function(currTime){
             break;
         case 2:
             if(this.timeout == false){
+                console.log(this.currPlayer)
                 this.state = 3;
                 var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
                 var coordXToMove = tileToMove.coordX;
@@ -271,7 +283,7 @@ Game.prototype.update = function(currTime){
             this.board.getClickedTile(this.board.selectedTileID[1]);*/
             this.board.selectedTileID = [null, null];
 
-            if(this.currPlayer == 'ivory'){
+          /*  if(this.currPlayer == 'ivory'){
                 this.currPlayer = 'cigar';
                 this.notCurrPlayer = 'ivory';
                 
@@ -280,7 +292,7 @@ Game.prototype.update = function(currTime){
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
                 
-            }
+            }*/
             this.turn(currTime,0);
             this.state = 0;
             break;
@@ -323,7 +335,7 @@ Game.prototype.update = function(currTime){
             this.board.getClickedTile(this.board.selectedTileID[1]);
             this.board.selectedTileID = [null, null];
 
-            if(this.currPlayer == 'ivory'){
+            /*if(this.currPlayer == 'ivory'){
                 
                 this.currPlayer = 'cigar';
                 this.notCurrPlayer = 'ivory';
@@ -332,12 +344,12 @@ Game.prototype.update = function(currTime){
                
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
-            }
+            }*/
 
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
-            
+            this.turn(currTime,0);
             this.state = 0;           
             
             break;   
