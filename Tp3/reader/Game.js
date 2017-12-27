@@ -34,6 +34,7 @@ function Game(scene){
     this.scoreCigar = 20;
     this.scoreIvory = 20;
     this.scoreboard = new Scoreboard(this.scene,this.scoreIvory, this.scoreCigar);
+    this.scoreboard.playerName();
     this.time = 0;
     this.startTime = 0;
     this.maxTime = 15;
@@ -75,11 +76,14 @@ Game.prototype.marker = function(){
         if(this.currPlayer == 'ivory'){
             this.scoreIvory = this.board.getQueen(this.currPlayer).stacks.length;
             this.scoreCigar = this.board.getQueen(this.notCurrPlayer).stacks.length;
+           
         }
         else{
             this.scoreIvory = this.board.getQueen(this.notCurrPlayer).stacks.length;
             this.scoreCigar = this.board.getQueen(this.currPlayer).stacks.length; 
         }
+
+        this.scoreboard.score(this.scoreIvory,this.scoreCigar);
     }
  }
 
@@ -118,6 +122,7 @@ Game.prototype.turn = function(currTime, state){
 
 Game.prototype.update = function(currTime){
     
+    this.marker();
     
    
   
