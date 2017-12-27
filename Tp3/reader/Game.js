@@ -31,11 +31,15 @@ function Game(scene){
     this.inc = 0;
     this.ang = 0;
     this.finalAng = 0;
-    this.score = [];
+    this.scoreCigar = 20;
+    this.scoreIvory = 20;
+    this.scoreboard = new Scoreboard(this.scene,this.scoreIvory, this.scoreCigar);
+    this.scoreboard.playerName();
     this.time = 0;
     this.startTime = 0;
     this.maxTime = 15;
     this.timeout = false;
+
 }
 
 Game.prototype.constructor = Game;
@@ -68,14 +72,20 @@ Game.prototype.marker = function(){
         return;
     }
     else{
-        this.score[0] = [this.currPlayer + " " + this.board.getQueen(this.currPlayer).stacks.length];
-        this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];
+
+        if(this.currPlayer == 'ivory'){
+            this.scoreIvory = this.board.getQueen(this.currPlayer).stacks.length;
+            this.scoreCigar = this.board.getQueen(this.notCurrPlayer).stacks.length;
+           
+        }
+        else{
+            this.scoreIvory = this.board.getQueen(this.notCurrPlayer).stacks.length;
+            this.scoreCigar = this.board.getQueen(this.currPlayer).stacks.length; 
+        }
+
+        this.scoreboard.score(this.scoreIvory,this.scoreCigar);
     }
-    
-   if(this.score!= null){
-       console.log(this.score);
-   } 
-}
+ }
 
 Game.prototype.turn = function(currTime, state){
 
@@ -112,6 +122,7 @@ Game.prototype.turn = function(currTime, state){
 
 Game.prototype.update = function(currTime){
     
+    this.marker();
     
    
   

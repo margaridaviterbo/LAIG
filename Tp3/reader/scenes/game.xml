@@ -91,6 +91,7 @@
         <DESCENDANTS>
           <NODEREF id ="cube"/>
           <NODEREF id = "sphere"/>
+          <NODEREF id = "scoreboard"/>
        </DESCENDANTS>
     </NODE>
 
@@ -186,6 +187,91 @@
             <LEAF id="sphere1" type="sphere"  args= "3 20 20"/>
         </DESCENDANTS>
     </NODE>
+
+    <NODE id="scoreboard">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="7" y ="4" z ="-15"/>
+        <ROTATION axis="y" angle="-135" />
+
+        <DESCENDANTS>
+            <NODEREF id="faceScore1" />
+            <NODEREF id="faceScore2" />
+            <NODEREF id="faceScore3" />
+            <NODEREF id="faceScore4" />
+            <NODEREF id="faceScore5" />
+            <NODEREF id="faceScore6" />   
+        </DESCENDANTS>
+   </NODE>
+
+    <NODE id="faceScore1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle"  args="0 10 20 0" />
+        </DESCENDANTS>
+    </NODE>
+
+     
+    <NODE id="faceScore2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+		<ROTATION axis="y" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="0 10 1 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceScore3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="20" y="0" z="0" />
+		<ROTATION axis="y" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="0 10 1 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceScore4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="90" />
+               
+        <DESCENDANTS>
+			<LEAF  type="rectangle"  args="0 1 20 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceScore5">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="10" z="0" />
+        <ROTATION axis="x" angle="90" />
+
+        <DESCENDANTS>
+ 			<LEAF  type="rectangle"  args="0 1 20 0" />
+       </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceScore6">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="1" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle"  args="0 10 20 0" />
+        </DESCENDANTS>
+    </NODE>
+
    
 </NODES>
 

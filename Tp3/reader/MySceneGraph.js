@@ -1742,6 +1742,10 @@ MySceneGraph.prototype.displayScene = function() {
             this.auxBoard2.display();
         this.scene.popMatrix();
 
+        this.scene.pushMatrix();
+            this.game.scoreboard.display();
+        this.scene.popMatrix();
+        
         if(this.game.cameraAnim){
             if(Math.abs(this.game.ang) > Math.abs(this.game.finalAng)){
                 this.game.cameraAnim = false;
