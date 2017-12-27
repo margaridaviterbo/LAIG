@@ -58,9 +58,10 @@ Game.prototype.cameraAnimation = function(){
 }
 
 Game.prototype.marker = function(){
-    this.score==null;
+    //acho que dá erro quando uma das queens é comida tens de por um if Rita
+  /*  this.score==null;
     this.score[0] = [this.currPlayer + " " + this.board.getQueen(this.currPlayer).stacks.length];
-    this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];
+    this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];*/
 }
 
 Game.prototype.turn = function(currTime, state){
@@ -187,9 +188,6 @@ Game.prototype.update = function(currTime){
                         }
                         this.state = 1;
 
-                        this.plays.push(new Play(this.board.selectedTileID[0], this.board.selectedTileID[1]));
-                        //console.log(this.plays);
-
                         this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
                             + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordZ + "," + this.board.getSelectedTile(this.board.selectedTileID[1]).coordX
                             + ","+ this.board.getSelectedTile(this.board.selectedTileID[1]).coordZ+"),("+ this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," +
@@ -218,6 +216,8 @@ Game.prototype.update = function(currTime){
                             }
                             else{
                               this.state = 2;
+                              this.plays.push(new Play(this.board.selectedTileID[0], this.board.selectedTileID[1]));
+                              //console.log(this.plays);
                             }
                         });
                     }
