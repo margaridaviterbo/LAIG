@@ -76,7 +76,7 @@ MyInterface.prototype.addNodesGroup = function(nodes){
 
 MyInterface.prototype.addSettings = function(){
     
-    var set = ['switchScene', 'switchCamera'];
+    var set = ['switchScene'];
 
 	if(this.groupSettings != null){
 		for(var i = 0; i < this.settings.length;i++){
@@ -87,7 +87,7 @@ MyInterface.prototype.addSettings = function(){
 	}
 	this.groupSettings.open();
 	this.settings = [];
-	for (var i = 0; i < 2; i++){
+	for (var i = 0; i < 1; i++){
 		this.settings[i] = this.groupSettings.add(this.scene, set[i]);
     }
     
