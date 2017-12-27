@@ -7,9 +7,9 @@ function Game(scene){
     this.notCurrPlayer = 'cigar';
     this.state = -1;
     this.board = this.scene.graph.board;
-    this.mode = 0;//TODO implementar depois
+    this.mode = 0;
     this.chosen_mode = 0;
-    this.difficulty = 0;//TODO implementar depois
+    this.difficulty = 0;
     this.chosen_difficulty = 0;
     this.reply = [];
     this.scene.gameStart;
@@ -88,7 +88,7 @@ Game.prototype.update = function(currTime){
                     this.state = 4;
                 }
             }
-            else if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
+            else if(this.gameOver == 'false'){
                 if((this.chosen_mode == 2 && this.requestMade == false) || (this.chosen_mode == 1 && this.currPlayer == 'cigar' && this.requestMade == false) ){
                     this.state = 10;
                 }
@@ -142,8 +142,7 @@ Game.prototype.update = function(currTime){
             }
             else{
                 //TODO por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
-                //TODO implementar quem ganhou
-                console.log("GAME OVER SOMEONE WON");
+                console.log("GAME OVER ! " + this.notCurrPlayer + " won!!!");
             }
 
             
@@ -333,6 +332,16 @@ Game.prototype.update = function(currTime){
             tileToMove.piece = null;
             this.board.getClickedTile(this.board.selectedTileID[0]);
             this.board.getClickedTile(this.board.selectedTileID[1]);
+            if(this.currPlayer == 'ivory'){
+                this.cameraAnimation();
+                this.currPlayer = 'cigar';
+                this.notCurrPlayer = 'ivory';
+            }
+            else{
+                this.cameraAnimation();
+                this.currPlayer = 'ivory';
+                this.notCurrPlayer = 'cigar';
+            }
             this.state = 0;
             break;
     }

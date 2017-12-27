@@ -1735,8 +1735,8 @@ MySceneGraph.prototype.displayScene = function() {
         this.scene.popMatrix();
 
         if(this.game.cameraAnim){
-            console.log(this.game.ang);
-            console.log(this.game.finalAng);
+            //console.log(this.game.ang);
+            //console.log(this.game.finalAng);
             if(Math.abs(this.game.ang) > Math.abs(this.game.finalAng)){
                 this.game.cameraAnim = false;
             }
