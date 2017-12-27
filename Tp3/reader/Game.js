@@ -123,9 +123,7 @@ Game.prototype.turn = function(currTime, state){
 Game.prototype.update = function(currTime){
     
     this.marker();
-    
-   
-  
+      
     switch(this.state){
         case -1:
             this.chosen_mode = this.mode;
@@ -411,7 +409,6 @@ Game.prototype.update = function(currTime){
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
-            this.marker();
             this.state = 0;
             break;
         case 5:
@@ -472,7 +469,6 @@ Game.prototype.update = function(currTime){
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
-            this.marker();
             this.state = 0;           
             
             break;   
@@ -498,7 +494,6 @@ Game.prototype.update = function(currTime){
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
-            this.marker();
             this.state = 0;
             break;
     }

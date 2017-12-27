@@ -45,13 +45,15 @@ Scoreboard.prototype.score = function(ivoryScore, cigarScore){
     var ivoryString = ivoryScore.toString().split('');
     var cigarString = cigarScore.toString().split('');
 
-    if(parseInt(ivoryString[1])== null){
+
+    console.log("1   " + ivoryString[0] + " " + ivoryString[1] + " " + cigarString[0] + " " + cigarString[1]);
+    if(ivoryString[1] == undefined){
         this.scoreIvory[0] = 0;
         this.scoreIvory[1] = parseInt(ivoryString[0]);
     }
-    else if( parseInt(cigarString[1]) == null){
-        this.scoreCigar = 0;
-        this.scoreIvory[1] = parseInt(cigarString[0]);
+    else if(cigarString[1] == undefined){
+        this.scoreCigar[0] = 0;
+        this.scoreCigar[1] = parseInt(cigarString[0]);
     }
     else{
         this.scoreIvory[0] = parseInt(ivoryString[0]);
@@ -69,6 +71,7 @@ Scoreboard.prototype.score = function(ivoryScore, cigarScore){
     this.cigar0.setTexture(this.font.numbers[this.scoreCigar[0]]);
     this.cigar1 = new CGFappearance(this.scene);
     this.cigar1.setTexture(this.font.numbers[this.scoreCigar[1]]);
+   
 }
 
 Scoreboard.prototype.display = function(){
