@@ -34,7 +34,7 @@ function Game(scene){
     this.score = [];
     this.time = 0;
     this.startTime = 0;
-    this.maxTime = this.scene.maxTime;
+    this.maxTime = 15;
     this.timeout = false;
 }
 
@@ -69,7 +69,8 @@ Game.prototype.marker = function(){
 
 Game.prototype.turn = function(currTime, state){
 
-    console.log(this.maxTime);
+    var turnTime = Math.round(this.maxTime);
+    console.log(turnTime);
     if(this.startTime == 0){
         this.startTime = currTime;
     }
@@ -77,7 +78,7 @@ Game.prototype.turn = function(currTime, state){
         this.time = (currTime - this.startTime) / 1000;
     }
 
-    if(this.time > this.maxTime || state == 0){
+    if(this.time > turnTime || state == 0){
         console.log("entrou");
         this.timeout = true;
         this.startTime = 0;
@@ -96,6 +97,8 @@ Game.prototype.turn = function(currTime, state){
    
    console.log(this.timeout +" " +this.time);
 }
+
+
 
 Game.prototype.update = function(currTime){
     
@@ -154,7 +157,7 @@ Game.prototype.update = function(currTime){
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
                 this.plays = [];
-                console.log("hereeeeeee");
+               // console.log("hereeeeeee");
             }
 
             else if(this.undo == true){
@@ -263,14 +266,14 @@ Game.prototype.update = function(currTime){
             }
             var distToMoveX = (coordXToMove - currCoordX) * 2;
             var distToMoveZ = (coordZToMove - currCoordZ) * 2;
-            console.log(this.board.selectedTileID);
+           // console.log(this.board.selectedTileID);
             pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
-            console.log(distToMoveX);
-            console.log(distToMoveZ);
+            //console.log(distToMoveX);
+           // console.log(distToMoveZ);
             //console.log("Adding move animation to piece ", pieceToMove.type, " at currTime=", currTime);
 
-            console.log(tileToMove.lonePiece);
-            console.log(this.notCurrPlayer);
+           // console.log(tileToMove.lonePiece);
+           // console.log(this.notCurrPlayer);
             if(pieceToMove.size > 1 && tileToMove.piece == null && tileToMove.lonePiece == null){
                 currTile.lonePiece = new Piece(this.scene, pieceToMove.color, pieceToMove.type, 1);
                 pieceToMove.stacks.pop();
@@ -329,7 +332,7 @@ Game.prototype.update = function(currTime){
             }
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
             
-            console.log(pieceToMove.animations);
+            //console.log(pieceToMove.animations);
             if(pieceToMove.animations[pieceToMove.animations.length - 1].finished == true){
                 if(tileToMove.lonePiece != null && tileToMove.lonePiece.animations[tileToMove.lonePiece.animations.length - 1].finished == true){
                     this.state = 5;
@@ -340,7 +343,7 @@ Game.prototype.update = function(currTime){
                 
             }
             if(tileToMove.piece != null){
-                console.log(tileToMove.piece);
+              //  console.log(tileToMove.piece);
                 this.state = 6;
             }
             break;
@@ -374,7 +377,6 @@ Game.prototype.update = function(currTime){
                 if(this.currPlayer == 'ivory'){
                     this.currPlayer = 'cigar';
                     this.notCurrPlayer = 'ivory';
-                    
                 }
                 else{
                     this.currPlayer = 'ivory';
@@ -384,8 +386,10 @@ Game.prototype.update = function(currTime){
             }else{
                 this.turn(currTime,0);
             }
-          
-           
+
+            if(this.scene.cameraAnimation == true){
+                this.cameraAnimation();
+            }
             this.state = 0;
             break;
         case 5:
@@ -438,11 +442,11 @@ Game.prototype.update = function(currTime){
                 else{
                     this.currPlayer = 'ivory';
                     this.notCurrPlayer = 'cigar';
-                    
                 }
             }else{
                 this.turn(currTime,0);
             }
+
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
@@ -455,16 +459,24 @@ Game.prototype.update = function(currTime){
             tileToMove.piece = null;
             this.board.getClickedTile(this.board.selectedTileID[0]);
             this.board.getClickedTile(this.board.selectedTileID[1]);
-            if(this.currPlayer == 'ivory'){
-                this.cameraAnimation();
-                this.currPlayer = 'cigar';
-                this.notCurrPlayer = 'ivory';
+            if(this.scene.activateTimer == false){
+                if(this.currPlayer == 'ivory'){
+                    this.currPlayer = 'cigar';
+                    this.notCurrPlayer = 'ivory';
+                }
+                else{
+                    this.currPlayer = 'ivory';
+                    this.notCurrPlayer = 'cigar';
+                    
+                }
+            }else{
+                this.turn(currTime,0);
             }
-            else{
+
+            if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
-                this.currPlayer = 'ivory';
-                this.notCurrPlayer = 'cigar';
             }
+
             this.state = 0;
             break;
     }

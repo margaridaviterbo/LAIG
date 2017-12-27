@@ -76,11 +76,7 @@ MyInterface.prototype.addNodesGroup = function(nodes){
 
 MyInterface.prototype.addSettings = function(){
     
-    
-    var set = ['switchScene','cameraAnimation','activateTimer'];
-    var size = set.length;
-
-   	if(this.groupSettings != null){
+    if(this.groupSettings != null){
 		for(var i = 0; i < this.settings.length;i++){
 			this.groupSettings.remove(this.settings[i]);
 		}
@@ -89,18 +85,18 @@ MyInterface.prototype.addSettings = function(){
 	}
 	this.groupSettings.open();
 	this.settings = [];
-	for (var i = 0; i < size; i++){
-		this.settings[i] = this.groupSettings.add(this.scene, set[i]);
-	}
-    
-    this.groupSettings.add(this.scene,'maxTime',0,30);
+	
+    this.settings[0] = this.groupSettings.add(this.scene, 'switchScene').name('Change Scene');
+    this.settings[1] = this.groupSettings.add(this.scene, 'cameraAnimation').name('Animate Camera');
+    this.settings[2] = this.groupSettings.add(this.scene, 'activateTimer').name('Activate Timer');
+	this.settings[3] = this.groupSettings.add(this.scene.graph.game,'maxTime',5,50).name('Max Turn Time');
 
     var group = this.gui.addFolder("Game Options");//type of game, difficulty
-    this.gui.add(this.scene.graph.game,'mode', { Human_Human: 0, Human_Bot: 1, Bot_Bot: 2 });
-    this.gui.add(this.scene.graph.game, 'difficulty', {Easy: 0, Hard: 1});
-    this.gui.add(this.scene.graph.game, 'Start_Game');
-    this.gui.add(this.scene.graph.game, 'ReStart_Game');
-    this.gui.add(this.scene.graph.game, 'PlayGameMovie');
+    this.gui.add(this.scene.graph.game,'mode', { Human_Human: 0, Human_Bot: 1, Bot_Bot: 2 }).name('Mode');
+    this.gui.add(this.scene.graph.game, 'difficulty', {Easy: 0, Hard: 1}).name('Difficulty');
+    this.gui.add(this.scene.graph.game, 'Start_Game').name('Start Game');
+    this.gui.add(this.scene.graph.game, 'ReStart_Game').name ('Restart Game');
+    this.gui.add(this.scene.graph.game, 'PlayGameMovie').name('Play Game Movie');
 }
 
 MyInterface.prototype.processKeyboard = function(event) {
