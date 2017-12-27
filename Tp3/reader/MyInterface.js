@@ -95,6 +95,7 @@ MyInterface.prototype.addSettings = function(){
     this.gui.add(this.scene.graph.game,'mode', { Human_Human: 0, Human_Bot: 1, Bot_Bot: 2 });
     this.gui.add(this.scene.graph.game, 'difficulty', {Easy: 0, Hard: 1});
     this.gui.add(this.scene.graph.game, 'Start_Game');
+    this.gui.add(this.scene.graph.game, 'PlayGameMovie');
 }
 
 MyInterface.prototype.processKeyboard = function(event) {
