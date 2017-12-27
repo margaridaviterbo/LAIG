@@ -68,6 +68,14 @@ function MySceneGraph(filename, scene) {
     this.reader.open('scenes/' + filename, this);
 }
 
+MySceneGraph.prototype.initializeBoards = function(){
+    this.board = new Board(this.scene, 'game');
+    this.auxBoard1 = new Board(this.scene, 'cigar');
+    this.auxBoard2 = new Board(this.scene, 'ivory');
+    this.board.tiles[11][6].piece = new Piece(this.scene, this.blue, 'cigar', 20);
+    this.board.tiles[0][5].piece = new Piece(this.scene, this.red, 'ivory', 20);
+}
+
 /*
  * Callback to be executed after successful reading
  */
