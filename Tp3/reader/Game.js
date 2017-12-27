@@ -40,7 +40,7 @@ Game.prototype.update = function(currTime){
             this.prolog.getPrologRequest("insistOnCorrectBotRandomPlay(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
                 var r = data.target.response;
                 this.reply = r.split(',');
-                console.log(this.reply);
+                //console.log(this.reply);
                 this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
                 this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
                 this.board.getClickedTile(this.board.selectedTileID[0]);
@@ -65,13 +65,10 @@ Game.prototype.update = function(currTime){
                 }
             }
             else if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
-                console.log(this.requestMade);
-                if(this.chosen_mode == 2 && this.requestMade == false ){
-                    console.log('ENTREI AQUI');
+                if((this.chosen_mode == 2 && this.requestMade == false) || (this.chosen_mode == 1 && this.currPlayer == 'cigar' && this.requestMade == false) ){
                     this.state = 10;
                 }
                 else if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
-                    console.log("aqui");
                     if(this.board.selectedTileID[1] != null){
                         this.scene.gameStart='true'; 
                         var selectedPlayer;
