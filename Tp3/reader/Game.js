@@ -61,15 +61,29 @@ Game.prototype.update = function(currTime){
         case 10:
             this.state = 1;
             this.requestMade = true;
-            this.prolog.getPrologRequest("insistOnCorrectBotRandomPlay(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
-                var r = data.target.response;
-                this.reply = r.split(',');
-                //console.log(this.reply);
-                this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
-                this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
-                this.board.getClickedTile(this.board.selectedTileID[0]);
-                this.board.getClickedTile(this.board.selectedTileID[1]);                
-            });
+            if(this.chosen_difficulty == 0){
+                this.prolog.getPrologRequest("insistOnCorrectBotRandomPlay(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
+                    var r = data.target.response;
+                    this.reply = r.split(',');
+                    //console.log(this.reply);
+                    this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
+                    this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
+                    this.board.getClickedTile(this.board.selectedTileID[0]);
+                    this.board.getClickedTile(this.board.selectedTileID[1]);                
+                });
+            }
+            else{
+                this.prolog.getPrologRequest("playBestBot(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
+                    var r = data.target.response;
+                    this.reply = r.split(',');
+                    //console.log(this.reply);
+                    this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
+                    this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
+                    this.board.getClickedTile(this.board.selectedTileID[0]);
+                    this.board.getClickedTile(this.board.selectedTileID[1]);                
+                });
+            }
+            
 
             this.state = 0;
             break;
