@@ -17,9 +17,8 @@ function XMLscene(interface) {
     this.gameStart = 'false';
     this.diff = 0;
     this.currTime = -1;
-    this.camAnim = false;
-    this.camChange = true;
-        
+    this.cameraAnimation = false;
+           
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -121,9 +120,9 @@ XMLscene.prototype.selectedList = function() {
  */
 XMLscene.prototype.initCameras = function () {
     this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-  };
+};
 
-  
+
 
 /* Handler called when the graph is finally loaded. 
  * As loading is asynchronous, this may be called already after the application has started the run loop

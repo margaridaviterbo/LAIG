@@ -76,7 +76,7 @@ MyInterface.prototype.addNodesGroup = function(nodes){
 
 MyInterface.prototype.addSettings = function(){
     
-    var set = ['switchScene'];
+    var set = ['switchScene','cameraAnimation'];
 
 	if(this.groupSettings != null){
 		for(var i = 0; i < this.settings.length;i++){
@@ -87,9 +87,10 @@ MyInterface.prototype.addSettings = function(){
 	}
 	this.groupSettings.open();
 	this.settings = [];
-	for (var i = 0; i < 1; i++){
+	for (var i = 0; i < 2; i++){
 		this.settings[i] = this.groupSettings.add(this.scene, set[i]);
-	}
+    }
+    
 }
 
 MyInterface.prototype.processKeyboard = function(event) {

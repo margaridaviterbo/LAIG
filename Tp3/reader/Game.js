@@ -13,33 +13,36 @@ function Game(scene){
     this.scene.gameStart;
     this.undo = false;
     this.plays = [];
-    this.cameraAnim = false;
     this.inc = 0;
     this.ang = 0;
     this.finalAng = 0;
     this.score = [];
+    this.time = 0;
+    this.startTime = 0;
+    this.maxTime = 15;
+    this.timeout = false;
 }
 
 Game.prototype.constructor = Game;
 
 Game.prototype.cameraAnimation = function(){
 
-    this.cameraAnim = true;
     this.ang = 0;
 
     if(this.currPlayer == 'ivory'){  
-        this.scene.camera.setPosition(vec3.fromValues(-5,15,20));
-        this.scene.camera.setTarget(vec3.fromValues(0,0,0));
-        this.scene.camera.zoom(0);
-        this.inc = 0.005;
-        this.finalAng = 0.04;
-    }
-    else{
         this.scene.camera.setPosition(vec3.fromValues(-5,30,-35));
         this.scene.camera.setTarget(vec3.fromValues(0,0,10));
         this.scene.camera.zoom(15);
         this.inc = -0.005;
         this.finalAng = -0.02;
+    }
+    else{
+        this.scene.camera.setPosition(vec3.fromValues(-5,15,20));
+        this.scene.camera.setTarget(vec3.fromValues(0,0,0));
+        this.scene.camera.zoom(0);
+        this.inc = 0.005;
+        this.finalAng = 0.04;
+        
     }
 }
 
@@ -49,12 +52,34 @@ Game.prototype.marker = function(){
     this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];
 }
 
+Game.prototype.turn = function(currTime, state){
+
+    if(this.startTime == 0){
+        this.startTime = currTime;
+    }
+    else{
+        this.time = (currTime - this.startTime) / 1000;
+    }
+
+    if(this.time > this.maxTime || state == 0){
+        console.log("entrou");
+        this.timeout = true;
+        this.startTime = 0;
+        this.time = 0;
+    }
+   
+   console.log(this.timeout +" " +this.time);
+}
+
 Game.prototype.update = function(currTime){
     
+    
    this.marker();
+  
     switch(this.state){
         case 0:
        // console.log(this.board);
+            this.timeout = false;
             if(this.undo == true){
                 //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
@@ -132,66 +157,68 @@ Game.prototype.update = function(currTime){
         case 1:
             break;
         case 2:
-            this.state = 3;
-            var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
-            var coordXToMove = tileToMove.coordX;
-            var coordZToMove = tileToMove.coordZ;
-            var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
-            var currCoordX = currTile.coordX;
-            var currCoordZ = currTile.coordZ;
-            var pieceToMove;
-            if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
-                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
-            }
-            else{
-                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
-            }
-            var distToMoveX = (coordXToMove - currCoordX) * 2;
-            var distToMoveZ = (coordZToMove - currCoordZ) * 2;
-            pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
-            //console.log("Adding move animation to piece ", pieceToMove.type, " at currTime=", currTime);
-
-            if(pieceToMove.size > 1 && tileToMove.piece == null && tileToMove.lonePiece == null){
-                currTile.lonePiece = new Piece(this.scene, pieceToMove.color, pieceToMove.type, 1);
-                pieceToMove.stacks.pop();
-            }
-            else if(tileToMove.lonePiece != null && tileToMove.lonePiece.type == this.notCurrPlayer){
-                var freeTile;
-                var coordX;
-                var coordY;
-                var distToMoveX;
-                var distToMoveZ;
-                
-                if(this.scene.graph.auxBoard1.type != tileToMove.lonePiece.type){
-                    freeTile = this.scene.graph.auxBoard1.getFirstTileFree();
-                    this.plays[this.plays.length - 1].lonePieceTile = freeTile;
-                    if(freeTile.coordX == 0){
-                        coordX = -2;
-                        coordY = 3;
-                    }
-                    else{
-                        coordX = -2;
-                        coordY = 2;
-                    }
-                    distToMoveX = (coordX - tileToMove.coordX) * 2 + 1;
-                    distToMoveZ = (freeTile.coordZ - tileToMove.coordZ) * 2;
+            if(this.timeout == false){
+                this.state = 3;
+                var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
+                var coordXToMove = tileToMove.coordX;
+                var coordZToMove = tileToMove.coordZ;
+                var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
+                var currCoordX = currTile.coordX;
+                var currCoordZ = currTile.coordZ;
+                var pieceToMove;
+                if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
+                    pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
                 }
                 else{
-                    freeTile = this.scene.graph.auxBoard2.getFirstTileFree();
-                    this.plays[this.plays.length - 1].lonePieceTile = freeTile;                    
-                    if(freeTile.coordX == 0){
-                        coordX = 11 + 1;
-                        coordY = 2;
+                    pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
+                }
+                var distToMoveX = (coordXToMove - currCoordX) * 2;
+                var distToMoveZ = (coordZToMove - currCoordZ) * 2;
+                pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
+                //console.log("Adding move animation to piece ", pieceToMove.type, " at currTime=", currTime);
+
+                if(pieceToMove.size > 1 && tileToMove.piece == null && tileToMove.lonePiece == null){
+                    currTile.lonePiece = new Piece(this.scene, pieceToMove.color, pieceToMove.type, 1);
+                    pieceToMove.stacks.pop();
+                }
+                else if(tileToMove.lonePiece != null && tileToMove.lonePiece.type == this.notCurrPlayer){
+                    var freeTile;
+                    var coordX;
+                    var coordY;
+                    var distToMoveX;
+                    var distToMoveZ;
+                    
+                    if(this.scene.graph.auxBoard1.type != tileToMove.lonePiece.type){
+                        freeTile = this.scene.graph.auxBoard1.getFirstTileFree();
+                        this.plays[this.plays.length - 1].lonePieceTile = freeTile;
+                        if(freeTile.coordX == 0){
+                            coordX = -2;
+                            coordY = 3;
+                        }
+                        else{
+                            coordX = -2;
+                            coordY = 2;
+                        }
+                        distToMoveX = (coordX - tileToMove.coordX) * 2 + 1;
+                        distToMoveZ = (freeTile.coordZ - tileToMove.coordZ) * 2;
                     }
                     else{
-                        coordX = 11 + 1;
-                        coordY = 2;
+                        freeTile = this.scene.graph.auxBoard2.getFirstTileFree();
+                        this.plays[this.plays.length - 1].lonePieceTile = freeTile;                    
+                        if(freeTile.coordX == 0){
+                            coordX = 11 + 1;
+                            coordY = 2;
+                        }
+                        else{
+                            coordX = 11 + 1;
+                            coordY = 2;
+                        }
+                        distToMoveX = (coordX - tileToMove.coordX) * 2 - 1;
+                        distToMoveZ = (freeTile.coordZ - tileToMove.coordZ) * 2;
                     }
-                    distToMoveX = (coordX - tileToMove.coordX) * 2 - 1;
-                    distToMoveZ = (freeTile.coordZ - tileToMove.coordZ) * 2;
+                    tileToMove.lonePiece.moveGotEaten([[0, 0, 0], [-3, 10, 0], [-6, 10, 0], [distToMoveX, coordY, distToMoveZ]]);
+                    
                 }
-                tileToMove.lonePiece.moveGotEaten([[0, 0, 0], [-3, 10, 0], [-6, 10, 0], [distToMoveX, coordY, distToMoveZ]]);
-                
             }
 
             break;
@@ -247,12 +274,14 @@ Game.prototype.update = function(currTime){
             if(this.currPlayer == 'ivory'){
                 this.currPlayer = 'cigar';
                 this.notCurrPlayer = 'ivory';
+                
             }
             else{
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
+                
             }
-            
+            this.turn(currTime,0);
             this.state = 0;
             break;
         case 5:
@@ -295,16 +324,20 @@ Game.prototype.update = function(currTime){
             this.board.selectedTileID = [null, null];
 
             if(this.currPlayer == 'ivory'){
-                this.cameraAnimation();
+                
                 this.currPlayer = 'cigar';
                 this.notCurrPlayer = 'ivory';
             }
             else{
-                this.cameraAnimation();
+               
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
             }
 
+            if(this.scene.cameraAnimation == true){
+                this.cameraAnimation();
+            }
+            
             this.state = 0;           
             
             break;   
