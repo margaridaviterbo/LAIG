@@ -75,7 +75,6 @@ XMLscene.prototype.switchScene = function(){
 
 }
 
-
 /**
  * Initializes the scene lights with the values read from the LSX file.
  */

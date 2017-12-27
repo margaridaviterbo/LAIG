@@ -34,7 +34,7 @@ function Game(scene){
     this.score = [];
     this.time = 0;
     this.startTime = 0;
-    this.maxTime = this.scene.maxTime;
+    this.maxTime = 15;
     this.timeout = false;
 }
 
@@ -69,7 +69,8 @@ Game.prototype.marker = function(){
 
 Game.prototype.turn = function(currTime, state){
 
-    console.log(this.maxTime);
+    var turnTime = Math.round(this.maxTime);
+    console.log(turnTime);
     if(this.startTime == 0){
         this.startTime = currTime;
     }
@@ -77,7 +78,7 @@ Game.prototype.turn = function(currTime, state){
         this.time = (currTime - this.startTime) / 1000;
     }
 
-    if(this.time > this.maxTime || state == 0){
+    if(this.time > turnTime || state == 0){
         console.log("entrou");
         this.timeout = true;
         this.startTime = 0;
@@ -96,6 +97,8 @@ Game.prototype.turn = function(currTime, state){
    
    console.log(this.timeout +" " +this.time);
 }
+
+
 
 Game.prototype.update = function(currTime){
     
@@ -473,7 +476,7 @@ Game.prototype.update = function(currTime){
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
-            
+
             this.state = 0;
             break;
     }
