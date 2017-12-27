@@ -5,14 +5,21 @@ function Game(scene){
     this.gameOver = 'false';
     this.currPlayer = 'ivory';
     this.notCurrPlayer = 'cigar';
-    this.state = 0;
+    this.state = -1;
     this.board = this.scene.graph.board;
-    this.bot = false;//TODO implementar depois
-    this.difficulty = null;//TODO implementar depois
+    this.mode = 0;
+    this.chosen_mode = 0;
+    this.difficulty = 0;
+    this.chosen_difficulty = 0;
     this.reply = [];
     this.scene.gameStart;
     this.undo = false;
     this.plays = [];
+    this.start = false;
+    this.Start_Game = function(){
+        this.start = true;
+    };
+    this.requestMade = false;
     this.inc = 0;
     this.ang = 0;
     this.finalAng = 0;
@@ -87,6 +94,42 @@ Game.prototype.update = function(currTime){
    this.marker();
   
     switch(this.state){
+        case -1:
+            this.chosen_mode = this.mode;
+            this.chosen_difficulty = this.difficulty;
+            if(this.start == true){
+                this.state = 0;
+            }
+            break;
+        case 10:
+            this.state = 1;
+            this.requestMade = true;
+            if(this.chosen_difficulty == 0){
+                this.prolog.getPrologRequest("insistOnCorrectBotRandomPlay(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
+                    var r = data.target.response;
+                    this.reply = r.split(',');
+                    //console.log(this.reply);
+                    this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
+                    this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
+                    this.board.getClickedTile(this.board.selectedTileID[0]);
+                    this.board.getClickedTile(this.board.selectedTileID[1]);                
+                });
+            }
+            else{
+                this.prolog.getPrologRequest("playBestBot(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
+                    var r = data.target.response;
+                    this.reply = r.split(',');
+                    //console.log(this.reply);
+                    this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
+                    this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
+                    this.board.getClickedTile(this.board.selectedTileID[0]);
+                    this.board.getClickedTile(this.board.selectedTileID[1]);                
+                });
+            }
+            
+
+            this.state = 0;
+            break;
         case 0:
        // console.log(this.board);
        if(this.scene.activateTimer){
@@ -107,13 +150,11 @@ Game.prototype.update = function(currTime){
                     this.state = 4;
                 }
             }
-            else if(this.gameOver == 'false'){     //TODO quando conseguir implementar maquina maquina verificar se quando chega ao fim pára
-                //console.log(this.board.getSelectedTile(this.board.selectedTileID[0]));
-               // console.log(this.board);
-              //  console.log(this.board.convertToPrologBoard());
-               
-                if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
-                    //console.log("aqui");
+            else if(this.gameOver == 'false'){
+                if((this.chosen_mode == 2 && this.requestMade == false) || (this.chosen_mode == 1 && this.currPlayer == 'cigar' && this.requestMade == false) ){
+                    this.state = 10;
+                }
+                else if(this.board.selectedTileID[0] != null && (this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null || this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece != null)){
                     if(this.board.selectedTileID[1] != null){
                         this.scene.gameStart='true'; 
                         var selectedPlayer;
@@ -130,7 +171,7 @@ Game.prototype.update = function(currTime){
 
                         this.prolog.getPrologRequest("makePlay((" + this.currPlayer + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordX
                             + "," + this.board.getSelectedTile(this.board.selectedTileID[0]).coordZ + "," + this.board.getSelectedTile(this.board.selectedTileID[1]).coordX
-                            + ","+ this.board.getSelectedTile(this.board.selectedTileID[1]).coordZ+"),("+ this.board.getQueen(this.currPlayer).stacks.length + "," + this.board.getQueen(this.notCurrPlayer).stacks.length + "," +
+                            + ","+ this.board.getSelectedTile(this.board.selectedTileID[1]).coordZ+"),("+ this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," +
                             this.board.convertToPrologBoard()+"))", (data) => {
                             var r = data.target.response;
                             //ivorySize,cigarSize,endGame,Success
@@ -163,8 +204,7 @@ Game.prototype.update = function(currTime){
             }
             else{
                 //TODO por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
-                //TODO implementar quem ganhou
-                console.log("GAME OVER SOMEONE WON");
+                console.log("GAME OVER ! " + this.notCurrPlayer + " won!!!");
             }
 
             
@@ -303,6 +343,7 @@ Game.prototype.update = function(currTime){
             this.state = 0;
             break;
         case 5:
+       
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
             var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
             var pieceToMove;
@@ -340,6 +381,7 @@ Game.prototype.update = function(currTime){
             this.board.getClickedTile(this.board.selectedTileID[0]);
             this.board.getClickedTile(this.board.selectedTileID[1]);
             this.board.selectedTileID = [null, null];
+            this.requestMade = false;
 
             if(this.scene.activateTimer == false){
                 if(this.currPlayer == 'ivory'){
@@ -367,6 +409,16 @@ Game.prototype.update = function(currTime){
             tileToMove.piece = null;
             this.board.getClickedTile(this.board.selectedTileID[0]);
             this.board.getClickedTile(this.board.selectedTileID[1]);
+            if(this.currPlayer == 'ivory'){
+                this.cameraAnimation();
+                this.currPlayer = 'cigar';
+                this.notCurrPlayer = 'ivory';
+            }
+            else{
+                this.cameraAnimation();
+                this.currPlayer = 'ivory';
+                this.notCurrPlayer = 'cigar';
+            }
             this.state = 0;
             break;
     }
