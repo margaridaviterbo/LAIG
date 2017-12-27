@@ -24,6 +24,9 @@ function Game(scene){
     this.Start_Game = function(){
         this.start = true;
     };
+    this.ReStart_Game = function(){
+        this.start = true;
+    }
     this.requestMade = false;
     this.inc = 0;
     this.ang = 0;
@@ -105,6 +108,7 @@ Game.prototype.update = function(currTime){
             this.chosen_difficulty = this.difficulty;
             if(this.start == true){
                 this.state = 0;
+                this.start = false;
             }
             break;
         case 10:
@@ -138,12 +142,22 @@ Game.prototype.update = function(currTime){
             break;
         case 0:
        // console.log(this.board);
-       if(this.scene.activateTimer){
-           this.timeout = false;
-           this.turn(currTime);
-       }
+            if(this.scene.activateTimer){
+                this.timeout = false;
+                this.turn(currTime);
+            }
            
-            if(this.undo == true){
+            if(this.start == true){
+                this.state = -1;
+                this.scene.graph.initializeBoards();
+                this.board = this.scene.graph.board;
+                this.currPlayer = 'ivory';
+                this.notCurrPlayer = 'cigar';
+                this.plays = [];
+                console.log("hereeeeeee");
+            }
+
+            else if(this.undo == true){
                 //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
                     //TODO aparecer pop-up a dizer o que esta no console.log
@@ -249,6 +263,7 @@ Game.prototype.update = function(currTime){
             }
             var distToMoveX = (coordXToMove - currCoordX) * 2;
             var distToMoveZ = (coordZToMove - currCoordZ) * 2;
+            console.log(this.board.selectedTileID);
             pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
             console.log(distToMoveX);
             console.log(distToMoveZ);
