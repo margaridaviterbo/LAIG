@@ -61,10 +61,20 @@ Game.prototype.cameraAnimation = function(){
 }
 
 Game.prototype.marker = function(){
-    //acho que dá erro quando uma das queens é comida tens de por um if Rita
-  /*  this.score==null;
-    this.score[0] = [this.currPlayer + " " + this.board.getQueen(this.currPlayer).stacks.length];
-    this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];*/
+    
+    this.score==null;
+  
+    if(this.board.getQueen(this.currPlayer) == null || this.board.getQueen(this.notCurrPlayer) == null){
+        return;
+    }
+    else{
+        this.score[0] = [this.currPlayer + " " + this.board.getQueen(this.currPlayer).stacks.length];
+        this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];
+    }
+    
+   if(this.score!= null){
+       console.log(this.score);
+   } 
 }
 
 Game.prototype.turn = function(currTime, state){
@@ -103,7 +113,7 @@ Game.prototype.turn = function(currTime, state){
 Game.prototype.update = function(currTime){
     
     
-   this.marker();
+   
   
     switch(this.state){
         case -1:
@@ -390,6 +400,7 @@ Game.prototype.update = function(currTime){
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
+            this.marker();
             this.state = 0;
             break;
         case 5:
@@ -450,7 +461,7 @@ Game.prototype.update = function(currTime){
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
-           
+            this.marker();
             this.state = 0;           
             
             break;   
@@ -476,7 +487,7 @@ Game.prototype.update = function(currTime){
             if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
             }
-
+            this.marker();
             this.state = 0;
             break;
     }
