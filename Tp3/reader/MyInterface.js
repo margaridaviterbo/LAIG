@@ -76,9 +76,11 @@ MyInterface.prototype.addNodesGroup = function(nodes){
 
 MyInterface.prototype.addSettings = function(){
     
-    var set = ['switchScene'];
+    
+    var set = ['switchScene','cameraAnimation','activateTimer'];
+    var size = set.length;
 
-	if(this.groupSettings != null){
+   	if(this.groupSettings != null){
 		for(var i = 0; i < this.settings.length;i++){
 			this.groupSettings.remove(this.settings[i]);
 		}
@@ -87,10 +89,12 @@ MyInterface.prototype.addSettings = function(){
 	}
 	this.groupSettings.open();
 	this.settings = [];
-	for (var i = 0; i < 1; i++){
+	for (var i = 0; i < size; i++){
 		this.settings[i] = this.groupSettings.add(this.scene, set[i]);
-    }
+	}
     
+    this.groupSettings.add(this.scene,'maxTime',0,30);
+
     var group = this.gui.addFolder("Game Options");//type of game, difficulty
     this.gui.add(this.scene.graph.game,'mode', { Human_Human: 0, Human_Bot: 1, Bot_Bot: 2 });
     this.gui.add(this.scene.graph.game, 'difficulty', {Easy: 0, Hard: 1});

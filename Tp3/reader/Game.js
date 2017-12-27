@@ -25,36 +25,79 @@ function Game(scene){
         this.start = true;
     };
     this.requestMade = false;
-    this.cameraAnim = false;
     this.inc = 0;
     this.ang = 0;
     this.finalAng = 0;
+    this.score = [];
+    this.time = 0;
+    this.startTime = 0;
+    this.maxTime = this.scene.maxTime;
+    this.timeout = false;
 }
 
 Game.prototype.constructor = Game;
 
 Game.prototype.cameraAnimation = function(){
 
-    this.cameraAnim = true;
     this.ang = 0;
 
     if(this.currPlayer == 'ivory'){  
-        this.scene.camera.setPosition(vec3.fromValues(-5,15,20));
-        this.scene.camera.setTarget(vec3.fromValues(0,0,0));
-        this.scene.camera.zoom(0);
-        this.inc = 0.005;
-        this.finalAng = 0.04;
-    }
-    else{
         this.scene.camera.setPosition(vec3.fromValues(-5,30,-35));
         this.scene.camera.setTarget(vec3.fromValues(0,0,10));
         this.scene.camera.zoom(15);
         this.inc = -0.005;
         this.finalAng = -0.02;
     }
+    else{
+        this.scene.camera.setPosition(vec3.fromValues(-5,15,20));
+        this.scene.camera.setTarget(vec3.fromValues(0,0,0));
+        this.scene.camera.zoom(0);
+        this.inc = 0.005;
+        this.finalAng = 0.04;
+    }
 }
+
+Game.prototype.marker = function(){
+    this.score==null;
+    this.score[0] = [this.currPlayer + " " + this.board.getQueen(this.currPlayer).stacks.length];
+    this.score[1] = [this.notCurrPlayer + " " + this.board.getQueen(this.notCurrPlayer).stacks.length];
+}
+
+Game.prototype.turn = function(currTime, state){
+
+    console.log(this.maxTime);
+    if(this.startTime == 0){
+        this.startTime = currTime;
+    }
+    else{
+        this.time = (currTime - this.startTime) / 1000;
+    }
+
+    if(this.time > this.maxTime || state == 0){
+        console.log("entrou");
+        this.timeout = true;
+        this.startTime = 0;
+        this.time = 0;
+        if(this.currPlayer == 'ivory'){
+            this.currPlayer = 'cigar';
+            this.notCurrPlayer = 'ivory';
+            
+        }
+        else{
+            this.currPlayer = 'ivory';
+            this.notCurrPlayer = 'cigar';
+            
+        }
+    }
+   
+   console.log(this.timeout +" " +this.time);
+}
+
 Game.prototype.update = function(currTime){
     
+    
+   this.marker();
+  
     switch(this.state){
         case -1:
             this.chosen_mode = this.mode;
@@ -93,7 +136,12 @@ Game.prototype.update = function(currTime){
             this.state = 0;
             break;
         case 0:
-        //console.log(this.board);
+       // console.log(this.board);
+       if(this.scene.activateTimer){
+           this.timeout = false;
+           this.turn(currTime);
+       }
+           
             if(this.undo == true){
                 //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
@@ -169,7 +217,7 @@ Game.prototype.update = function(currTime){
                                 this.state = 0;                        
                             }
                             else{
-                                this.state = 2;
+                              this.state = 2;
                             }
                         });
                     }
@@ -252,9 +300,9 @@ Game.prototype.update = function(currTime){
                     distToMoveZ = (freeTile.coordZ - tileToMove.coordZ) * 2;
                 }
                 tileToMove.lonePiece.moveGotEaten([[0, 0, 0], [-3, 10, 0], [-6, 10, 0], [distToMoveX, coordY, distToMoveZ]]);
-                console.log("outra vez arroz");
-            }
 
+            }
+        
             break;
         case 3:
             var pieceToMove;
@@ -307,15 +355,22 @@ Game.prototype.update = function(currTime){
             this.board.getClickedTile(this.board.selectedTileID[1]);*/
             this.board.selectedTileID = [null, null];
 
-            if(this.currPlayer == 'ivory'){
-                this.currPlayer = 'cigar';
-                this.notCurrPlayer = 'ivory';
+            if(this.scene.activateTimer == false){
+                if(this.currPlayer == 'ivory'){
+                    this.currPlayer = 'cigar';
+                    this.notCurrPlayer = 'ivory';
+                    
+                }
+                else{
+                    this.currPlayer = 'ivory';
+                    this.notCurrPlayer = 'cigar';
+                    
+                }
+            }else{
+                this.turn(currTime,0);
             }
-            else{
-                this.currPlayer = 'ivory';
-                this.notCurrPlayer = 'cigar';
-            }
-            
+          
+           
             this.state = 0;
             break;
         case 5:
@@ -359,17 +414,24 @@ Game.prototype.update = function(currTime){
             this.board.selectedTileID = [null, null];
             this.requestMade = false;
 
-            if(this.currPlayer == 'ivory'){
-                this.cameraAnimation();
-                this.currPlayer = 'cigar';
-                this.notCurrPlayer = 'ivory';
+            if(this.scene.activateTimer == false){
+                if(this.currPlayer == 'ivory'){
+                    this.currPlayer = 'cigar';
+                    this.notCurrPlayer = 'ivory';
+                    
+                }
+                else{
+                    this.currPlayer = 'ivory';
+                    this.notCurrPlayer = 'cigar';
+                    
+                }
+            }else{
+                this.turn(currTime,0);
             }
-            else{
+            if(this.scene.cameraAnimation == true){
                 this.cameraAnimation();
-                this.currPlayer = 'ivory';
-                this.notCurrPlayer = 'cigar';
             }
-
+           
             this.state = 0;           
             
             break;   
