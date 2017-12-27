@@ -18,6 +18,8 @@ function XMLscene(interface) {
     this.diff = 0;
     this.currTime = -1;
     this.cameraAnimation = false;
+    this.activateTimer = false;
+    this.maxTime = 15;
            
 }
 

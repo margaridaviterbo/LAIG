@@ -76,9 +76,11 @@ MyInterface.prototype.addNodesGroup = function(nodes){
 
 MyInterface.prototype.addSettings = function(){
     
-    var set = ['switchScene','cameraAnimation'];
+    
+    var set = ['switchScene','cameraAnimation','activateTimer'];
+    var size = set.length;
 
-	if(this.groupSettings != null){
+   	if(this.groupSettings != null){
 		for(var i = 0; i < this.settings.length;i++){
 			this.groupSettings.remove(this.settings[i]);
 		}
@@ -87,9 +89,13 @@ MyInterface.prototype.addSettings = function(){
 	}
 	this.groupSettings.open();
 	this.settings = [];
-	for (var i = 0; i < 2; i++){
+	for (var i = 0; i < size; i++){
 		this.settings[i] = this.groupSettings.add(this.scene, set[i]);
     }
+
+    
+    this.groupSettings.add(this.scene,'maxTime',0,30);
+    
     
 }
 
