@@ -3,6 +3,7 @@ function Font(scene){
     this.scene = scene;
     this.numbers = [];
     this.letters = [];
+    this.twoDots = null;
     this.letterid = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','u','v','w','y','z'];
 
 };
@@ -20,5 +21,8 @@ Font.prototype.initFont = function(){
         var path = "scenes\\images\\letters\\" + this.letterid[i] + ".png";
         this.letters[this.letterid[i]] = new CGFtexture(this.scene,path);
     }
+
+    var path = "scenes\\images\\letters\\2pontos.png";
+    this.twoDots = new CGFtexture(this.scene,path);
     
 }

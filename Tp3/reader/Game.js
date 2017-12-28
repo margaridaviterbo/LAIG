@@ -33,7 +33,7 @@ function Game(scene){
     this.finalAng = 0;
     this.scoreCigar = 20;
     this.scoreIvory = 20;
-    this.scoreboard = new Scoreboard(this.scene,this.scoreIvory, this.scoreCigar);
+    this.scoreboard = new Scoreboard(this.scene);
     this.scoreboard.playerName();
     this.time = 0;
     this.startTime = 0;
@@ -89,8 +89,8 @@ Game.prototype.marker = function(){
 
 Game.prototype.turn = function(currTime, state){
 
-    var turnTime = Math.round(this.maxTime);
-    console.log(turnTime);
+    this.turnTime = Math.round(this.maxTime);
+    
     if(this.startTime == 0){
         this.startTime = currTime;
     }
@@ -98,8 +98,8 @@ Game.prototype.turn = function(currTime, state){
         this.time = (currTime - this.startTime) / 1000;
     }
 
-    if(this.time > turnTime || state == 0){
-        console.log("entrou");
+    if(this.time > this.turnTime || state == 0){
+        
         this.timeout = true;
         this.startTime = 0;
         this.time = 0;
@@ -114,8 +114,8 @@ Game.prototype.turn = function(currTime, state){
             
         }
     }
+    
    
-   console.log(this.timeout +" " +this.time);
 }
 
 
@@ -123,7 +123,7 @@ Game.prototype.turn = function(currTime, state){
 Game.prototype.update = function(currTime){
     
     this.marker();
-      
+    this.scoreboard.timer(this.time,this.turnTime, this.currPlayer);
     switch(this.state){
         case -1:
             this.chosen_mode = this.mode;
