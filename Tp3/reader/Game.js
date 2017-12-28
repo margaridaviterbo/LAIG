@@ -183,7 +183,7 @@ Game.prototype.update = function(currTime){
                 //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
                     //TODO aparecer pop-up a dizer o que esta no console.log
-                    console.log("No more plays to undo, please make a play!");
+                    alert("No more plays to undo, please make a play!");
                     this.undo = false;
                 }
                 else{
@@ -238,11 +238,11 @@ Game.prototype.update = function(currTime){
                             if(this.reply[3] == 'false'){
                                 if(this.currPlayer != selectedPlayer){
                                     //TODO eventualmente por um pop up no ecra a dizer o que está no console.log
-                                    console.log('Cannot play with selected piece, it is ' + this.currPlayer + ' time to play!');
+                                    alert('Cannot play with selected piece, it is ' + this.currPlayer + ' time to play!');
                                 }
                                 else{
                                     //TODO eventualmente por um pop up no ecra a dizer o que está no console.log
-                                    console.log('Invalid move!');
+                                    alert('Invalid move!');
                                 }
                                 this.board.getClickedTile(this.board.selectedTileID[0]);
                                 this.board.getClickedTile(this.board.selectedTileID[1]);
@@ -261,7 +261,7 @@ Game.prototype.update = function(currTime){
             }
             else{
                 //TODO por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
-                console.log("GAME OVER ! " + this.notCurrPlayer + " won!!!");
+                alert("GAME OVER ! " + this.notCurrPlayer + " won!!!");
             }
 
             
@@ -412,7 +412,7 @@ Game.prototype.update = function(currTime){
             this.state = 0;
             break;
         case 5:
-            console.log("TESTANDOO");
+            //console.log("TESTANDOO");
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
             var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
             var pieceToMove;
