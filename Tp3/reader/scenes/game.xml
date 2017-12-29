@@ -92,7 +92,8 @@
         <DESCENDANTS>
           <NODEREF id ="cube"/>
           <NODEREF id = "sphere"/>
-          <NODEREF id = "scoreboard"/>
+          <NODEREF id = "scoreboard1"/>
+          <NODEREF id = "scoreboard2"/>
        </DESCENDANTS>
     </NODE>
 
@@ -182,7 +183,7 @@
         <MATERIAL id="null"/>
         <TEXTURE id ="moon"/>
 
-        <TRANSLATION x="-10" y="7" z="10" />
+        <TRANSLATION x="-6" y="7" z="10" />
 
         <ANIMATIONREFS>
             <ANIMATIONREF id="c"/>
@@ -193,12 +194,35 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="scoreboard">
+    <NODE id="scoreboard1">
         <MATERIAL id="null"/>
         <TEXTURE id="null"/>
 
         <TRANSLATION x="7" y ="4" z ="-15"/>
         <ROTATION axis="y" angle="-135" />
+
+        <DESCENDANTS>
+            <NODEREF id="faceScore1" />
+            <NODEREF id="faceScore2" />
+            <NODEREF id="faceScore3" />
+            <NODEREF id="faceScore4" />
+            <NODEREF id="faceScore5" />
+            <NODEREF id="faceScore6" />   
+        </DESCENDANTS>
+   </NODE>
+
+   <NODE id="scoreboard2">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="7" y ="4" z ="-15"/>
+        <ROTATION axis="y" angle="-135" />
+        <ROTATION axis="z" angle="90" />
+        <ROTATION axis="z" angle="90" />
+        <TRANSLATION x="-20" y ="-10" z ="0"/>
+        <ROTATION axis="y" angle="90" />
+        <TRANSLATION x="13" y ="0" z ="-13"/>
+
 
         <DESCENDANTS>
             <NODEREF id="faceScore1" />
