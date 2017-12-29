@@ -33,19 +33,24 @@ function Game(scene){
     this.finalAng = 0;
     this.scoreCigar = 20;
     this.scoreIvory = 20;
-    this.scoreboard = new Scoreboard(this.scene);
-    this.scoreboard.playerName();
+    this.scoreboard1 = new Scoreboard(this.scene);
+    this.scoreboard1.playerName();
+    this.scoreboard2 = new Scoreboard(this.scene);
+    this.scoreboard2.playerName();
     this.time = 0;
     this.startTime = 0;
     this.maxTime = 15;
     this.timeout = false;
+
+    this.cameraAngle = 0;
+    this.cameraStep = 0.1;
 
 }
 
 Game.prototype.constructor = Game;
 
 Game.prototype.cameraAnimation = function(){
-
+/*
     this.ang = 0;
 
     if(this.currPlayer == 'ivory'){  
@@ -61,7 +66,7 @@ Game.prototype.cameraAnimation = function(){
         this.scene.camera.zoom(0);
         this.inc = 0.005;
         this.finalAng = 0.04;
-    }
+    }*/
 }
 
 Game.prototype.marker = function(){
@@ -83,7 +88,8 @@ Game.prototype.marker = function(){
             this.scoreCigar = this.board.getQueen(this.currPlayer).stacks.length; 
         }
 
-        this.scoreboard.score(this.scoreIvory,this.scoreCigar);
+        this.scoreboard1.score(this.scoreIvory,this.scoreCigar);
+        this.scoreboard2.score(this.scoreIvory,this.scoreCigar);
     }
  }
 
@@ -121,7 +127,8 @@ Game.prototype.turn = function(currTime, state){
 Game.prototype.update = function(currTime){
     
     this.marker();
-    this.scoreboard.timer(this.time,this.turnTime, this.currPlayer);
+    this.scoreboard1.timer(this.time,this.turnTime, this.currPlayer);
+    this.scoreboard2.timer(this.time,this.turnTime, this.currPlayer);
     switch(this.state){
         case -1:
             this.chosen_mode = this.mode;
@@ -431,10 +438,7 @@ Game.prototype.update = function(currTime){
                     this.turn(currTime,0);
                 }
 
-                if(this.scene.cameraAnimation == true){
-                    this.cameraAnimation();
-                }
-                this.state = 0;
+                this.state = 7;
             }
             break;
         case 5:
@@ -492,11 +496,7 @@ Game.prototype.update = function(currTime){
                 this.turn(currTime,0);
             }
 
-            if(this.scene.cameraAnimation == true){
-                this.cameraAnimation();
-            }
-            this.state = 0;           
-            
+            this.state = 7;   
             break;   
         case 6:
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
@@ -517,10 +517,36 @@ Game.prototype.update = function(currTime){
                 this.turn(currTime,0);
             }
 
+            this.state = 7;
+            break;
+        case 7:
             if(this.scene.cameraAnimation == true){
-                this.cameraAnimation();
+                if(this.currPlayer == 'cigar'){
+                    if (this.cameraAngle + this.cameraStep <= Math.PI/2) {
+                        this.cameraAngle += this.cameraStep;
+                        this.scene.camera.orbit(CGFcameraAxis.Y, this.cameraStep);
+                    } else {
+                        let diff = Math.PI/2 - this.cameraAngle;
+                        this.scene.camera.orbit(CGFcameraAxis.Y, diff);
+                        this.cameraAngle = 0;
+                        this.state = 0;
+                    }
+                }
+                else{
+                    if (this.cameraAngle + this.cameraStep <= Math.PI/2) {
+                        this.cameraAngle += this.cameraStep;
+                        this.scene.camera.orbit(CGFcameraAxis.Y, -this.cameraStep);
+                    } else {
+                        let diff = Math.PI/2 - this.cameraAngle;
+                        this.scene.camera.orbit(CGFcameraAxis.Y, -diff);
+                        this.cameraAngle = 0;
+                        this.state = 0;
+                    }
+                }  
             }
-            this.state = 0;
+            else{
+                this.state = 0;
+            }
             break;
     }
 

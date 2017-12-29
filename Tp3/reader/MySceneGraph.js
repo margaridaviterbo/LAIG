@@ -1743,17 +1743,23 @@ MySceneGraph.prototype.displayScene = function() {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.game.scoreboard.display();
+            this.game.scoreboard1.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.scene.translate(-30, 0, 8.5);
+            this.game.scoreboard2.display();
         this.scene.popMatrix();
         
-        if(this.game.cameraAnim){
+        /*if(this.scene.cameraAnimation == true){
             if(Math.abs(this.game.ang) > Math.abs(this.game.finalAng)){
-                this.game.cameraAnim = false;
+                this.scene.cameraAnimation = false;
             }
-
-            this.scene.camera.orbit(this.scene.axis,this.game.ang);
+            console.log("camara");
+            this.scene.camera.orbit(this.scene.cameraAxis,this.game.ang);
             this.game.ang += this.game.inc;
-        }
+        }*/
     this.scene.popMatrix();
 
     var rootNode = this.nodes[this.idRoot]

@@ -120,7 +120,7 @@ XMLscene.prototype.selectedList = function() {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function () {
-    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(2, 2, 2));
 };
 
 
@@ -132,6 +132,7 @@ XMLscene.prototype.onGraphLoaded = function()
 {
     this.camera.near = this.graph.near;
     this.camera.far = this.graph.far;
+    //this.cameraAxis = new CFGcameraAxis(vec3.fromValues(0, 1, 0));
     this.axis = new CGFaxis(this,this.graph.referenceLength);
     
     this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1], 
