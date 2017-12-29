@@ -118,8 +118,6 @@ Game.prototype.turn = function(currTime, state){
    
 }
 
-
-
 Game.prototype.update = function(currTime){
     
     this.marker();
@@ -182,13 +180,28 @@ Game.prototype.update = function(currTime){
             else if(this.undo == true){
                 //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
-                    //TODO aparecer pop-up a dizer o que esta no console.log
                     alert("No more plays to undo, please make a play!");
                     this.undo = false;
                 }
                 else{
                     this.board.selectedTileID[0] = this.plays[this.plays.length - 1].to;
                     this.board.selectedTileID[1] = this.plays[this.plays.length - 1].from;
+                    var pieceToMove;
+                    if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
+                        pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+                    }
+                    else{
+                        pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
+                    }
+                    var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
+                    var coordXToMove = tileToMove.coordX;
+                    var coordZToMove = tileToMove.coordZ;
+                    var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
+                    var currCoordX = currTile.coordX;
+                    var currCoordZ = currTile.coordZ;
+                    var distToMoveX = (coordXToMove - currCoordX) * 2;
+                    var distToMoveZ = (coordZToMove - currCoordZ) * 2;
+                    pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
                     this.state = 4;
                 }
             }
@@ -237,12 +250,10 @@ Game.prototype.update = function(currTime){
 
                             if(this.reply[3] == 'false'){
                                 if(this.currPlayer != selectedPlayer){
-                                    //TODO eventualmente por um pop up no ecra a dizer o que está no console.log
                                     alert('Cannot play with selected piece, it is ' + this.currPlayer + ' time to play!');
                                 }
                                 else{
-                                    //TODO eventualmente por um pop up no ecra a dizer o que está no console.log
-                                    alert('Invalid move!');
+                                    alert('Invalid move! Please try again.');
                                 }
                                 this.board.getClickedTile(this.board.selectedTileID[0]);
                                 this.board.getClickedTile(this.board.selectedTileID[1]);
@@ -260,8 +271,10 @@ Game.prototype.update = function(currTime){
                 }
             }
             else{
-                //TODO por merda à frente a dizer fim de jogo e com resultados e assim talvez implementar isto num novo state
                 alert("GAME OVER ! " + this.notCurrPlayer + " won!!!");
+                this.start = true;
+                this.gameOver = 'false';
+                this.state = 0;
             }
 
             
@@ -359,57 +372,70 @@ Game.prototype.update = function(currTime){
                 else if(tileToMove.lonePiece == null){
                     this.state = 5;
                 }
+                else if(tileToMove.piece != null){
+                    //  console.log(tileToMove.piece);
+                      this.state = 6;
+                }
                 
             }
-            if(tileToMove.piece != null){
-              //  console.log(tileToMove.piece);
-                this.state = 6;
-            }
+           
             break;
         case 4:
-            var lonePieceTile = this.plays[this.plays.length - 1].lonePieceTile;
-            if(this.plays[this.plays.length - 1].lonePieceTile != null){
-                this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece = lonePieceTile.lonePiece;
-                lonePieceTile.lonePiece = null;
+            var pieceToMove;
+            if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null && this.board.getSelectedTile(this.board.selectedTileID[0]).piece.type != null){
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
             }
             else{
-                if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
-                    this.board.getSelectedTile(this.board.selectedTileID[1]).lonePiece = null;
-                    this.board.getSelectedTile(this.board.selectedTileID[0]).piece.addStack();
-                }
+                pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
             }
-            if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
-                this.board.getSelectedTile(this.board.selectedTileID[1]).piece = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
-                this.board.getSelectedTile(this.board.selectedTileID[0]).piece = null;
-            }
-            else{
-                this.board.getSelectedTile(this.board.selectedTileID[1]).lonePiece = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
-                this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece = null;
-            }
-            this.plays.pop();
-            this.undo = false;
-            /*this.board.getClickedTile(this.board.selectedTileID[0]);
-            this.board.getClickedTile(this.board.selectedTileID[1]);*/
-            this.board.selectedTileID = [null, null];
-
-            if(this.scene.activateTimer == false){
-                if(this.currPlayer == 'ivory'){
-                    this.currPlayer = 'cigar';
-                    this.notCurrPlayer = 'ivory';
+            
+            if(pieceToMove.animations[pieceToMove.animations.length-1].finished == true){
+                var lonePieceTile = this.plays[this.plays.length - 1].lonePieceTile;
+                if(this.plays[this.plays.length - 1].lonePieceTile != null){
+                    this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece = lonePieceTile.lonePiece;
+                    lonePieceTile.lonePiece = null;
                 }
                 else{
-                    this.currPlayer = 'ivory';
-                    this.notCurrPlayer = 'cigar';
-                    
+                    if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
+                        this.board.getSelectedTile(this.board.selectedTileID[1]).lonePiece = null;
+                        this.board.getSelectedTile(this.board.selectedTileID[0]).piece.addStack();
+                    }
                 }
-            }else{
-                this.turn(currTime,0);
-            }
+                if(this.board.getSelectedTile(this.board.selectedTileID[0]).piece != null){
+                    this.board.getSelectedTile(this.board.selectedTileID[0]).piece.animations = [];
+                    this.board.getSelectedTile(this.board.selectedTileID[1]).piece = this.board.getSelectedTile(this.board.selectedTileID[0]).piece;
+                    this.board.getSelectedTile(this.board.selectedTileID[0]).piece = null;
+                }
+                else{
+                    this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece.animations = [];
+                    this.board.getSelectedTile(this.board.selectedTileID[1]).lonePiece = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
+                    this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece = null;
+                }
+                this.plays.pop();
+                this.undo = false;
+                /*this.board.getClickedTile(this.board.selectedTileID[0]);
+                this.board.getClickedTile(this.board.selectedTileID[1]);*/
+                this.board.selectedTileID = [null, null];
 
-            if(this.scene.cameraAnimation == true){
-                this.cameraAnimation();
+                if(this.scene.activateTimer == false){
+                    if(this.currPlayer == 'ivory'){
+                        this.currPlayer = 'cigar';
+                        this.notCurrPlayer = 'ivory';
+                    }
+                    else{
+                        this.currPlayer = 'ivory';
+                        this.notCurrPlayer = 'cigar';
+                        
+                    }
+                }else{
+                    this.turn(currTime,0);
+                }
+
+                if(this.scene.cameraAnimation == true){
+                    this.cameraAnimation();
+                }
+                this.state = 0;
             }
-            this.state = 0;
             break;
         case 5:
             //console.log("TESTANDOO");

@@ -16,6 +16,14 @@ Scoreboard.prototype.constructor=Scoreboard;
 Scoreboard.prototype.playerName = function(){
 
     this.letter = new Rectangle(this.scene, [0,1,1,0]);
+    this.arrow = new CGFappearance(this.scene);
+    var arrowText = new CGFtexture(this.scene,"scenes/images/arrow.png");
+    this.arrow.setTexture(arrowText);
+    this.arrowLeft = new CGFappearance(this.scene);
+    var arrowLeftText = new CGFtexture(this.scene,"scenes/images/arrowLeft.png");
+    this.arrowLeft.setTexture(arrowLeftText);
+    this.arrowRect = new Rectangle(this.scene, [0,1.5,3,0]);
+	
 
     //ivory
     this.i = new CGFappearance(this.scene);
@@ -288,6 +296,18 @@ Scoreboard.prototype.display = function(){
         this.scene.rotate(Math.PI/4, 0, 1, 0);
         this.ivory1.apply();
         this.number.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+        this.scene.translate(2.3,8.3,-3.5);
+        this.scene.rotate(Math.PI/4, 0, 1, 0);
+        if(this.switch == false){
+            this.arrowLeft.apply();
+        }
+        else{
+            this.arrow.apply();
+        }
+        this.arrowRect.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
