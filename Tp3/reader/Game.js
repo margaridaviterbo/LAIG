@@ -152,6 +152,7 @@ Game.prototype.update = function(currTime){
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
                 this.plays = [];
+                this.scene.camera.setPosition(vec3.fromValues(15, 15, 15));
             }
 
             else if(this.undo == true){
@@ -246,6 +247,7 @@ Game.prototype.update = function(currTime){
                 this.start = true;
                 this.gameOver = 'false';
                 this.requestMade = false;
+                this.scene.camera.setPosition(vec3.fromValues(15, 15, 15));
             }
 
             
