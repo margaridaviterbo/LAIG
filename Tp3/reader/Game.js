@@ -28,9 +28,6 @@ function Game(scene){
         this.start = true;
     }
     this.requestMade = false;
-    this.inc = 0;
-    this.ang = 0;
-    this.finalAng = 0;
     this.scoreCigar = 20;
     this.scoreIvory = 20;
     this.scoreboard1 = new Scoreboard(this.scene);
@@ -48,26 +45,6 @@ function Game(scene){
 }
 
 Game.prototype.constructor = Game;
-
-Game.prototype.cameraAnimation = function(){
-/*
-    this.ang = 0;
-
-    if(this.currPlayer == 'ivory'){  
-        this.scene.camera.setPosition(vec3.fromValues(-5,30,-35));
-        this.scene.camera.setTarget(vec3.fromValues(0,0,10));
-        this.scene.camera.zoom(15);
-        this.inc = -0.005;
-        this.finalAng = -0.02;
-    }
-    else{
-        this.scene.camera.setPosition(vec3.fromValues(-5,15,20));
-        this.scene.camera.setTarget(vec3.fromValues(0,0,0));
-        this.scene.camera.zoom(0);
-        this.inc = 0.005;
-        this.finalAng = 0.04;
-    }*/
-}
 
 Game.prototype.marker = function(){
     
@@ -119,9 +96,7 @@ Game.prototype.turn = function(currTime, state){
             this.notCurrPlayer = 'cigar';
             
         }
-    }
-    
-   
+    }  
 }
 
 Game.prototype.update = function(currTime){
@@ -145,7 +120,6 @@ Game.prototype.update = function(currTime){
                 this.prolog.getPrologRequest("insistOnCorrectBotRandomPlay(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
                     var r = data.target.response;
                     this.reply = r.split(',');
-                    //console.log(this.reply);
                     this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
                     this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
                     this.board.getClickedTile(this.board.selectedTileID[0]);
@@ -156,19 +130,16 @@ Game.prototype.update = function(currTime){
                 this.prolog.getPrologRequest("playBestBot(" + this.currPlayer + ",(" + this.board.getQueen('ivory').stacks.length + "," + this.board.getQueen('cigar').stacks.length + "," + this.board.convertToPrologBoard() + "))" , (data) => {
                     var r = data.target.response;
                     this.reply = r.split(',');
-                    //console.log(this.reply);
                     this.board.selectedTileID[0] = this.board.findTile(this.reply[6], this.reply[5]);
                     this.board.selectedTileID[1] = this.board.findTile(this.reply[8], this.reply[7]);
                     this.board.getClickedTile(this.board.selectedTileID[0]);
                     this.board.getClickedTile(this.board.selectedTileID[1]);                
                 });
             }
-            
 
             this.state = 0;
             break;
         case 0:
-       // console.log(this.board);
             if(this.scene.activateTimer){
                 this.timeout = false;
                 this.turn(currTime);
@@ -181,11 +152,10 @@ Game.prototype.update = function(currTime){
                 this.currPlayer = 'ivory';
                 this.notCurrPlayer = 'cigar';
                 this.plays = [];
-               // console.log("hereeeeeee");
+                this.scene.camera.setPosition(vec3.fromValues(15, 15, 15));
             }
 
             else if(this.undo == true){
-                //TODO eventualmente implmentar movimentos backwards
                 if(this.plays.length == 0){
                     alert("No more plays to undo, please make a play!");
                     this.undo = false;
@@ -221,7 +191,6 @@ Game.prototype.update = function(currTime){
                     this.updatedBoard = true;
                 }
                 if(this.plays.length > 0){
-                    console.log("hereeeeeeeeeeeee");
                     this.state = 2;
                     this.board.selectedTileID[0] = this.plays[0].from;
                     this.board.selectedTileID[1] = this.plays[0].to;
@@ -251,8 +220,6 @@ Game.prototype.update = function(currTime){
                             var r = data.target.response;
                             //ivorySize,cigarSize,endGame,Success
                             this.reply = r.split(',');
-                            //console.log(this.reply);
-                            //console.log(this.board.selectedTileID);
                             this.gameOver = this.reply[2];
 
                             if(this.reply[3] == 'false'){
@@ -265,13 +232,11 @@ Game.prototype.update = function(currTime){
                                 this.board.getClickedTile(this.board.selectedTileID[0]);
                                 this.board.getClickedTile(this.board.selectedTileID[1]);
                                 this.board.selectedTileID = [null, null];
-                                //console.log(this.board.selectedTileID);
                                 this.state = 0;                        
                             }
                             else{
                               this.state = 2;
                               this.plays.push(new Play(this.board.selectedTileID[0], this.board.selectedTileID[1]));
-                              //console.log(this.plays);
                             }
                         });
                     }
@@ -281,7 +246,8 @@ Game.prototype.update = function(currTime){
                 alert("GAME OVER ! " + this.notCurrPlayer + " won!!!");
                 this.start = true;
                 this.gameOver = 'false';
-                this.state = 0;
+                this.requestMade = false;
+                this.scene.camera.setPosition(vec3.fromValues(15, 15, 15));
             }
 
             
@@ -305,14 +271,8 @@ Game.prototype.update = function(currTime){
             }
             var distToMoveX = (coordXToMove - currCoordX) * 2;
             var distToMoveZ = (coordZToMove - currCoordZ) * 2;
-           // console.log(this.board.selectedTileID);
             pieceToMove.move([[0, 0, 0], [distToMoveX, 0, distToMoveZ]]);
-            //console.log(distToMoveX);
-           // console.log(distToMoveZ);
-            //console.log("Adding move animation to piece ", pieceToMove.type, " at currTime=", currTime);
-
-           // console.log(tileToMove.lonePiece);
-           // console.log(this.notCurrPlayer);
+  
             if(pieceToMove.size > 1 && tileToMove.piece == null && tileToMove.lonePiece == null){
                 currTile.lonePiece = new Piece(this.scene, pieceToMove.color, pieceToMove.type, 1);
                 pieceToMove.stacks.pop();
@@ -370,17 +330,15 @@ Game.prototype.update = function(currTime){
                 pieceToMove = this.board.getSelectedTile(this.board.selectedTileID[0]).lonePiece;
             }
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
-            
-            //console.log(pieceToMove.animations);
+   
             if(pieceToMove.animations[pieceToMove.animations.length - 1].finished == true){
                 if(tileToMove.lonePiece != null && tileToMove.lonePiece.animations[tileToMove.lonePiece.animations.length - 1].finished == true){
                     this.state = 5;
                 }
-                else if(tileToMove.lonePiece == null){
+                else if(tileToMove.lonePiece == null && tileToMove.piece == null){
                     this.state = 5;
                 }
                 else if(tileToMove.piece != null){
-                    //  console.log(tileToMove.piece);
                       this.state = 6;
                 }
                 
@@ -420,8 +378,6 @@ Game.prototype.update = function(currTime){
                 }
                 this.plays.pop();
                 this.undo = false;
-                /*this.board.getClickedTile(this.board.selectedTileID[0]);
-                this.board.getClickedTile(this.board.selectedTileID[1]);*/
                 this.board.selectedTileID = [null, null];
 
                 if(this.scene.activateTimer == false){
@@ -442,7 +398,6 @@ Game.prototype.update = function(currTime){
             }
             break;
         case 5:
-            //console.log("TESTANDOO");
             var tileToMove = this.board.getSelectedTile(this.board.selectedTileID[1]);
             var currTile = this.board.getSelectedTile(this.board.selectedTileID[0]);
             var pieceToMove;
