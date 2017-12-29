@@ -44,7 +44,8 @@ class CircularAnimation extends Animation{
 			this.angle += dt * this.velocity;
 		}
 		else{
-			this.finished = true;
+			//this.finished = true;
+			this.angle = 0;	//para adereços do jogo nao pararem de girar
 		}
     }
 
