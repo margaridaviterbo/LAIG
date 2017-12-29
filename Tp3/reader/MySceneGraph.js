@@ -1752,14 +1752,6 @@ MySceneGraph.prototype.displayScene = function() {
             this.game.scoreboard2.display();
         this.scene.popMatrix();
         
-        /*if(this.scene.cameraAnimation == true){
-            if(Math.abs(this.game.ang) > Math.abs(this.game.finalAng)){
-                this.scene.cameraAnimation = false;
-            }
-            console.log("camara");
-            this.scene.camera.orbit(this.scene.cameraAxis,this.game.ang);
-            this.game.ang += this.game.inc;
-        }*/
     this.scene.popMatrix();
 
     var rootNode = this.nodes[this.idRoot]

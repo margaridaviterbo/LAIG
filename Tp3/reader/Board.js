@@ -24,28 +24,24 @@ function Board(scene, type){
 	this.black.setDiffuse(0, 0, 0, 1);
 	this.black.setSpecular(0.2, 0.2, 0.2, 1);
 	this.black.setShininess(50);
-	//this.black.loadTexture('../resources/images/ocean3.jpg');
 
     this.white = new CGFappearance(this.scene);
 	this.white.setAmbient(0.3, 0.3, 0.3, 1);
 	this.white.setDiffuse(1, 1, 1, 1);
 	this.white.setSpecular(0.2, 0.2, 0.2, 1);
 	this.white.setShininess(50);
-    //this.black.loadTexture('../resources/images/ocean3.jpg');
 
     this.blue = new CGFappearance(this.scene);
 	this.blue.setAmbient(0.3, 0.3, 0.3, 1);
 	this.blue.setDiffuse(0, 0.4, 0.796, 1);
 	this.blue.setSpecular(0.9, 0.9, 0.9, 1);
 	this.blue.setShininess(50);
-	//blue.loadTexture('../scenes/images/floor.png');
 
     this.red = new CGFappearance(this.scene);
 	this.red.setAmbient(0.3, 0.3, 0.3, 1);
 	this.red.setDiffuse(0.796, 0, 0, 1);
 	this.red.setSpecular(0.9, 0.9, 0.9, 1);
 	this.red.setShininess(50);
-	//this.black.loadTexture('../resources/images/ocean3.jpg');
 
     for(var i = 0; i < this.sizeZ; i++){
         
@@ -150,7 +146,6 @@ Board.prototype.getQueen = function(type){
     for(var i = 0; i < this.sizeZ; i++){
         for(var j = 0; j < this.sizeX; j++){
             if(this.tiles[i][j].piece != null && this.tiles[i][j].piece.type == type && this.tiles[i][j].piece.stacks.length > 2){
-                //console.log("atualizei");
                 return this.tiles[i][j].piece;
             }
         }
@@ -173,7 +168,6 @@ Board.prototype.getPieces = function(){
     for(var i = 0; i < this.sizeZ; i++){
         for(var j = 0; j < this.sizeX; j++){
             if(this.tiles[i][j].piece != null){
-                //console.log("atualizei");
                 pieces.push(this.tiles[i][j].piece);
             }
             if(this.tiles[i][j].lonePiece != null){
