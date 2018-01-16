@@ -18,3 +18,7 @@
 
   ![game1](game1.png)
   
+  ![game2](game 2.png)
+  
+  ![piece](piece.png)
+  
