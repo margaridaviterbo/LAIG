@@ -11,7 +11,7 @@
   
 2. Game Rules:
 
-  /tYou can find the rules to play the game and explanation of the prolog implemantation of the game [here](https://github.com/margaridaviterbo/LAIG/blob/master/Tp3/docs/PLOG_TP1_FINAL_Monkey_Queen_2.pdf)
+  You can find the rules to play the game and explanation of the prolog implemantation of the game [here](https://github.com/margaridaviterbo/LAIG/blob/master/Tp3/docs/PLOG_TP1_FINAL_Monkey_Queen_2.pdf)
   
 3. Some views of the game:
 
