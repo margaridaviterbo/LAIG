@@ -1,5 +1,7 @@
-# Monkey Queen
-Implementation of the board game Money Queen for a Computer Graphics class
+<h3 align="center" style="margin: 0 auto">Monkey Queen<!-- Serve Confidently --></h3>
+<p align="center" style="margin: 0 auto">Implementation of the board game Money Queen for a Computer Graphics class</p>
+
+---
 
 1. Instructions to install: 
 
@@ -14,5 +16,5 @@ Implementation of the board game Money Queen for a Computer Graphics class
   
 3. Some views of the game:
 
-  - 
+  
   
