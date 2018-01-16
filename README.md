@@ -22,3 +22,8 @@
   
   ![piece](piece.png)
   
+4. Technologies used:
+
+  - WebGl
+  - Javascript
+  - Prolog
