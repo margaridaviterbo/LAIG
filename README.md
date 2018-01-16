@@ -1,6 +1,5 @@
 # Monkey Queen
-
-###Implementation of the board game Money Queen for a Computer Graphics class
+Implementation of the board game Money Queen for a Computer Graphics class
 
 1. Instructions to install: 
 
