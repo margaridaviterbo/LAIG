@@ -17,5 +17,5 @@
 3. Some views of the game:
 
   <img src="https://github.com/margaridaviterbo/LAIG/Tp3/docs/game1.png" >
-  ![](Tp3/docs/game1.png)
+  ![](game1.png)
   
